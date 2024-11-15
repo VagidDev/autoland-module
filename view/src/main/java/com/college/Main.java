@@ -4,7 +4,7 @@
  */
 package com.college;
 
-import com.college.view.HomeWindow;
+import com.college.view.AuthentificationWindow;
 
 /**
  *
@@ -12,6 +12,6 @@ import com.college.view.HomeWindow;
  */
 public class Main {
     public static void main(String[] args) {
-        new HomeWindow().showWindow();
+        new AuthentificationWindow().showWindow();
     }
 }
