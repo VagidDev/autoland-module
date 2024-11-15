@@ -4,11 +4,13 @@
  */
 package com.college.view;
 
+import com.college.view.interfaces.Showable;
+
 /**
  *
  * @author Vagid Zibliuc
  */
-public class AuthentificationWindow extends javax.swing.JFrame {
+public class AuthentificationWindow extends javax.swing.JFrame implements Showable {
 
     /**
      * Creates new form AuthentificationWindow
@@ -41,6 +43,14 @@ public class AuthentificationWindow extends javax.swing.JFrame {
 
         loginField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         loginField.setText("Input Login");
+        loginField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                loginFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                loginFieldFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
@@ -68,7 +78,15 @@ public class AuthentificationWindow extends javax.swing.JFrame {
         passwordLabel.setText("Password");
 
         passwordField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        passwordField.setText("passwordField");
+        passwordField.setText("password");
+        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFieldFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout passwordPanelLayout = new javax.swing.GroupLayout(passwordPanel);
         passwordPanel.setLayout(passwordPanelLayout);
@@ -127,37 +145,29 @@ public class AuthentificationWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AuthentificationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AuthentificationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AuthentificationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AuthentificationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void loginFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginFieldFocusGained
+        // TODO add your handling code here:
+        if (loginField.getText().equals("Input Login")) loginField.setText("");
+    }//GEN-LAST:event_loginFieldFocusGained
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new AuthentificationWindow().setVisible(true);
-        });
+    private void loginFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginFieldFocusLost
+        // TODO add your handling code here:
+        if (loginField.getText().equals("")) loginField.setText("Input Login");
+    }//GEN-LAST:event_loginFieldFocusLost
+
+    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
+        // TODO add your handling code here:
+        if (passwordField.getText().equals("password")) passwordField.setText("");
+    }//GEN-LAST:event_passwordFieldFocusGained
+
+    private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
+        // TODO add your handling code here:
+        if (passwordField.getText().equals("")) passwordField.setText("password");
+    }//GEN-LAST:event_passwordFieldFocusLost
+    
+    @Override
+    public void showWindow() {
+        this.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
