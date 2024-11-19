@@ -6,11 +6,13 @@ package com.college.view;
 
 import com.college.view.interfaces.Showable;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -35,15 +37,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     public AutoWindow(Showable lastWindow) {
         initComponents();
         this.lastWindow = lastWindow;
-        this.setLocationRelativeTo(null);        
-    }
-    
-    /**
-     * Custom initialization of components
-     */
-    @Deprecated
-    private void customInitComponents() {
-        //priceSlider.
+        this.setLocationRelativeTo(null);  
     }
     
     /**
@@ -82,6 +76,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         descPrice = new javax.swing.JToggleButton();
         ascPrice = new javax.swing.JToggleButton();
         ratingButton = new javax.swing.JToggleButton();
+        autoScrollPane = new javax.swing.JScrollPane();
         autoViewPanel = new javax.swing.JPanel();
         autoPanel2 = new javax.swing.JPanel();
         autoImg2 = new javax.swing.JLabel();
@@ -391,6 +386,9 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         ratingButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         ratingButton.setText("Rating");
 
+        autoScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        autoScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         autoPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         autoPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -593,7 +591,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
                 .addComponent(autoText5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(autoPrice5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         autoPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
@@ -645,13 +643,13 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
                 .addGroup(autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(autoViewPanelLayout.createSequentialGroup()
                         .addComponent(autoPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(autoPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(autoViewPanelLayout.createSequentialGroup()
                         .addComponent(autoPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(autoPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                .addGap(28, 28, 28)
                 .addGroup(autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(autoPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(autoPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -672,20 +670,24 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
                 .addGap(15, 15, 15))
         );
 
+        autoScrollPane.setViewportView(autoViewPanel);
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(ascPrice)
                 .addGap(18, 18, 18)
                 .addComponent(descPrice)
                 .addGap(18, 18, 18)
                 .addComponent(ratingButton)
-                .addGap(19, 19, 19))
-            .addComponent(autoViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(autoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -695,8 +697,9 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
                     .addComponent(ratingButton)
                     .addComponent(ascPrice)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(autoViewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(autoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
 
         menuBar.setBorder(new javax.swing.border.MatteBorder(null));
@@ -759,7 +762,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(filterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -878,6 +881,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     private javax.swing.JLabel autoPrice4;
     private javax.swing.JLabel autoPrice5;
     private javax.swing.JLabel autoPrice6;
+    private javax.swing.JScrollPane autoScrollPane;
     private javax.swing.JLabel autoText1;
     private javax.swing.JLabel autoText2;
     private javax.swing.JLabel autoText3;
