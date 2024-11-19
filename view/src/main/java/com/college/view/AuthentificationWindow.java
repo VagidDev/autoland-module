@@ -21,6 +21,7 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
      */
     public AuthentificationWindow() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
