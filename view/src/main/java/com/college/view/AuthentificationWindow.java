@@ -5,6 +5,10 @@
 package com.college.view;
 
 import com.college.view.interfaces.Showable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -114,6 +118,11 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
         singInButton.setForeground(new java.awt.Color(255, 255, 255));
         singInButton.setText("Sing In");
         singInButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
+        singInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                singInButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,10 +173,30 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
         // TODO add your handling code here:
         if (passwordField.getText().equals("")) passwordField.setText("password");
     }//GEN-LAST:event_passwordFieldFocusLost
+
+    private void singInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singInButtonActionPerformed
+        // TODO add your handling code here:
+        if (loginField.getText().equals("vaxa") && passwordField.getText().equals("qwerty")) {
+            new HomeWindow().showWindow();
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_singInButtonActionPerformed
     
     @Override
     public void showWindow() {
-        this.setVisible(true);
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+            this.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AuthentificationWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(AuthentificationWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(AuthentificationWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(AuthentificationWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
