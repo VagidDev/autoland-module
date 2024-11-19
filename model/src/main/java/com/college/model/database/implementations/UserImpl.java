@@ -74,7 +74,7 @@ public class UserImpl implements UserDAO {
     }
 
     @Override
-    public boolean save(User t) {
+    public User save(User t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

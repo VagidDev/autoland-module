@@ -15,7 +15,7 @@ import java.util.List;
 public interface CRUDRepository<ID,T> {
     T getById(ID id);
     List<T> getAll();
-    boolean save(T t);
+    T save(T t);
     boolean update(T t);
     boolean delete(T t);
     boolean deleteByID(ID id);

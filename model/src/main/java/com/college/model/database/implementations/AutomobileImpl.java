@@ -86,7 +86,7 @@ public class AutomobileImpl implements AutomobileDAO {
     }
 
     @Override
-    public boolean save(Automobile t) {
+    public Automobile save(Automobile t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

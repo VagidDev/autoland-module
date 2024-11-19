@@ -85,7 +85,7 @@ public class ContractImpl implements ContractDAO {
     }
 
     @Override
-    public boolean save(Contract t) {
+    public Contract save(Contract t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

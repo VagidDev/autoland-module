@@ -64,7 +64,7 @@ public class WarrantyImpl implements WarrantyDAO {
     }
 
     @Override
-    public boolean save(Warranty t) {
+    public Warranty save(Warranty t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

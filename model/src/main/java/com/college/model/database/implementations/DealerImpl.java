@@ -66,7 +66,7 @@ public class DealerImpl implements DealerDAO {
     }
 
     @Override
-    public boolean save(Dealer t) {
+    public Dealer save(Dealer t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
