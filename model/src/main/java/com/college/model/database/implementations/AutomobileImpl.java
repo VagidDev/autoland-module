@@ -127,7 +127,25 @@ public class AutomobileImpl implements AutomobileDAO {
 
     @Override
     public boolean update(Automobile t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "UPDATE au_automobiles\n" +
+                            "SET a_mark = ?, a_model = ?, a_body_id = ?, a_place_count = ?, a_prod_year = ?\n" +
+                            "WHERE a_id = ?;";
+            
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, t.getMark());
+            statement.setString(2, t.getModel());
+            statement.setInt(3, getIdOfBodyType(t.getBodyType()));
+            statement.setInt(4, t.getPlaceCount());
+            statement.setInt(5, t.getProdYear());
+            statement.setInt(6, t.getId());
+            
+            int result = statement.executeUpdate();
+            
+            return result != 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
