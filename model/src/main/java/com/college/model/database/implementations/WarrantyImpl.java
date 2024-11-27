@@ -112,13 +112,29 @@ public class WarrantyImpl implements WarrantyDAO {
     }
 
     @Override
-    public boolean delete(Warranty t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(Warranty t) {
+        try (Connection conn = Database.getConnection()) {
+            String query = "DELETE FROM au_warranty WHERE w_id = ?";
+            
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, t.getId());
+            statement.execute();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
-    public boolean deleteByID(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteByID(Integer id) {
+        try (Connection conn = Database.getConnection()) {
+            String query = "DELETE FROM au_warranty WHERE w_id = ?";
+            
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }
