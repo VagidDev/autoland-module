@@ -101,9 +101,53 @@ public class EquipmentImpl implements EquipmentDAO {
         }
     }
 
+    private int getIdByName(String name, String tableName) {
+        try (Connection conn = Database.getConnection()) {
+            String query = "CALL get_" + tableName + "_id(?)";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, name);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getInt(1);
+            }
+            return -1;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     @Override
     public Equipment save(Equipment t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "INSERT INTO au_equipment (e_auto_id, e_id, e_name, e_engine_name, e_engine_id, e_engine_volume, e_horse_power,"
+                    + " e_susp_id, e_drive_id, e_gearbox_id, e_speed_count, e_fuel_id, e_interior, e_body_kit, e_weigth, e_price) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            statement.setInt(1, t.getAutomobile().getId());
+            statement.setInt(2, t.getId());
+            statement.setString(3, t.getName());
+            statement.setString(4, t.getEngineName());
+            statement.setInt(5, getIdByName(t.getEngineName(), "engine_type"));
+            statement.setDouble(6, t.getEngineVolume());
+            statement.setInt(7, t.getHorsepower());
+            statement.setInt(8, getIdByName(t.getSuspensiveType(), "suspensive_type"));
+            statement.setInt(9, getIdByName(t.getDriveType(), "drive_type"));
+            statement.setInt(10, getIdByName(t.getGearboxType(), "gearbox_type"));
+            statement.setInt(11, t.getSpeedCount());
+            statement.setInt(12, getIdByName(t.getFuelType(), "fuel_type"));
+            statement.setString(13, t.getInterior());
+            statement.setString(14, t.getBodyKit());
+            statement.setInt(15, t.getWeigth());
+            statement.setDouble(16, t.getPrice());
+
+            statement.execute();
+
+            return t;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
     }
 
     @Override
