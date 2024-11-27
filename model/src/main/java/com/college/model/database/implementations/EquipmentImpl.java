@@ -152,7 +152,37 @@ public class EquipmentImpl implements EquipmentDAO {
 
     @Override
     public boolean update(Equipment t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "UPDATE au_equipment\n"
+                    + "SET e_name = ?, e_engine_name = ?, e_engine_id = ?, e_engine_volume = ?, e_horse_power = ?,"
+                    + " e_susp_id = ?, e_drive_id = ?, e_gearbox_id = ?, e_speed_count = ?, e_fuel_id = ?, e_interior = ?, e_body_kit = ?, e_weigth = ?, e_price = ?\n"
+                    + "WHERE e_auto_id = ? AND e_id = ?;";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            statement.setString(1, t.getName());
+            statement.setString(2, t.getEngineName());
+            statement.setInt(3, getIdByName(t.getEngineName(), "engine_type"));
+            statement.setDouble(4, t.getEngineVolume());
+            statement.setInt(5, t.getHorsepower());
+            statement.setInt(6, getIdByName(t.getSuspensiveType(), "suspensive_type"));
+            statement.setInt(7, getIdByName(t.getDriveType(), "drive_type"));
+            statement.setInt(8, getIdByName(t.getGearboxType(), "gearbox_type"));
+            statement.setInt(9, t.getSpeedCount());
+            statement.setInt(10, getIdByName(t.getFuelType(), "fuel_type"));
+            statement.setString(11, t.getInterior());
+            statement.setString(12, t.getBodyKit());
+            statement.setInt(13, t.getWeigth());
+            statement.setDouble(14, t.getPrice());
+            statement.setInt(15, t.getAutomobile().getId());
+            statement.setInt(16, t.getId());
+
+            int result = statement.executeUpdate();
+
+            return result != 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
