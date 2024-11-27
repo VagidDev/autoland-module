@@ -90,7 +90,25 @@ public class WarrantyImpl implements WarrantyDAO {
 
     @Override
     public boolean update(Warranty t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "UPDATE au_warranty\n" +
+                            "SET w_name = ?, w_duartion = ?, w_price = ?\n" +
+                            "WHERE w_id = ?;";
+            
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            
+            statement.setString(1, t.getName());
+            statement.setInt(2, t.getDuration());
+            statement.setDouble(3, t.getPrice());
+            statement.setInt(4, t.getId());
+
+            int result = statement.executeUpdate();
+
+            return result != 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
