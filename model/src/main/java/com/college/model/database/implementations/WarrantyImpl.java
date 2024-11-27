@@ -65,7 +65,27 @@ public class WarrantyImpl implements WarrantyDAO {
 
     @Override
     public Warranty save(Warranty t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "INSERT INTO au_warranty (w_name, w_duartion, w_price) "
+                    + "VALUES(?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            
+            statement.setString(1, t.getName());
+            statement.setInt(2, t.getDuration());
+            statement.setDouble(3, t.getPrice());
+
+            statement.execute();
+
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                t.setId(keys.getInt(1));
+                return t;
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
