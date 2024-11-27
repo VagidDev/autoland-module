@@ -17,6 +17,6 @@ public interface CRUDRepository<ID,T> {
     List<T> getAll();
     T save(T t);
     boolean update(T t);
-    boolean delete(T t);
-    boolean deleteByID(ID id);
+    void delete(T t);
+    void deleteByID(ID id);
 }
