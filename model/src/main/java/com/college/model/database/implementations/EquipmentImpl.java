@@ -186,13 +186,31 @@ public class EquipmentImpl implements EquipmentDAO {
     }
 
     @Override
-    public boolean delete(Equipment t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(Equipment t) {
+        try (Connection conn = Database.getConnection()) {
+            String query = "DELETE FROM au_equipment WHERE e_auto_id = ? AND e_id = ?;";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, t.getAutomobile().getId());
+            statement.setInt(2, t.getId());
+            statement.execute();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
-    public boolean deleteByID(EquipmentId id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteByID(EquipmentId id) {
+        try (Connection conn = Database.getConnection()) {
+            String query = "DELETE FROM au_equipment WHERE e_auto_id = ? AND e_id = ?;";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, id.getAutomobileId());
+            statement.setInt(2, id.getEquipmentId());
+            statement.execute();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }
