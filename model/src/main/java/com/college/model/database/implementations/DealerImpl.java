@@ -67,7 +67,27 @@ public class DealerImpl implements DealerDAO {
 
     @Override
     public Dealer save(Dealer t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "INSERT INTO au_dealers (d_name, d_address, d_telephone, d_fax) "
+                    + "VALUES(?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, t.getName());
+            statement.setString(2, t.getAddress());
+            statement.setString(3, t.getTelephone());
+            statement.setString(4, t.getFax());
+
+            statement.execute();
+
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                t.setId(keys.getInt(1));
+                return t;
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
