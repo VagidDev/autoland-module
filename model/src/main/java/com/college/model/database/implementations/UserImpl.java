@@ -8,6 +8,7 @@ import com.college.model.User;
 import com.college.model.database.Database;
 import com.college.model.database.interfaces.UserDAO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,7 +76,31 @@ public class UserImpl implements UserDAO {
 
     @Override
     public User save(User t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "INSERT INTO au_users (u_login, u_password, u_name, u_surname, u_birthday, u_email, u_telephone, u_address) "
+                    + "VALUES(?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, t.getLogin());
+            statement.setString(2, t.getPassword());
+            statement.setString(3, t.getName());
+            statement.setString(4, t.getSurname());
+            statement.setDate(5, new Date((t.getBirthday().getTime())));
+            statement.setString(6, t.getEmail());
+            statement.setString(7, t.getTelephone());
+            statement.setString(8, t.getAddress());
+
+            statement.execute();
+
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                t.setId(keys.getInt(1));
+                return t;
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
