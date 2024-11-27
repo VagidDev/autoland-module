@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -90,13 +91,13 @@ public class ContractImpl implements ContractDAO {
             String query = "INSERT INTO au_contract (c_user_id, c_dealer_id, c_auto_id, c_equip_id, c_warranty_id) "
                     + "VALUES(?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            
+
             statement.setInt(1, t.getUser().getId());
             statement.setInt(2, t.getDealer().getId());
             statement.setInt(3, t.getAutomobile().getId());
             statement.setInt(4, t.getEquipment().getId());
             statement.setInt(5, t.getWarranty().getId());
-            
+
             statement.execute();
 
             ResultSet keys = statement.getGeneratedKeys();
@@ -108,12 +109,30 @@ public class ContractImpl implements ContractDAO {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public boolean update(Contract t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "UPDATE au_contract\n" +
+                            "SET c_user_id = ?, c_dealer_id = ?, c_auto_id = ?, c_equip_id = ?, c_warranty_id = ?\n" +
+                            "WHERE c_id = ?;";
+            
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            statement.setInt(1, t.getUser().getId());
+            statement.setInt(2, t.getDealer().getId());
+            statement.setInt(3, t.getAutomobile().getId());
+            statement.setInt(4, t.getEquipment().getId());
+            statement.setInt(5, t.getWarranty().getId());
+            statement.setInt(6, t.getId());
+
+            int result = statement.executeUpdate();
+
+            return result != 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
