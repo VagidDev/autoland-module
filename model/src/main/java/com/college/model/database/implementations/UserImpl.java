@@ -109,8 +109,6 @@ public class UserImpl implements UserDAO {
             String query = "UPDATE au_users\n" +
                             "SET u_login = ?, u_password = ?, u_name = ?, u_surname = ?, u_birthday = ?, u_email = ?, u_telephone = ?, u_address = ?\n" +
                             "WHERE u_id = ?;";
-            /*String query = "INSERT INTO au_users (u_login, u_password, u_name, u_surname, u_birthday, u_email, u_telephone, u_address) "
-                    + "VALUES(?,?,?,?,?,?,?,?)";*/
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, t.getLogin());
