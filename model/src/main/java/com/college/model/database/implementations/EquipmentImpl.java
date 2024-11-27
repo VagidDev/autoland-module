@@ -22,6 +22,17 @@ import java.util.List;
  * @author Vagid Zibliuc
  */
 public class EquipmentImpl implements EquipmentDAO {
+    private static final String GET_BY_ID_QUERY = "SELECT * FROM FullEquipment WHERE e_auto_id = ? AND e_id = ?";
+    private static final String GET_ALL_QUERY = "SELECT * FROM FullEquipment";
+    private static final String INSERT_QUERY = "INSERT INTO au_equipment (e_auto_id, e_id, e_name, e_engine_name, e_engine_id, e_engine_volume, e_horse_power,"
+                                            + " e_susp_id, e_drive_id, e_gearbox_id, e_speed_count, e_fuel_id, e_interior, e_body_kit, e_weigth, e_price) "
+                                            + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String UPDATE_QUERY = "UPDATE au_equipment\n"
+                                            + "SET e_name = ?, e_engine_name = ?, e_engine_id = ?, e_engine_volume = ?, e_horse_power = ?,"
+                                            + " e_susp_id = ?, e_drive_id = ?, e_gearbox_id = ?, e_speed_count = ?, e_fuel_id = ?, e_interior = ?, e_body_kit = ?, e_weigth = ?, e_price = ?\n"
+                                            + "WHERE e_auto_id = ? AND e_id = ?;";
+    private static final String DELETE_QUERY = "DELETE FROM au_equipment WHERE e_auto_id = ? AND e_id = ?;";
+    
 
     private final AutomobileDAO automobileRepository;
 
@@ -32,8 +43,7 @@ public class EquipmentImpl implements EquipmentDAO {
     @Override
     public Equipment getById(EquipmentId id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "SELECT * FROM FullEquipment WHERE e_auto_id = ? AND e_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
             statement.setInt(1, id.getAutomobileId());
             statement.setInt(2, id.getEquipmentId());
             ResultSet result = statement.executeQuery();
@@ -71,8 +81,7 @@ public class EquipmentImpl implements EquipmentDAO {
         try (Connection conn = Database.getConnection()) {
             Statement statement = conn.createStatement();
             List<Equipment> equipments = new ArrayList<>();
-            String query = "SELECT * FROM FullEquipment";
-            ResultSet result = statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(GET_ALL_QUERY);
             while (result.next()) {
                 Equipment equipment = new Equipment();
                 equipment.setAutomobile(
@@ -119,10 +128,7 @@ public class EquipmentImpl implements EquipmentDAO {
     @Override
     public Equipment save(Equipment t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "INSERT INTO au_equipment (e_auto_id, e_id, e_name, e_engine_name, e_engine_id, e_engine_volume, e_horse_power,"
-                    + " e_susp_id, e_drive_id, e_gearbox_id, e_speed_count, e_fuel_id, e_interior, e_body_kit, e_weigth, e_price) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(INSERT_QUERY);
 
             statement.setInt(1, t.getAutomobile().getId());
             statement.setInt(2, t.getId());
@@ -153,12 +159,8 @@ public class EquipmentImpl implements EquipmentDAO {
     @Override
     public boolean update(Equipment t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "UPDATE au_equipment\n"
-                    + "SET e_name = ?, e_engine_name = ?, e_engine_id = ?, e_engine_volume = ?, e_horse_power = ?,"
-                    + " e_susp_id = ?, e_drive_id = ?, e_gearbox_id = ?, e_speed_count = ?, e_fuel_id = ?, e_interior = ?, e_body_kit = ?, e_weigth = ?, e_price = ?\n"
-                    + "WHERE e_auto_id = ? AND e_id = ?;";
 
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
 
             statement.setString(1, t.getName());
             statement.setString(2, t.getEngineName());
@@ -188,9 +190,7 @@ public class EquipmentImpl implements EquipmentDAO {
     @Override
     public void delete(Equipment t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_equipment WHERE e_auto_id = ? AND e_id = ?;";
-
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getAutomobile().getId());
             statement.setInt(2, t.getId());
             statement.execute();
@@ -202,9 +202,7 @@ public class EquipmentImpl implements EquipmentDAO {
     @Override
     public void deleteByID(EquipmentId id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_equipment WHERE e_auto_id = ? AND e_id = ?;";
-
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id.getAutomobileId());
             statement.setInt(2, id.getEquipmentId());
             statement.execute();

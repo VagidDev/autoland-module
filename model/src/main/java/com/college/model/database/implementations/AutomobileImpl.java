@@ -22,7 +22,15 @@ import java.util.Map;
  * @author Vagid Zibliuc
  */
 public class AutomobileImpl implements AutomobileDAO {
-
+    private static final String GET_BY_ID_QUERY = "SELECT * FROM AutomobileWithBodyType WHERE a_id = ?";
+    private static final String GET_ALL_QUERY = "SELECT * FROM AutomobileWithBodyType";
+    private static final String INSERT_QUERY = "INSERT INTO au_automobiles (a_mark, a_model, a_body_id, a_place_count, a_prod_year) "
+                                                + "VALUES(?,?,?,?,?)";
+    private static final String UPDATE_QUERY = "UPDATE au_automobiles\n" +
+                                                "SET a_mark = ?, a_model = ?, a_body_id = ?, a_place_count = ?, a_prod_year = ?\n" +
+                                                "WHERE a_id = ?;";
+    private static final String DELETE_QUERY = "DELETE FROM au_automobiles WHERE a_id = ?";
+    
     @Override
     public Map<Integer, String> getBodyTypes() {
         try (Connection conn = Database.getConnection()) {
@@ -42,8 +50,7 @@ public class AutomobileImpl implements AutomobileDAO {
     @Override
     public Automobile getById(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "SELECT * FROM AutomobileWithBodyType WHERE a_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -67,8 +74,7 @@ public class AutomobileImpl implements AutomobileDAO {
         try (Connection conn = Database.getConnection()) {
             Statement statement = conn.createStatement();
             List<Automobile> automobiles = new ArrayList();
-            String query = "SELECT * FROM AutomobileWithBodyType";
-            ResultSet result = statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(GET_ALL_QUERY);
             while (result.next()) {
                 Automobile automobile = new Automobile();
                 automobile.setId(result.getInt("a_id"));
@@ -103,9 +109,7 @@ public class AutomobileImpl implements AutomobileDAO {
     @Override
     public Automobile save(Automobile t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "INSERT INTO au_automobiles (a_mark, a_model, a_body_id, a_place_count, a_prod_year) "
-                    + "VALUES(?,?,?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = conn.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, t.getMark());
             statement.setString(2, t.getModel());
             statement.setInt(3, getIdOfBodyType(t.getBodyType()));
@@ -128,11 +132,8 @@ public class AutomobileImpl implements AutomobileDAO {
     @Override
     public boolean update(Automobile t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "UPDATE au_automobiles\n" +
-                            "SET a_mark = ?, a_model = ?, a_body_id = ?, a_place_count = ?, a_prod_year = ?\n" +
-                            "WHERE a_id = ?;";
             
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
             statement.setString(1, t.getMark());
             statement.setString(2, t.getModel());
             statement.setInt(3, getIdOfBodyType(t.getBodyType()));
@@ -151,8 +152,7 @@ public class AutomobileImpl implements AutomobileDAO {
     @Override
     public void delete(Automobile t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_automobiles WHERE a_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
         } catch (SQLException ex) {
@@ -163,8 +163,7 @@ public class AutomobileImpl implements AutomobileDAO {
     @Override
     public void deleteByID(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_automobiles WHERE a_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {

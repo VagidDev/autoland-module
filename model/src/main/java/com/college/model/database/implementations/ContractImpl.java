@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +22,16 @@ import java.util.List;
  */
 public class ContractImpl implements ContractDAO {
 
+    private static final String GET_BY_ID_QUERY = "SELECT * FROM au_contract WHERE c_id = ?";
+    private static final String GET_ALL_QUERY = "SELECT * FROM au_contract";
+    private static final String INSERT_QUERY = "INSERT INTO au_contract (c_user_id, c_dealer_id, c_auto_id, c_equip_id, c_warranty_id) "
+                                                + "VALUES(?,?,?,?,?)";
+    private static final String UPDATE_QUERY = "UPDATE au_contract\n" +
+                                                "SET c_user_id = ?, c_dealer_id = ?, c_auto_id = ?, c_equip_id = ?, c_warranty_id = ?\n" +
+                                                "WHERE c_id = ?;";
+    private static final String DELETE_QUERY = "DELETE FROM au_contract WHERE c_id = ?;";
+    
+    
     private final UserDAO userRepository;
     private final DealerDAO dealerRepository;
     private final WarrantyDAO warrantyRepository;
@@ -40,8 +49,7 @@ public class ContractImpl implements ContractDAO {
     @Override
     public Contract getById(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "SELECT * FROM au_contract WHERE c_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -66,8 +74,7 @@ public class ContractImpl implements ContractDAO {
         try (Connection conn = Database.getConnection()) {
             Statement statement = conn.createStatement();
             List<Contract> contracts = new ArrayList();
-            String query = "SELECT * FROM au_contract";
-            ResultSet result = statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(GET_ALL_QUERY);
             while (result.next()) {
                 Contract contract = new Contract();
                 contract.setId(result.getInt("c_id"));
@@ -88,9 +95,7 @@ public class ContractImpl implements ContractDAO {
     @Override
     public Contract save(Contract t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "INSERT INTO au_contract (c_user_id, c_dealer_id, c_auto_id, c_equip_id, c_warranty_id) "
-                    + "VALUES(?,?,?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = conn.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, t.getUser().getId());
             statement.setInt(2, t.getDealer().getId());
@@ -114,11 +119,8 @@ public class ContractImpl implements ContractDAO {
     @Override
     public boolean update(Contract t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "UPDATE au_contract\n" +
-                            "SET c_user_id = ?, c_dealer_id = ?, c_auto_id = ?, c_equip_id = ?, c_warranty_id = ?\n" +
-                            "WHERE c_id = ?;";
             
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
 
             statement.setInt(1, t.getUser().getId());
             statement.setInt(2, t.getDealer().getId());
@@ -138,9 +140,7 @@ public class ContractImpl implements ContractDAO {
     @Override
     public void delete(Contract t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_contract WHERE c_id = ?;";
-            
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
         } catch (SQLException ex) {
@@ -151,9 +151,7 @@ public class ContractImpl implements ContractDAO {
     @Override
     public void deleteByID(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_contract WHERE c_id = ?;";
-            
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {

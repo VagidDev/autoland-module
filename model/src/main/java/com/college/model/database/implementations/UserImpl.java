@@ -22,11 +22,19 @@ import java.util.List;
  */
 public class UserImpl implements UserDAO {
 
+    private static final String GET_BY_ID_QUERY = "SELECT * FROM au_users WHERE u_id = ?";
+    private static final String GET_ALL_QUERY = "SELECT * FROM au_users";
+    private static final String INSERT_QUERY = "INSERT INTO au_users (u_login, u_password, u_name, u_surname, u_birthday, u_email, u_telephone, u_address) "
+                                                + "VALUES(?,?,?,?,?,?,?,?)";
+    private static final String UPDATE_QUERY = "UPDATE au_users\n"
+                                                + "SET u_login = ?, u_password = ?, u_name = ?, u_surname = ?, u_birthday = ?, u_email = ?, u_telephone = ?, u_address = ?\n"
+                                                + "WHERE u_id = ?;";
+    private static final String DELETE_QUERY = "DELETE FROM au_users WHERE u_id = ?;";
+    
     @Override
     public User getById(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "SELECT * FROM au_users WHERE u_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -52,9 +60,8 @@ public class UserImpl implements UserDAO {
     public List<User> getAll() {
         try (Connection conn = Database.getConnection()) {
             List<User> users = new ArrayList<>();
-            String query = "SELECT * FROM au_users";
             Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(GET_ALL_QUERY);
             while (result.next()) {
                 User user = new User();
                 user.setId(result.getInt("u_id"));
@@ -77,10 +84,8 @@ public class UserImpl implements UserDAO {
     @Override
     public User save(User t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "INSERT INTO au_users (u_login, u_password, u_name, u_surname, u_birthday, u_email, u_telephone, u_address) "
-                    + "VALUES(?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
+            PreparedStatement statement = conn.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
+            
             statement.setString(1, t.getLogin());
             statement.setString(2, t.getPassword());
             statement.setString(3, t.getName());
@@ -106,10 +111,8 @@ public class UserImpl implements UserDAO {
     @Override
     public boolean update(User t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "UPDATE au_users\n" +
-                            "SET u_login = ?, u_password = ?, u_name = ?, u_surname = ?, u_birthday = ?, u_email = ?, u_telephone = ?, u_address = ?\n" +
-                            "WHERE u_id = ?;";
-            PreparedStatement statement = conn.prepareStatement(query);
+            
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
 
             statement.setString(1, t.getLogin());
             statement.setString(2, t.getPassword());
@@ -132,8 +135,8 @@ public class UserImpl implements UserDAO {
     @Override
     public void delete(User t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_users WHERE u_id = ?;";
-            PreparedStatement statement = conn.prepareStatement(query);
+            
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
         } catch (SQLException ex) {
@@ -144,8 +147,7 @@ public class UserImpl implements UserDAO {
     @Override
     public void deleteByID(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_users WHERE u_id = ?;";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {

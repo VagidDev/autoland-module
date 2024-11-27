@@ -20,13 +20,20 @@ import java.util.List;
  * @author Vagid Zibliuc
  */
 public class WarrantyImpl implements WarrantyDAO {
-
+    private static final String GET_BY_ID_QUERY = "SELECT * FROM au_warranty WHERE w_id = ?";
+    private static final String GET_ALL_QUERY = "SELECT * FROM au_warranty";
+    private static final String INSERT_QUERY = "INSERT INTO au_warranty (w_name, w_duartion, w_price) "
+                                              + "VALUES(?,?,?)";
+    private static final String UPDATE_QUERY = "UPDATE au_warranty\n" +
+                                                "SET w_name = ?, w_duartion = ?, w_price = ?\n" +
+                                                "WHERE w_id = ?;";
+    private static final String DELETE_QUERY = "DELETE FROM au_warranty WHERE w_id = ?";
+    
     @Override
     public Warranty getById(Integer id) {
         try (Connection conn = Database.getConnection()) {
             Warranty warranty = new Warranty();
-            String query = "SELECT * FROM au_warranty WHERE w_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -47,8 +54,7 @@ public class WarrantyImpl implements WarrantyDAO {
         List<Warranty> warranties = new ArrayList<>();
         try (Connection conn = Database.getConnection()) {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM au_warranty";
-            ResultSet result = statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(GET_ALL_QUERY);
             while (result.next()) {
                 Warranty warranty = new Warranty();
                 warranty.setId(result.getInt("w_id"));
@@ -66,10 +72,7 @@ public class WarrantyImpl implements WarrantyDAO {
     @Override
     public Warranty save(Warranty t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "INSERT INTO au_warranty (w_name, w_duartion, w_price) "
-                    + "VALUES(?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
+            PreparedStatement statement = conn.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
             
             statement.setString(1, t.getName());
             statement.setInt(2, t.getDuration());
@@ -90,13 +93,8 @@ public class WarrantyImpl implements WarrantyDAO {
 
     @Override
     public boolean update(Warranty t) {
-        try (Connection conn = Database.getConnection()) {
-            String query = "UPDATE au_warranty\n" +
-                            "SET w_name = ?, w_duartion = ?, w_price = ?\n" +
-                            "WHERE w_id = ?;";
-            
-            PreparedStatement statement = conn.prepareStatement(query);
-
+        try (Connection conn = Database.getConnection()) {            
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
             
             statement.setString(1, t.getName());
             statement.setInt(2, t.getDuration());
@@ -114,9 +112,7 @@ public class WarrantyImpl implements WarrantyDAO {
     @Override
     public void delete(Warranty t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_warranty WHERE w_id = ?";
-            
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
         } catch (SQLException ex) {
@@ -127,9 +123,7 @@ public class WarrantyImpl implements WarrantyDAO {
     @Override
     public void deleteByID(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_warranty WHERE w_id = ?";
-            
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {

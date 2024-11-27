@@ -20,12 +20,19 @@ import java.util.List;
  * @author Vagid Zibliuc
  */
 public class DealerImpl implements DealerDAO {
-
+    private static final String GET_BY_ID_QUERY = "SELECT * FROM au_dealers WHERE d_id = ?";
+    private static final String GET_ALL_QUERY = "SELECT * FROM au_dealers";
+    private static final String INSERT_QUERY = "INSERT INTO au_dealers (d_name, d_address, d_telephone, d_fax)\n"
+                                                + "VALUES(?,?,?,?)";
+    private static final String UPDATE_QUERY = "UPDATE au_dealers\n" +
+                                                "SET d_name = ?, d_address = ?, d_telephone = ?, d_fax = ?\n" +
+                                                "WHERE d_id = ?;";
+    private static final String DELETE_QUERY = "DELETE FROM au_dealers WHERE d_id = ?";
+    
     @Override
     public Dealer getById(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "SELECT * FROM au_dealers WHERE d_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -48,8 +55,7 @@ public class DealerImpl implements DealerDAO {
         List<Dealer> dealers = new ArrayList();
         try (Connection conn = Database.getConnection()) {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM au_dealers";
-            ResultSet result = statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(GET_ALL_QUERY);
             while (result.next()) {
                 Dealer dealer = new Dealer();
                 dealer.setId(result.getInt("d_id"));
@@ -68,9 +74,7 @@ public class DealerImpl implements DealerDAO {
     @Override
     public Dealer save(Dealer t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "INSERT INTO au_dealers (d_name, d_address, d_telephone, d_fax) "
-                    + "VALUES(?,?,?,?)";
-            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = conn.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, t.getName());
             statement.setString(2, t.getAddress());
@@ -93,11 +97,7 @@ public class DealerImpl implements DealerDAO {
     @Override
     public boolean update(Dealer t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "UPDATE au_dealers\n" +
-                            "SET d_name = ?, d_address = ?, d_telephone = ?, d_fax = ?\n" +
-                            "WHERE d_id = ?;";
-            
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
 
             statement.setString(1, t.getName());
             statement.setString(2, t.getAddress());
@@ -116,8 +116,7 @@ public class DealerImpl implements DealerDAO {
     @Override
     public void delete(Dealer t) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_dealers WHERE d_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
         } catch (SQLException ex) {
@@ -128,8 +127,7 @@ public class DealerImpl implements DealerDAO {
     @Override
     public void deleteByID(Integer id) {
         try (Connection conn = Database.getConnection()) {
-            String query = "DELETE FROM au_dealers WHERE d_id = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException ex) {
