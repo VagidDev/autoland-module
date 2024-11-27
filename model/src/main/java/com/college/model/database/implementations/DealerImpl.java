@@ -92,7 +92,25 @@ public class DealerImpl implements DealerDAO {
 
     @Override
     public boolean update(Dealer t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "UPDATE au_dealers\n" +
+                            "SET d_name = ?, d_address = ?, d_telephone = ?, d_fax = ?\n" +
+                            "WHERE d_id = ?;";
+            
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            statement.setString(1, t.getName());
+            statement.setString(2, t.getAddress());
+            statement.setString(3, t.getTelephone());
+            statement.setString(4, t.getFax());
+            statement.setInt(5, t.getId());
+
+            int result = statement.executeUpdate();
+
+            return result != 0;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
