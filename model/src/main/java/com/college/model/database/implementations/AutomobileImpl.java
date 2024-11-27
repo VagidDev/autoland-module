@@ -85,9 +85,44 @@ public class AutomobileImpl implements AutomobileDAO {
         }
     }
 
+    private int getIdOfBodyType(String name) {
+        try (Connection conn = Database.getConnection()) {
+            String query = "SELECT bt_id FROM au_body_type WHERE bt_name = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, name);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getInt(1);
+            }
+            return -1;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    
     @Override
     public Automobile save(Automobile t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try (Connection conn = Database.getConnection()) {
+            String query = "INSERT INTO au_automobiles (a_mark, a_model, a_body_id, a_place_count, a_prod_year) "
+                    + "VALUES(?,?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, t.getMark());
+            statement.setString(2, t.getModel());
+            statement.setInt(3, getIdOfBodyType(t.getBodyType()));
+            statement.setInt(4, t.getPlaceCount());
+            statement.setInt(5, t.getProdYear());
+            
+            statement.execute();
+
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                t.setId(keys.getInt(1));
+                return t;
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
