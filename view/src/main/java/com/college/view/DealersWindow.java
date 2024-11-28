@@ -5,10 +5,13 @@
 package com.college.view;
 
 import com.college.view.interfaces.Showable;
+import com.college.view.utilites.ImageUploader;
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -23,6 +26,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
      */
     public DealersWindow() {
         initComponents();
+        uploadImages();
         this.lastWindow = null;
         this.setLocationRelativeTo(null);
     }
@@ -34,10 +38,24 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
      */
     public DealersWindow(Showable lastWindow) {
         initComponents();
+        uploadImages();
         this.lastWindow = lastWindow;
         this.setLocationRelativeTo(null);
     }
 
+    private void uploadImages() {
+        ImageIcon mainIcon = ImageUploader.uploadImage(
+                backgroundImage.getWidth(), 
+                backgroundImage.getHeight(), 
+                "src/resources/images/dealer_img.jpg", 
+                ImageUploader.WIDTH);
+        backgroundImage.setIcon(mainIcon);
+        
+        backgroundImage.setHorizontalAlignment(SwingConstants.CENTER);
+        backgroundImage.setVerticalAlignment(SwingConstants.CENTER);
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,6 +68,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         mainPanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
         welcomeSubLable = new javax.swing.JLabel();
+        backgroundImage = new javax.swing.JLabel();
         dealersPanel = new javax.swing.JPanel();
         dealersLabel = new javax.swing.JLabel();
         dealersSubLabel = new javax.swing.JLabel();
@@ -82,39 +101,20 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         });
 
         mainPanel.setBackground(new java.awt.Color(204, 204, 204));
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        welcomeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        welcomeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 40)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Dealers");
-        welcomeLabel.setToolTipText("");
+        mainPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, -1));
 
-        welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 20)); // NOI18N
+        welcomeSubLable.setForeground(new java.awt.Color(255, 255, 255));
         welcomeSubLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        welcomeSubLable.setText("All for you");
-
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addComponent(welcomeLabel)
-                        .addGap(342, 342, 342))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addComponent(welcomeSubLable)
-                        .addGap(364, 364, 364))))
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(welcomeLabel)
-                .addGap(18, 18, 18)
-                .addComponent(welcomeSubLable)
-                .addContainerGap(108, Short.MAX_VALUE))
-        );
+        welcomeSubLable.setText("Choose the best");
+        mainPanel.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
+        mainPanel.add(backgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 299));
 
         dealersLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         dealersLabel.setText("List of dealers");
@@ -285,19 +285,20 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         dealersPanelLayout.setHorizontalGroup(
             dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dealersPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dealersSubLabel)
+                    .addComponent(dealersLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dealersPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dealersPanelLayout.createSequentialGroup()
-                        .addGroup(dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dealersSubLabel)
-                            .addComponent(dealersLabel)
-                            .addGroup(dealersPanelLayout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dealersPanelLayout.createSequentialGroup()
                         .addComponent(confirmButton)
-                        .addGap(353, 353, 353))))
+                        .addGap(360, 360, 360))))
         );
         dealersPanelLayout.setVerticalGroup(
             dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -463,6 +464,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     private javax.swing.JLabel addressLabel1;
     private javax.swing.JLabel addressLabel2;
     private javax.swing.JMenu automobilesItem;
+    private javax.swing.JLabel backgroundImage;
     private javax.swing.JToggleButton confirmButton;
     private javax.swing.JMenu contactsItem;
     private javax.swing.JLabel dealersLabel;
