@@ -1,4 +1,4 @@
 /view/target/
 model/target/
 model/src/main/java/com/college/model/repository/
-model/src/main/java/com/college/model/session/
+model/src/main/java/com/college/model/database/session
