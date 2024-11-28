@@ -76,6 +76,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         chooseButton2 = new javax.swing.JButton();
         listScrollPane2 = new javax.swing.JScrollPane();
         list2 = new javax.swing.JList<>();
+        confirmButton = new javax.swing.JToggleButton();
         menuBar = new javax.swing.JMenuBar();
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
@@ -340,6 +341,14 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        confirmButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        confirmButton.setText("Next");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
+
         menuBar.setBorder(new javax.swing.border.MatteBorder(null));
         menuBar.setBorderPainted(false);
         menuBar.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 18)); // NOI18N
@@ -403,6 +412,10 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(complLabel)
                 .addGap(308, 308, 308))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(360, 360, 360)
+                .addComponent(confirmButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,6 +425,8 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
                 .addComponent(complLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(compPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(confirmButton)
                 .addGap(0, 21, Short.MAX_VALUE))
         );
 
@@ -519,6 +534,12 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
 
     }//GEN-LAST:event_list1MouseClicked
 
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+        new DealersWindow().showWindow();
+        this.dispose();
+    }//GEN-LAST:event_confirmButtonActionPerformed
+
     @Override
     public void showWindow() {
         /* Create and display the form */
@@ -538,6 +559,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
     private javax.swing.JLabel compName5;
     private javax.swing.JPanel compPanel;
     private javax.swing.JLabel complLabel;
+    private javax.swing.JToggleButton confirmButton;
     private javax.swing.JMenu contactsItem;
     private javax.swing.JMenu dealrsItem;
     private javax.swing.JPanel elemPanel;
