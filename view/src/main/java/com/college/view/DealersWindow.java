@@ -5,7 +5,8 @@
 package com.college.view;
 
 import com.college.view.interfaces.Showable;
-import javax.swing.JOptionPane;
+import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
@@ -13,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author Vagid Zibliuc
  */
-public class DealersWindow extends javax.swing.JFrame implements Showable{
+public class DealersWindow extends javax.swing.JFrame implements Showable {
 
     private final Showable lastWindow;
 
@@ -25,9 +26,10 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
         this.lastWindow = null;
         this.setLocationRelativeTo(null);
     }
-    
+
     /**
      * Creates new form DealersWindow
+     *
      * @param lastWindow
      */
     public DealersWindow(Showable lastWindow) {
@@ -64,6 +66,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
         nameLabel2 = new javax.swing.JLabel();
         addressLabel2 = new javax.swing.JLabel();
         discLabel2 = new javax.swing.JLabel();
+        confirmButton = new javax.swing.JToggleButton();
         menuBar = new javax.swing.JMenuBar();
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
@@ -119,6 +122,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
         dealersSubLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         dealersSubLabel.setText("Choose the dealer");
 
+        elemOfList.setBackground(new java.awt.Color(255, 255, 255));
         elemOfList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         elemOfList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -160,6 +164,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        elemOfList1.setBackground(new java.awt.Color(255, 255, 255));
         elemOfList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         elemOfList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -201,6 +206,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        elemOfList2.setBackground(new java.awt.Color(255, 255, 255));
         elemOfList2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         elemOfList2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -253,7 +259,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
                 .addComponent(elemOfList1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(elemOfList2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         listPanelLayout.setVerticalGroup(
             listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,17 +272,32 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        confirmButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        confirmButton.setText("Next");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout dealersPanelLayout = new javax.swing.GroupLayout(dealersPanel);
         dealersPanel.setLayout(dealersPanelLayout);
         dealersPanelLayout.setHorizontalGroup(
             dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dealersPanelLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dealersSubLabel)
-                    .addComponent(dealersLabel)
-                    .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dealersPanelLayout.createSequentialGroup()
+                        .addGroup(dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dealersSubLabel)
+                            .addComponent(dealersLabel)
+                            .addGroup(dealersPanelLayout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dealersPanelLayout.createSequentialGroup()
+                        .addComponent(confirmButton)
+                        .addGap(353, 353, 353))))
         );
         dealersPanelLayout.setVerticalGroup(
             dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +308,9 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
                 .addComponent(dealersSubLabel)
                 .addGap(18, 18, 18)
                 .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(confirmButton)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         menuBar.setBorder(new javax.swing.border.MatteBorder(null));
@@ -365,7 +388,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
         // TODO add your handling code here:
         if (lastWindow != null)
             lastWindow.showWindow();
-        else 
+        else
             System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
@@ -393,16 +416,41 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
         this.dispose();
     }//GEN-LAST:event_pricingItemMouseClicked
 
-    private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elemOfListMouseClicked
-        // TODO add your handling code here:
-        if (evt.getComponent() instanceof JPanel) {
-            JPanel clickedPanel = (JPanel) evt.getComponent();
-            if (clickedPanel.getComponent(0) instanceof JLabel) {
-                String message = "Clicked panel name of label = " + ((JLabel)clickedPanel.getComponent(0)).getText();
-                JOptionPane.showMessageDialog(this, "You clicked the dealers button!\n" + message);
+    private void setBlack(JPanel clickedPanel) {
+        clickedPanel.setBackground(Color.black);
+        for (Component cmp : clickedPanel.getComponents()) {
+            if (cmp instanceof JLabel) {
+                cmp.setForeground(Color.white);
             }
         }
+    }
+
+    private void setAllWhite(JPanel parent) {
+        for (Component panel : parent.getComponents()) {
+            if (panel instanceof JPanel) {
+                panel.setBackground(Color.white);
+                for (Component cmp : ((JPanel) panel).getComponents()) {
+                    if (cmp instanceof JLabel) {
+                        cmp.setForeground(Color.black);
+                    }
+                }
+            }
+        }
+    }
+
+
+    private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elemOfListMouseClicked
+        // TODO add your handling code here:
+        JPanel panel = (JPanel) evt.getComponent();
+        setAllWhite((JPanel) panel.getParent());
+        setBlack(panel);
     }//GEN-LAST:event_elemOfListMouseClicked
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+        new ConfirmationWindow(this).showWindow();
+        this.dispose();
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
     @Override
     public void showWindow() {
@@ -415,6 +463,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable{
     private javax.swing.JLabel addressLabel1;
     private javax.swing.JLabel addressLabel2;
     private javax.swing.JMenu automobilesItem;
+    private javax.swing.JToggleButton confirmButton;
     private javax.swing.JMenu contactsItem;
     private javax.swing.JLabel dealersLabel;
     private javax.swing.JPanel dealersPanel;
