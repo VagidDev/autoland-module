@@ -5,6 +5,9 @@
 package com.college.view;
 
 import com.college.view.interfaces.Showable;
+import com.college.view.utilites.ImageUploader;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -19,6 +22,7 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
      */
     public HomeWindow() {
         initComponents();
+        uploadImage();
         this.lastWindow = null;
         this.setLocationRelativeTo(null);
     }
@@ -29,10 +33,41 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
      */
     public HomeWindow(Showable lastWindow) {
         initComponents();
+        uploadImage();
         this.lastWindow = lastWindow;
         this.setLocationRelativeTo(null);
     }
 
+    private void uploadImage() {
+        ImageIcon mainIcon = ImageUploader.uploadImage(
+                backgroundImage.getWidth(), 
+                backgroundImage.getHeight(), 
+                "src/resources/images/home_photo.jpg", 
+                ImageUploader.WIDTH);
+        
+        ImageIcon leftIcon = ImageUploader.uploadImage(
+                leftImg.getWidth(), 
+                leftImg.getHeight(), 
+                "src/resources/images/first_img.jpg", 
+                ImageUploader.HEIGHT);
+        
+        ImageIcon rightIcon = ImageUploader.uploadImage(
+                rightImg.getWidth(), 
+                rightImg.getHeight(), 
+                "src/resources/images/second_img.jpg", 
+                ImageUploader.HEIGHT);
+        
+        backgroundImage.setIcon(mainIcon);
+        leftImg.setIcon(leftIcon);
+        rightImg.setIcon(rightIcon);
+        
+        leftImg.setHorizontalAlignment(SwingConstants.CENTER);
+        leftImg.setVerticalAlignment(SwingConstants.CENTER);
+        
+        rightImg.setHorizontalAlignment(SwingConstants.CENTER);
+        rightImg.setVerticalAlignment(SwingConstants.CENTER);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,9 +80,10 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
         mainPanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
         welcomeSubLable = new javax.swing.JLabel();
+        backgroundImage = new javax.swing.JLabel();
         additPanel = new javax.swing.JPanel();
         leftImg = new javax.swing.JLabel();
-        leftImg1 = new javax.swing.JLabel();
+        rightImg = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
@@ -64,42 +100,23 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
         });
 
         mainPanel.setBackground(new java.awt.Color(204, 204, 204));
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         welcomeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
         welcomeLabel.setText("Welcome to AutoLand");
         welcomeLabel.setToolTipText("");
+        mainPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 109, -1, -1));
 
         welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        welcomeSubLable.setForeground(new java.awt.Color(255, 255, 255));
         welcomeSubLable.setText("All for you");
+        mainPanel.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 175, -1, -1));
+        mainPanel.add(backgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 314));
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap(202, Short.MAX_VALUE)
-                .addComponent(welcomeLabel)
-                .addGap(202, 202, 202))
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(347, 347, 347)
-                .addComponent(welcomeSubLable)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(welcomeLabel)
-                .addGap(18, 18, 18)
-                .addComponent(welcomeSubLable)
-                .addContainerGap(114, Short.MAX_VALUE))
-        );
-
-        leftImg.setText("img");
         leftImg.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
-        leftImg1.setText("img");
-        leftImg1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        rightImg.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         javax.swing.GroupLayout additPanelLayout = new javax.swing.GroupLayout(additPanel);
         additPanel.setLayout(additPanelLayout);
@@ -108,8 +125,8 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
             .addGroup(additPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(leftImg, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(leftImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(rightImg, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
         additPanelLayout.setVerticalGroup(
@@ -118,7 +135,7 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
                 .addGap(27, 27, 27)
                 .addGroup(additPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(leftImg, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(leftImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rightImg, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -235,14 +252,15 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel additPanel;
     private javax.swing.JMenu automobilesItem;
+    private javax.swing.JLabel backgroundImage;
     private javax.swing.JMenu contactsItem;
     private javax.swing.JMenu dealrsItem;
     private javax.swing.JMenu hometsItem;
     private javax.swing.JLabel leftImg;
-    private javax.swing.JLabel leftImg1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu pricingItem;
+    private javax.swing.JLabel rightImg;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeSubLable;
     // End of variables declaration//GEN-END:variables
