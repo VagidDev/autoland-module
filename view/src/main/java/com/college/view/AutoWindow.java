@@ -6,13 +6,11 @@ package com.college.view;
 
 import com.college.view.interfaces.Showable;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  *
@@ -813,7 +811,8 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
 
     private void autoPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPanel1MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "You clicked on item!");
+        new BuyingWindow().showWindow();
+        this.dispose();
     }//GEN-LAST:event_autoPanel1MouseClicked
 
     /**
