@@ -4,9 +4,11 @@
  */
 package com.college.view;
 
+import com.college.controller.UserController;
 import com.college.view.interfaces.Showable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -15,13 +17,15 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Vagid Zibliuc
  */
 public class AuthentificationWindow extends javax.swing.JFrame implements Showable {
-
+    
+    private UserController userController;
     /**
      * Creates new form AuthentificationWindow
      */
     public AuthentificationWindow() {
         initComponents();
         this.setLocationRelativeTo(null);
+        userController = new UserController();
     }
 
     /**
@@ -90,6 +94,11 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 passwordFieldFocusLost(evt);
+            }
+        });
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
             }
         });
 
@@ -177,11 +186,23 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
 
     private void singInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singInButtonActionPerformed
         // TODO add your handling code here:
-        if (loginField.getText().equals("vaxa") && passwordField.getText().equals("qwerty")) {
+        String login = loginField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        
+        boolean isAunteficated = userController.authentificateUser(login, password);
+        if (isAunteficated) {
             new HomeWindow().showWindow();
-            this.setVisible(false);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Incorrect input data!", "Login error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_singInButtonActionPerformed
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+            singInButtonActionPerformed(null);
+    }//GEN-LAST:event_passwordFieldKeyPressed
     
     @Override
     public void showWindow() {
