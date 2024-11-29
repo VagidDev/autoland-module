@@ -11,4 +11,5 @@ import com.college.model.User;
  * @author Vagid Zibliuc
  */
 public interface UserDAO extends CRUDRepository<Integer, User> {
+    User getByLoginAndPassword(String login, String password);
 }

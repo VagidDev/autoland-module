@@ -30,6 +30,7 @@ public class UserImpl implements UserDAO {
                                                 + "SET u_login = ?, u_password = ?, u_name = ?, u_surname = ?, u_birthday = ?, u_email = ?, u_telephone = ?, u_address = ?\n"
                                                 + "WHERE u_id = ?;";
     private static final String DELETE_QUERY = "DELETE FROM au_users WHERE u_id = ?;";
+    private static final String SEARCH_BY_LOGIN_AND_PASSWORD = "SELECT * FROM au_users WHERE u_login = ? AND u_password = ?";
     
     @Override
     public User getById(Integer id) {
@@ -150,6 +151,32 @@ public class UserImpl implements UserDAO {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public User getByLoginAndPassword(String login, String password) {
+        try (Connection conn = Database.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(SEARCH_BY_LOGIN_AND_PASSWORD);
+            statement.setString(1, login);
+            statement.setString(2, password);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                User user = new User();
+                user.setId(result.getInt("u_id"));
+                user.setLogin(result.getString("u_login"));
+                user.setPassword(result.getString("u_password"));
+                user.setName(result.getString("u_name"));
+                user.setSurname(result.getString("u_surname"));
+                user.setBirthday(result.getDate("u_birthday"));
+                user.setEmail(result.getString("u_email"));
+                user.setTelephone(result.getString("u_telephone"));
+                user.setAddress(result.getString("u_address"));
+                return user;
+            }
+            return null;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
