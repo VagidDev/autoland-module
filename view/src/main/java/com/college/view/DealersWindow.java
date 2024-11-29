@@ -4,10 +4,15 @@
  */
 package com.college.view;
 
+import com.college.controller.DealerController;
+import com.college.model.Dealer;
 import com.college.view.interfaces.Showable;
 import com.college.view.utilites.ImageUploader;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -20,6 +25,7 @@ import javax.swing.SwingConstants;
 public class DealersWindow extends javax.swing.JFrame implements Showable {
 
     private final Showable lastWindow;
+    private final DealerController dealerController;
 
     /**
      * Creates new form DealersWindow
@@ -29,6 +35,8 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         uploadImages();
         this.lastWindow = null;
         this.setLocationRelativeTo(null);
+        dealerController = new DealerController();
+        loadDealers();
     }
 
     /**
@@ -41,21 +49,104 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         uploadImages();
         this.lastWindow = lastWindow;
         this.setLocationRelativeTo(null);
+        dealerController = new DealerController();
+        loadDealers();
     }
 
     private void uploadImages() {
         ImageIcon mainIcon = ImageUploader.uploadImage(
-                backgroundImage.getWidth(), 
-                backgroundImage.getHeight(), 
-                "src/resources/images/dealer_img.jpg", 
+                backgroundImage.getWidth(),
+                backgroundImage.getHeight(),
+                "src/resources/images/dealer_img.jpg",
                 ImageUploader.WIDTH);
         backgroundImage.setIcon(mainIcon);
-        
+
         backgroundImage.setHorizontalAlignment(SwingConstants.CENTER);
         backgroundImage.setVerticalAlignment(SwingConstants.CENTER);
         
     }
     
+    private void loadDealers() {
+        List<Dealer> dealers = dealerController.getAllDealers();
+        for (Dealer dealer : dealers) {
+            addDynamicDealerPanel(dealer);
+        }
+    }
+    
+    private void addDynamicDealerPanel(Dealer dealer) {
+        // Создаём новую панель
+        JPanel newPanel = new JPanel(new java.awt.GridBagLayout());
+        newPanel.setBackground(new java.awt.Color(255, 255, 255));
+        newPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+
+        // Копируем слушатель событий
+        newPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                elemOfListMouseClicked(evt); // Ваш обработчик событий
+            }
+        });
+
+        // Создаём и добавляем компоненты с использованием GridBagConstraints
+        GridBagConstraints gridBagConstraints;
+
+        // Добавляем nameLabel2
+        JLabel nameLabel = new JLabel("Name");
+        nameLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(7, 7, 0, 0);
+        newPanel.add(nameLabel, gridBagConstraints);
+
+        // Добавляем addressLabel2
+        JLabel addressLabel = new JLabel("Address");
+        addressLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(12, 7, 0, 0);
+        newPanel.add(addressLabel, gridBagConstraints);
+
+        // Добавляем discLabel2
+        JLabel discLabel = new JLabel("Description");
+        discLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 14));
+        discLabel.setForeground(new java.awt.Color(153, 153, 153));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(12, 7, 19, 133);
+        newPanel.add(discLabel, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = getNextGridX(); // Определяем следующую позицию по X
+        gridBagConstraints.gridy = 0; // Если нужно, можно добавить в новую строку
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(26, 13, 26, 13);
+
+        nameLabel.setText(dealer.getName());
+        addressLabel.setText(dealer.getAddress());
+        discLabel.setText(dealer.getTelephone());
+        
+        listPanel.add(newPanel, gridBagConstraints);
+        
+        listPanel.revalidate();
+        listPanel.repaint();
+    }
+
+    private int getNextGridX() {
+        int componentCount = listPanel.getComponentCount();
+        return componentCount; // Возвращает индекс для размещения новой панели
+    }
+    
+    private void setData(JLabel name, JLabel address, JLabel description) {
+        
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,6 +155,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         mainPanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
@@ -72,20 +164,9 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         dealersPanel = new javax.swing.JPanel();
         dealersLabel = new javax.swing.JLabel();
         dealersSubLabel = new javax.swing.JLabel();
-        listPanel = new javax.swing.JPanel();
-        elemOfList = new javax.swing.JPanel();
-        nameLabel = new javax.swing.JLabel();
-        addressLabel = new javax.swing.JLabel();
-        discLabel = new javax.swing.JLabel();
-        elemOfList1 = new javax.swing.JPanel();
-        nameLabel1 = new javax.swing.JLabel();
-        addressLabel1 = new javax.swing.JLabel();
-        discLabel1 = new javax.swing.JLabel();
-        elemOfList2 = new javax.swing.JPanel();
-        nameLabel2 = new javax.swing.JLabel();
-        addressLabel2 = new javax.swing.JLabel();
-        discLabel2 = new javax.swing.JLabel();
         confirmButton = new javax.swing.JToggleButton();
+        dealerScrollPane = new javax.swing.JScrollPane();
+        listPanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
@@ -122,156 +203,6 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         dealersSubLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         dealersSubLabel.setText("Choose the dealer");
 
-        elemOfList.setBackground(new java.awt.Color(255, 255, 255));
-        elemOfList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        elemOfList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                elemOfListMouseClicked(evt);
-            }
-        });
-
-        nameLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
-        nameLabel.setText("Name");
-
-        addressLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        addressLabel.setText("Address");
-
-        discLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        discLabel.setForeground(new java.awt.Color(153, 153, 153));
-        discLabel.setText("Description");
-
-        javax.swing.GroupLayout elemOfListLayout = new javax.swing.GroupLayout(elemOfList);
-        elemOfList.setLayout(elemOfListLayout);
-        elemOfListLayout.setHorizontalGroup(
-            elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameLabel)
-                    .addComponent(addressLabel)
-                    .addComponent(discLabel))
-                .addContainerGap(135, Short.MAX_VALUE))
-        );
-        elemOfListLayout.setVerticalGroup(
-            elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addressLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(discLabel)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        elemOfList1.setBackground(new java.awt.Color(255, 255, 255));
-        elemOfList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        elemOfList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                elemOfListMouseClicked(evt);
-            }
-        });
-
-        nameLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
-        nameLabel1.setText("Name");
-
-        addressLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        addressLabel1.setText("Address");
-
-        discLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        discLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        discLabel1.setText("Description");
-
-        javax.swing.GroupLayout elemOfList1Layout = new javax.swing.GroupLayout(elemOfList1);
-        elemOfList1.setLayout(elemOfList1Layout);
-        elemOfList1Layout.setHorizontalGroup(
-            elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfList1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameLabel1)
-                    .addComponent(addressLabel1)
-                    .addComponent(discLabel1))
-                .addContainerGap(135, Short.MAX_VALUE))
-        );
-        elemOfList1Layout.setVerticalGroup(
-            elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfList1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addressLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(discLabel1)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        elemOfList2.setBackground(new java.awt.Color(255, 255, 255));
-        elemOfList2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        elemOfList2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                elemOfListMouseClicked(evt);
-            }
-        });
-
-        nameLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
-        nameLabel2.setText("Name");
-
-        addressLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        addressLabel2.setText("Address");
-
-        discLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        discLabel2.setForeground(new java.awt.Color(153, 153, 153));
-        discLabel2.setText("Description");
-
-        javax.swing.GroupLayout elemOfList2Layout = new javax.swing.GroupLayout(elemOfList2);
-        elemOfList2.setLayout(elemOfList2Layout);
-        elemOfList2Layout.setHorizontalGroup(
-            elemOfList2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfList2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(elemOfList2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameLabel2)
-                    .addComponent(addressLabel2)
-                    .addComponent(discLabel2))
-                .addContainerGap(135, Short.MAX_VALUE))
-        );
-        elemOfList2Layout.setVerticalGroup(
-            elemOfList2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfList2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addressLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(discLabel2)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout listPanelLayout = new javax.swing.GroupLayout(listPanel);
-        listPanel.setLayout(listPanelLayout);
-        listPanelLayout.setHorizontalGroup(
-            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(elemOfList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(elemOfList1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(elemOfList2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        listPanelLayout.setVerticalGroup(
-            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(elemOfList2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(elemOfList1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(elemOfList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
         confirmButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         confirmButton.setText("Next");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
@@ -279,6 +210,13 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
                 confirmButtonActionPerformed(evt);
             }
         });
+
+        dealerScrollPane.setBorder(null);
+        dealerScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        dealerScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        listPanel.setLayout(new java.awt.GridBagLayout());
+        dealerScrollPane.setViewportView(listPanel);
 
         javax.swing.GroupLayout dealersPanelLayout = new javax.swing.GroupLayout(dealersPanel);
         dealersPanel.setLayout(dealersPanelLayout);
@@ -294,11 +232,11 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dealersPanelLayout.createSequentialGroup()
-                        .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))
+                        .addComponent(dealerScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dealersPanelLayout.createSequentialGroup()
                         .addComponent(confirmButton)
-                        .addGap(360, 360, 360))))
+                        .addGap(362, 362, 362))))
         );
         dealersPanelLayout.setVerticalGroup(
             dealersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,10 +246,10 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dealersSubLabel)
                 .addGap(18, 18, 18)
-                .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dealerScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confirmButton)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         menuBar.setBorder(new javax.swing.border.MatteBorder(null));
@@ -379,7 +317,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dealersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(dealersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -440,12 +378,12 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     }
 
 
-    private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elemOfListMouseClicked
+    private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {                                        
         // TODO add your handling code here:
         JPanel panel = (JPanel) evt.getComponent();
         setAllWhite((JPanel) panel.getParent());
         setBlack(panel);
-    }//GEN-LAST:event_elemOfListMouseClicked
+    } 
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         // TODO add your handling code here:
@@ -460,30 +398,19 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel addressLabel;
-    private javax.swing.JLabel addressLabel1;
-    private javax.swing.JLabel addressLabel2;
     private javax.swing.JMenu automobilesItem;
     private javax.swing.JLabel backgroundImage;
     private javax.swing.JToggleButton confirmButton;
     private javax.swing.JMenu contactsItem;
+    private javax.swing.JScrollPane dealerScrollPane;
     private javax.swing.JLabel dealersLabel;
     private javax.swing.JPanel dealersPanel;
     private javax.swing.JLabel dealersSubLabel;
     private javax.swing.JMenu dealrsItem;
-    private javax.swing.JLabel discLabel;
-    private javax.swing.JLabel discLabel1;
-    private javax.swing.JLabel discLabel2;
-    private javax.swing.JPanel elemOfList;
-    private javax.swing.JPanel elemOfList1;
-    private javax.swing.JPanel elemOfList2;
     private javax.swing.JMenu hometsItem;
     private javax.swing.JPanel listPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JLabel nameLabel1;
-    private javax.swing.JLabel nameLabel2;
     private javax.swing.JMenu pricingItem;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeSubLable;
