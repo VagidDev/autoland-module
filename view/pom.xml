@@ -8,15 +8,20 @@
     </parent>
     <artifactId>view</artifactId>
     <packaging>jar</packaging>
-    <!--<properties>
+    <properties>
         <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>autoland.Main</exec.mainClass>
-    </properties>-->
+        <exec.mainClass>com.college.Main</exec.mainClass>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE230</version>
+        </dependency>
+        <dependency>
+            <groupId>com.college</groupId>
+            <artifactId>controller</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
