@@ -15,17 +15,19 @@ public class Automobile {
     private String bodyType;
     private int placeCount;
     private int prodYear;
+    private String imagePath;
 
     public Automobile() {
     }
 
-    public Automobile(int id, String mark, String model, String bodyType, int placeCount, int prodYear) {
+    public Automobile(int id, String mark, String model, String bodyType, int placeCount, int prodYear, String imagePath) {
         this.id = id;
         this.mark = mark;
         this.model = model;
         this.bodyType = bodyType;
         this.placeCount = placeCount;
         this.prodYear = prodYear;
+        this.imagePath = imagePath;
     }
 
     public int getId() {
@@ -76,6 +78,14 @@ public class Automobile {
         this.prodYear = prodYear;
     }
 
+        public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
     @Override
     public String toString() {
         return "Automobile{" + "id=" + id + ", mark=" + mark + ", model=" + model + ", bodyType=" + bodyType + ", placeCount=" + placeCount + ", prodYear=" + prodYear + '}';

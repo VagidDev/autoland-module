@@ -24,7 +24,7 @@ import java.util.Map;
 public class AutomobileImpl implements AutomobileDAO {
     private static final String GET_BY_ID_QUERY = "SELECT * FROM AutomobileWithBodyType WHERE a_id = ?";
     private static final String GET_ALL_QUERY = "SELECT * FROM AutomobileWithBodyType";
-    private static final String INSERT_QUERY = "INSERT INTO au_automobiles (a_mark, a_model, a_body_id, a_place_count, a_prod_year) "
+    private static final String INSERT_QUERY = "INSERT INTO au_automobiles (a_mark, a_model, a_body_id, a_place_count, a_prod_year, a_image) "
                                                 + "VALUES(?,?,?,?,?)";
     private static final String UPDATE_QUERY = "UPDATE au_automobiles\n" +
                                                 "SET a_mark = ?, a_model = ?, a_body_id = ?, a_place_count = ?, a_prod_year = ?\n" +
@@ -61,6 +61,7 @@ public class AutomobileImpl implements AutomobileDAO {
                 automobile.setBodyType(result.getString("bt_name"));
                 automobile.setPlaceCount(result.getInt("a_place_count"));
                 automobile.setProdYear(result.getInt("a_prod_year"));
+                automobile.setImagePath(result.getString("a_image"));
                 return automobile;
             }
             throw new RuntimeException("Automobile not found!");
@@ -83,6 +84,7 @@ public class AutomobileImpl implements AutomobileDAO {
                 automobile.setBodyType(result.getString("bt_name"));
                 automobile.setPlaceCount(result.getInt("a_place_count"));
                 automobile.setProdYear(result.getInt("a_prod_year"));
+                automobile.setImagePath(result.getString("a_image"));
                 automobiles.add(automobile);
             }
             return automobiles;
@@ -115,6 +117,7 @@ public class AutomobileImpl implements AutomobileDAO {
             statement.setInt(3, getIdOfBodyType(t.getBodyType()));
             statement.setInt(4, t.getPlaceCount());
             statement.setInt(5, t.getProdYear());
+            statement.setString(6, t.getImagePath());
             
             statement.execute();
 
@@ -139,7 +142,8 @@ public class AutomobileImpl implements AutomobileDAO {
             statement.setInt(3, getIdOfBodyType(t.getBodyType()));
             statement.setInt(4, t.getPlaceCount());
             statement.setInt(5, t.getProdYear());
-            statement.setInt(6, t.getId());
+            statement.setString(6, t.getImagePath());
+            statement.setInt(7, t.getId());
             
             int result = statement.executeUpdate();
             
