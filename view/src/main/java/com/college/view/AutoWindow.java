@@ -4,11 +4,18 @@
  */
 package com.college.view;
 
+import com.college.controller.AutomobileController;
+import com.college.model.Automobile;
 import com.college.view.interfaces.Showable;
+import com.college.view.utilites.ImageUploader;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -18,6 +25,7 @@ import javax.swing.JPanel;
  */
 public class AutoWindow extends javax.swing.JFrame implements Showable{
     private final Showable lastWindow;
+    private AutomobileController automobileController;
     
     /**
      * Creates new form AutoWindow
@@ -26,6 +34,8 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         initComponents();
         this.lastWindow = null;
         this.setLocationRelativeTo(null);
+        automobileController = new AutomobileController();
+        loadAutomobiles();
     }
     
     /**
@@ -35,9 +45,101 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     public AutoWindow(Showable lastWindow) {
         initComponents();
         this.lastWindow = lastWindow;
-        this.setLocationRelativeTo(null);  
+        this.setLocationRelativeTo(null); 
+        automobileController = new AutomobileController();
+        loadAutomobiles();
     }
     
+    private void addDynamicAutoPane(Automobile automobile) {
+        JPanel newAutoPanel = new JPanel();
+        
+        newAutoPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        newAutoPanel.setMinimumSize(new java.awt.Dimension(183, 230));
+        newAutoPanel.setPreferredSize(new java.awt.Dimension(170, 220));
+        newAutoPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                autoPanelItemMouseClicked(evt);
+            }
+        });
+        newAutoPanel.setLayout(new java.awt.GridBagLayout());
+
+        JLabel idLabel = new JLabel(String.valueOf(automobile.getId()));
+        idLabel.setVisible(false);
+        newAutoPanel.add(idLabel);
+        
+        JLabel autoImg = new JLabel();
+        
+        autoImg.setBackground(new java.awt.Color(153, 153, 153));
+        autoImg.setPreferredSize(new Dimension(140, 150));
+        autoImg.setMaximumSize(new Dimension(140, 150));
+        autoImg.setSize(new Dimension(140, 150));
+        autoImg.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        newAutoPanel.add(autoImg, gridBagConstraints);
+
+        JLabel autoText = new JLabel();
+        
+        autoText.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        autoText.setText("Text");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        newAutoPanel.add(autoText, gridBagConstraints);
+
+        JLabel autoPrice = new JLabel();
+        
+        autoPrice.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        autoPrice.setText("0 $");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 21, 0);
+        newAutoPanel.add(autoPrice, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = getGridX();
+        gridBagConstraints.gridy = getGridY();
+        gridBagConstraints.ipadx = 11;
+        gridBagConstraints.ipady = 14;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
+        
+        autoText.setText(automobile.getMark() + " " + automobile.getModel());
+        autoPrice.setText(automobile.getBodyType());
+        ImageIcon image = ImageUploader.uploadImage(autoImg.getWidth(), autoImg.getHeight(), automobile.getImagePath(), ImageUploader.HEIGHT);
+        
+        autoImg.setIcon(image);
+        
+        autoViewPanel.add(newAutoPanel, gridBagConstraints);
+    }
+    
+    private int getGridX() {
+        Component[] components = autoViewPanel.getComponents();
+        return components.length % 3;
+    }
+    
+    private int getGridY() {
+        Component[] components = autoViewPanel.getComponents();
+        return (int) Math.floor(components.length / 3);
+    }
+    
+    
+    private void loadAutomobiles() {
+        List<Automobile> automobiles = automobileController.getAllAutomobiles();
+        for (Automobile auto : automobiles) {
+            addDynamicAutoPane(auto);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +148,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         filterPanel = new javax.swing.JPanel();
         bodyLabel = new javax.swing.JLabel();
@@ -76,30 +179,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         ratingButton = new javax.swing.JToggleButton();
         autoScrollPane = new javax.swing.JScrollPane();
         autoViewPanel = new javax.swing.JPanel();
-        autoPanel2 = new javax.swing.JPanel();
-        autoImg2 = new javax.swing.JLabel();
-        autoText2 = new javax.swing.JLabel();
-        autoPrice2 = new javax.swing.JLabel();
-        autoPanel1 = new javax.swing.JPanel();
-        autoImg1 = new javax.swing.JLabel();
-        autoText1 = new javax.swing.JLabel();
-        autoPrice1 = new javax.swing.JLabel();
-        autoPanel3 = new javax.swing.JPanel();
-        autoImg3 = new javax.swing.JLabel();
-        autoText3 = new javax.swing.JLabel();
-        autoPrice3 = new javax.swing.JLabel();
-        autoPanel4 = new javax.swing.JPanel();
-        autoImg4 = new javax.swing.JLabel();
-        autoText4 = new javax.swing.JLabel();
-        autoPrice4 = new javax.swing.JLabel();
-        autoPanel5 = new javax.swing.JPanel();
-        autoImg5 = new javax.swing.JLabel();
-        autoText5 = new javax.swing.JLabel();
-        autoPrice5 = new javax.swing.JLabel();
-        autoPanel6 = new javax.swing.JPanel();
-        autoImg6 = new javax.swing.JLabel();
-        autoText6 = new javax.swing.JLabel();
-        autoPrice6 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
@@ -387,287 +466,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         autoScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         autoScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        autoPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        autoPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPanel1MouseClicked(evt);
-            }
-        });
-
-        autoImg2.setBackground(new java.awt.Color(153, 153, 153));
-        autoImg2.setText("img");
-        autoImg2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        autoText2.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        autoText2.setText("Text");
-
-        autoPrice2.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        autoPrice2.setText("0 $");
-
-        javax.swing.GroupLayout autoPanel2Layout = new javax.swing.GroupLayout(autoPanel2);
-        autoPanel2.setLayout(autoPanel2Layout);
-        autoPanel2Layout.setHorizontalGroup(
-            autoPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(autoPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoPrice2)
-                    .addComponent(autoText2)
-                    .addComponent(autoImg2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        autoPanel2Layout.setVerticalGroup(
-            autoPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(autoImg2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoText2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoPrice2)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        autoPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        autoPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPanel1MouseClicked(evt);
-            }
-        });
-
-        autoImg1.setBackground(new java.awt.Color(153, 153, 153));
-        autoImg1.setText("img");
-        autoImg1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        autoText1.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        autoText1.setText("Text");
-
-        autoPrice1.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        autoPrice1.setText("0 $");
-
-        javax.swing.GroupLayout autoPanel1Layout = new javax.swing.GroupLayout(autoPanel1);
-        autoPanel1.setLayout(autoPanel1Layout);
-        autoPanel1Layout.setHorizontalGroup(
-            autoPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(autoPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoPrice1)
-                    .addComponent(autoText1)
-                    .addComponent(autoImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        autoPanel1Layout.setVerticalGroup(
-            autoPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(autoImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoText1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoPrice1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        autoPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        autoPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPanel1MouseClicked(evt);
-            }
-        });
-
-        autoImg3.setBackground(new java.awt.Color(153, 153, 153));
-        autoImg3.setText("img");
-        autoImg3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        autoText3.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        autoText3.setText("Text");
-
-        autoPrice3.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        autoPrice3.setText("0 $");
-
-        javax.swing.GroupLayout autoPanel3Layout = new javax.swing.GroupLayout(autoPanel3);
-        autoPanel3.setLayout(autoPanel3Layout);
-        autoPanel3Layout.setHorizontalGroup(
-            autoPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(autoPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoPrice3)
-                    .addComponent(autoText3)
-                    .addComponent(autoImg3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        autoPanel3Layout.setVerticalGroup(
-            autoPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(autoImg3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoText3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoPrice3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        autoPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        autoPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPanel1MouseClicked(evt);
-            }
-        });
-
-        autoImg4.setBackground(new java.awt.Color(153, 153, 153));
-        autoImg4.setText("img");
-        autoImg4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        autoText4.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        autoText4.setText("Text");
-
-        autoPrice4.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        autoPrice4.setText("0 $");
-
-        javax.swing.GroupLayout autoPanel4Layout = new javax.swing.GroupLayout(autoPanel4);
-        autoPanel4.setLayout(autoPanel4Layout);
-        autoPanel4Layout.setHorizontalGroup(
-            autoPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel4Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(autoPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoPrice4)
-                    .addComponent(autoText4)
-                    .addComponent(autoImg4, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        autoPanel4Layout.setVerticalGroup(
-            autoPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel4Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(autoImg4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoText4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoPrice4)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        autoPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        autoPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPanel1MouseClicked(evt);
-            }
-        });
-
-        autoImg5.setBackground(new java.awt.Color(153, 153, 153));
-        autoImg5.setText("img");
-        autoImg5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        autoText5.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        autoText5.setText("Text");
-
-        autoPrice5.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        autoPrice5.setText("0 $");
-
-        javax.swing.GroupLayout autoPanel5Layout = new javax.swing.GroupLayout(autoPanel5);
-        autoPanel5.setLayout(autoPanel5Layout);
-        autoPanel5Layout.setHorizontalGroup(
-            autoPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel5Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(autoPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoPrice5)
-                    .addComponent(autoText5)
-                    .addComponent(autoImg5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        autoPanel5Layout.setVerticalGroup(
-            autoPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel5Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(autoImg5, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoText5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoPrice5)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        autoPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        autoPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoPanel1MouseClicked(evt);
-            }
-        });
-
-        autoImg6.setBackground(new java.awt.Color(153, 153, 153));
-        autoImg6.setText("img");
-        autoImg6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        autoText6.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        autoText6.setText("Text");
-
-        autoPrice6.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        autoPrice6.setText("0 $");
-
-        javax.swing.GroupLayout autoPanel6Layout = new javax.swing.GroupLayout(autoPanel6);
-        autoPanel6.setLayout(autoPanel6Layout);
-        autoPanel6Layout.setHorizontalGroup(
-            autoPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel6Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(autoPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoPrice6)
-                    .addComponent(autoText6)
-                    .addComponent(autoImg6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        autoPanel6Layout.setVerticalGroup(
-            autoPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoPanel6Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(autoImg6, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoText6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autoPrice6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout autoViewPanelLayout = new javax.swing.GroupLayout(autoViewPanel);
-        autoViewPanel.setLayout(autoViewPanelLayout);
-        autoViewPanelLayout.setHorizontalGroup(
-            autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoViewPanelLayout.createSequentialGroup()
-                .addGroup(autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(autoViewPanelLayout.createSequentialGroup()
-                        .addComponent(autoPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(autoPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(autoViewPanelLayout.createSequentialGroup()
-                        .addComponent(autoPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(autoPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
-                .addGroup(autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(autoPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(autoPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
-        );
-        autoViewPanelLayout.setVerticalGroup(
-            autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoViewPanelLayout.createSequentialGroup()
-                .addGroup(autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(autoPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(autoPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(autoPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(autoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(autoPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(autoPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(autoPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
-        );
-
+        autoViewPanel.setLayout(new java.awt.GridBagLayout());
         autoScrollPane.setViewportView(autoViewPanel);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -675,17 +474,17 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ascPrice)
-                .addGap(18, 18, 18)
-                .addComponent(descPrice)
-                .addGap(18, 18, 18)
-                .addComponent(ratingButton)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ascPrice)
+                        .addGap(18, 18, 18)
+                        .addComponent(descPrice)
+                        .addGap(18, 18, 18)
+                        .addComponent(ratingButton))
+                    .addComponent(autoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(autoScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -760,8 +559,9 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(filterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -809,12 +609,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         this.dispose();
     }//GEN-LAST:event_hometsItemMouseClicked
 
-    private void autoPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoPanel1MouseClicked
-        // TODO add your handling code here:
-        new BuyingWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_autoPanel1MouseClicked
-
     /**
      * Changes range of prices
      * TODO: change it to two input fields
@@ -830,6 +624,11 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         // TODO add your handling code here:
         checkState();
     }//GEN-LAST:event_checkBoxMouseClicked
+    
+    private void autoPanelItemMouseClicked(java.awt.event.MouseEvent evt) {
+        new BuyingWindow().showWindow();
+        this.dispose();
+    }
     
     private void checkState() {
         HashMap<String, Boolean> checkedItems = new HashMap<>();
@@ -862,31 +661,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton ascPrice;
     private javax.swing.JCheckBox autoCheckBox;
-    private javax.swing.JLabel autoImg1;
-    private javax.swing.JLabel autoImg2;
-    private javax.swing.JLabel autoImg3;
-    private javax.swing.JLabel autoImg4;
-    private javax.swing.JLabel autoImg5;
-    private javax.swing.JLabel autoImg6;
-    private javax.swing.JPanel autoPanel1;
-    private javax.swing.JPanel autoPanel2;
-    private javax.swing.JPanel autoPanel3;
-    private javax.swing.JPanel autoPanel4;
-    private javax.swing.JPanel autoPanel5;
-    private javax.swing.JPanel autoPanel6;
-    private javax.swing.JLabel autoPrice1;
-    private javax.swing.JLabel autoPrice2;
-    private javax.swing.JLabel autoPrice3;
-    private javax.swing.JLabel autoPrice4;
-    private javax.swing.JLabel autoPrice5;
-    private javax.swing.JLabel autoPrice6;
     private javax.swing.JScrollPane autoScrollPane;
-    private javax.swing.JLabel autoText1;
-    private javax.swing.JLabel autoText2;
-    private javax.swing.JLabel autoText3;
-    private javax.swing.JLabel autoText4;
-    private javax.swing.JLabel autoText5;
-    private javax.swing.JLabel autoText6;
     private javax.swing.JPanel autoViewPanel;
     private javax.swing.JMenu automobilesItem;
     private javax.swing.JLabel bodyLabel;
