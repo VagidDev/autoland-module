@@ -10,27 +10,6 @@
     <artifactId>model</artifactId>
     <packaging>jar</packaging>
     
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>com.college.model.session.Session</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
@@ -39,8 +18,4 @@
             <version>9.1.0</version>
         </dependency>
     </dependencies>
-<!--    <properties>
-        <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>com.college.model.session.Session</exec.mainClass>
-    </properties>-->
 </project>
