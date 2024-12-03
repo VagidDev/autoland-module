@@ -4,9 +4,7 @@
  */
 package com.college.controller.manager;
 
-import com.college.controller.AutomobileController;
-import com.college.controller.DealerController;
-import com.college.controller.UserController;
+import com.college.controller.*;
 
 /**
  *
@@ -16,6 +14,11 @@ public abstract class ControllerManager {
     private static final UserController userController = new UserController();
     private static final AutomobileController automobileController = new AutomobileController();
     private static final DealerController dealerController = new DealerController();
+    private static final ContractController contractController = new ContractController();
+
+    public static ContractController getContractController() {
+        return contractController;
+    }
 
     public static AutomobileController getAutomobileController() {
         return automobileController;
