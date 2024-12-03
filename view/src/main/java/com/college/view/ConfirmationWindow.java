@@ -4,16 +4,20 @@
  */
 package com.college.view;
 
+import com.college.controller.ContractController;
+import com.college.controller.manager.ControllerManager;
 import com.college.model.*;
 import com.college.view.interfaces.Showable;
 import com.college.view.utilites.ImageUploader;
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Vagid Zibliuc
  */
 public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
+    private ContractController contractController;
     private Showable lastWindow;
     private Contract contract;
 
@@ -28,6 +32,7 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
     
     public ConfirmationWindow(Showable lastWindow, Contract contract) {
         initComponents();
+        contractController = ControllerManager.getContractController();
         this.lastWindow = lastWindow;
         this.contract = contract;
         this.setLocationRelativeTo(null);
@@ -272,6 +277,11 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
 
         confirmButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         confirmButton.setText("Confirm");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -380,6 +390,18 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         new DealersWindow().showWindow();
         this.dispose();
     }//GEN-LAST:event_dealrsItemMouseClicked
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+        boolean result = contractController.registenNewContractWithWarranty(this.contract);
+        if (result) {
+            JOptionPane.showConfirmDialog(this, "Your contract was registred!", "Success", JOptionPane.PLAIN_MESSAGE);
+            new HomeWindow().showWindow();
+            this.dispose();
+        } else {
+            JOptionPane.showConfirmDialog(this, "Some error was occured!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
     @Override
     public void showWindow() {
