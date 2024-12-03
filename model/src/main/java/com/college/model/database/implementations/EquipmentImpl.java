@@ -4,6 +4,7 @@
  */
 package com.college.model.database.implementations;
 
+import com.college.model.Automobile;
 import com.college.model.Equipment;
 import com.college.model.database.Database;
 import com.college.model.database.interfaces.AutomobileDAO;
@@ -22,17 +23,18 @@ import java.util.List;
  * @author Vagid Zibliuc
  */
 public class EquipmentImpl implements EquipmentDAO {
+
     private static final String GET_BY_ID_QUERY = "SELECT * FROM FullEquipment WHERE e_auto_id = ? AND e_id = ?";
     private static final String GET_ALL_QUERY = "SELECT * FROM FullEquipment";
     private static final String INSERT_QUERY = "INSERT INTO au_equipment (e_auto_id, e_id, e_name, e_engine_name, e_engine_id, e_engine_volume, e_horse_power,"
-                                            + " e_susp_id, e_drive_id, e_gearbox_id, e_speed_count, e_fuel_id, e_interior, e_body_kit, e_weigth, e_price) "
-                                            + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            + " e_susp_id, e_drive_id, e_gearbox_id, e_speed_count, e_fuel_id, e_interior, e_body_kit, e_weigth, e_price) "
+            + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE_QUERY = "UPDATE au_equipment\n"
-                                            + "SET e_name = ?, e_engine_name = ?, e_engine_id = ?, e_engine_volume = ?, e_horse_power = ?,"
-                                            + " e_susp_id = ?, e_drive_id = ?, e_gearbox_id = ?, e_speed_count = ?, e_fuel_id = ?, e_interior = ?, e_body_kit = ?, e_weigth = ?, e_price = ?\n"
-                                            + "WHERE e_auto_id = ? AND e_id = ?;";
+            + "SET e_name = ?, e_engine_name = ?, e_engine_id = ?, e_engine_volume = ?, e_horse_power = ?,"
+            + " e_susp_id = ?, e_drive_id = ?, e_gearbox_id = ?, e_speed_count = ?, e_fuel_id = ?, e_interior = ?, e_body_kit = ?, e_weigth = ?, e_price = ?\n"
+            + "WHERE e_auto_id = ? AND e_id = ?;";
     private static final String DELETE_QUERY = "DELETE FROM au_equipment WHERE e_auto_id = ? AND e_id = ?;";
-    
+    private static final String GET_BY_AUTO_QUERY = "SELECT * FROM FullEquipment WHERE e_auto_id = ?";
 
     private final AutomobileDAO automobileRepository;
 
@@ -206,6 +208,40 @@ public class EquipmentImpl implements EquipmentDAO {
             statement.setInt(1, id.getAutomobileId());
             statement.setInt(2, id.getEquipmentId());
             statement.execute();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<Equipment> getByAuto(Automobile automobile) {
+        try (Connection conn = Database.getConnection()) {
+            List<Equipment> equipments = new ArrayList<>();
+            PreparedStatement statement = conn.prepareStatement(GET_BY_AUTO_QUERY);
+            statement.setInt(1, automobile.getId());
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Equipment equipment = new Equipment();
+                equipment.setAutomobile(automobile);
+                equipment.setId(result.getInt("e_id"));
+                equipment.setName(result.getString("e_name"));
+                equipment.setEngineName(result.getString("e_engine_name"));
+                equipment.setEngineType(result.getString("et_name"));
+                equipment.setEngineVolume(result.getFloat("e_engine_volume"));
+                equipment.setHorsepower(result.getInt("e_horse_power"));
+                equipment.setSuspensiveType(result.getString("st_name"));
+                equipment.setDriveType(result.getString("dt_name"));
+                equipment.setGearboxType(result.getString("gt_name"));
+                equipment.setSpeedCount(result.getInt("e_speed_count"));
+                equipment.setFuelType(result.getString("ft_name"));
+                equipment.setInterior(result.getString("e_interior"));
+                equipment.setBodyKit(result.getString("e_body_kit"));
+                equipment.setWeigth(result.getInt("e_weigth"));
+                equipment.setPrice(result.getDouble("e_price"));
+                
+                equipments.add(equipment);
+            }
+            return equipments;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
