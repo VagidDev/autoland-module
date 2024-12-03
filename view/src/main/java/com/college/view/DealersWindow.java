@@ -5,6 +5,8 @@
 package com.college.view;
 
 import com.college.controller.DealerController;
+import com.college.controller.manager.ControllerManager;
+import com.college.model.Contract;
 import com.college.model.Dealer;
 import com.college.view.interfaces.Showable;
 import com.college.view.utilites.ImageUploader;
@@ -25,32 +27,40 @@ import javax.swing.SwingConstants;
 public class DealersWindow extends javax.swing.JFrame implements Showable {
 
     private final Showable lastWindow;
-    private final DealerController dealerController;
+    private DealerController dealerController;
+    private Contract contract;
+    private int dealerId;
 
     /**
      * Creates new form DealersWindow
      */
     public DealersWindow() {
         initComponents();
-        uploadImages();
         this.lastWindow = null;
-        this.setLocationRelativeTo(null);
-        dealerController = new DealerController();
-        loadDealers();
+        customInitComponents();
     }
 
     /**
      * Creates new form DealersWindow
      *
      * @param lastWindow
+     * @param contract
      */
-    public DealersWindow(Showable lastWindow) {
+    public DealersWindow(Showable lastWindow, Contract contract) {
         initComponents();
-        uploadImages();
         this.lastWindow = lastWindow;
+        this.contract = contract;
+        customInitComponents();
+    }
+
+    private void customInitComponents() {
         this.setLocationRelativeTo(null);
-        dealerController = new DealerController();
+        dealerController = ControllerManager.getDealerController();
+        uploadImages();
         loadDealers();
+        if (lastWindow == null) {
+            confirmButton.setVisible(false);
+        }
     }
 
     private void uploadImages() {
@@ -63,24 +73,30 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
 
         backgroundImage.setHorizontalAlignment(SwingConstants.CENTER);
         backgroundImage.setVerticalAlignment(SwingConstants.CENTER);
-        
+
     }
-    
+
     private void loadDealers() {
         List<Dealer> dealers = dealerController.getAllDealers();
         for (Dealer dealer : dealers) {
             addDynamicDealerPanel(dealer);
         }
     }
-    
+
     private void addDynamicDealerPanel(Dealer dealer) {
         // Создаём новую панель
         JPanel newPanel = new JPanel(new java.awt.GridBagLayout());
         newPanel.setBackground(new java.awt.Color(255, 255, 255));
         newPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
+        JLabel idLabel = new JLabel();
+        idLabel.setText(String.valueOf(dealer.getId()));
+        idLabel.setVisible(false);
+        newPanel.add(idLabel);
+        
         // Копируем слушатель событий
         newPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 elemOfListMouseClicked(evt); // Ваш обработчик событий
             }
@@ -131,9 +147,9 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         nameLabel.setText(dealer.getName());
         addressLabel.setText(dealer.getAddress());
         discLabel.setText(dealer.getTelephone());
-        
+
         listPanel.add(newPanel, gridBagConstraints);
-        
+
         listPanel.revalidate();
         listPanel.repaint();
     }
@@ -141,10 +157,6 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     private int getNextGridX() {
         int componentCount = listPanel.getComponentCount();
         return componentCount; // Возвращает индекс для размещения новой панели
-    }
-    
-    private void setData(JLabel name, JLabel address, JLabel description) {
-        
     }
 
     /**
@@ -377,17 +389,20 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         }
     }
 
-
-    private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {                                        
+    private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         JPanel panel = (JPanel) evt.getComponent();
+        int id = Integer.parseInt(((JLabel) panel.getComponent(0)).getText());
+        dealerId = id;
         setAllWhite((JPanel) panel.getParent());
         setBlack(panel);
-    } 
+    }
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         // TODO add your handling code here:
-        new ConfirmationWindow(this).showWindow();
+        Dealer dealer = dealerController.getDealerById(dealerId);
+        contract.setDealer(dealer);
+        new ConfirmationWindow(this, contract).showWindow();
         this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 

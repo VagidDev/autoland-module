@@ -53,28 +53,6 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dealrsItemMouseClicked"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="pricingItem">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pricing"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Yu Gothic UI" size="18" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pricingItemMouseClicked"/>
-          </Events>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="contactsItem">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Contacts"/>
-            <Property name="autoscrolls" type="boolean" value="true"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Yu Gothic UI" size="18" style="0"/>
-            </Property>
-          </Properties>
-        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -122,27 +100,26 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="mainPanel1" min="-2" pref="499" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="elemOfList" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="elemOfList1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="mainPanel1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                           <Component id="elemPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
+                          <Component id="confirmButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="confirmButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
+                  <EmptySpace pref="31" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,14 +130,14 @@
                   <Component id="mainPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="elemOfList1" max="32767" attributes="0"/>
-                      <Component id="elemOfList" max="32767" attributes="0"/>
+                      <Component id="elemOfList1" pref="163" max="32767" attributes="0"/>
+                      <Component id="elemOfList" pref="163" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="elemPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="confirmButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -175,6 +152,12 @@
                 </LineBorder>
               </Border>
             </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[240, 153]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[240, 153]"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="elemOfListMouseClicked"/>
@@ -183,22 +166,23 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="addressLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="discLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                               <Component id="dealerLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="89" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="discLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="addressLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="nameLabel" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="96" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -274,7 +258,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="compName" alignment="0" max="32767" attributes="0"/>
-                  <Component id="compName1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="compPrice" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="listScrollPane" min="-2" pref="183" max="-2" attributes="0"/>
@@ -288,10 +272,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="compName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="compName1" min="-2" max="-2" attributes="0"/>
+                      <Component id="compPrice" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="listScrollPane" min="-2" pref="130" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -306,7 +290,7 @@
                 <Property name="text" type="java.lang.String" value="Title"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="compName1">
+            <Component class="javax.swing.JLabel" name="compPrice">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="20" style="1"/>
@@ -369,35 +353,8 @@
             </Property>
           </Properties>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="154" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="welcomeLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="welcomeSubLable" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="229" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="86" max="32767" attributes="0"/>
-                      <Component id="welcomeLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="welcomeSubLable" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+            <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="welcomeLabel">
@@ -409,6 +366,11 @@
                 <Property name="text" type="java.lang.String" value="Automobile"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="4" y="86" width="490" height="-1"/>
+                </Constraint>
+              </Constraints>
             </Component>
             <Component class="javax.swing.JLabel" name="welcomeSubLable">
               <Properties>
@@ -418,6 +380,23 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Mark"/>
               </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="2" y="152" width="490" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JLabel" name="imageLabel">
+              <Properties>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[231, 500]"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="0" width="500" height="231"/>
+                </Constraint>
+              </Constraints>
             </Component>
           </SubComponents>
         </Container>
@@ -430,6 +409,12 @@
                 </LineBorder>
               </Border>
             </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[240, 153]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[240, 153]"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="elemOfList1MouseClicked"/>
@@ -438,22 +423,23 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nameLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="addressLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="discLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                               <Component id="userLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="userSurnameLabel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="userNameLabel" max="32767" attributes="0"/>
+                                  <Component id="userNumberLabel" alignment="1" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -461,20 +447,20 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nameLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="userNameLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="addressLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="userSurnameLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="discLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="userNumberLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="userLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="nameLabel1">
+            <Component class="javax.swing.JLabel" name="userNameLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="24" style="1"/>
@@ -482,7 +468,7 @@
                 <Property name="text" type="java.lang.String" value="Name"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="addressLabel1">
+            <Component class="javax.swing.JLabel" name="userSurnameLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="14" style="1"/>
@@ -490,7 +476,7 @@
                 <Property name="text" type="java.lang.String" value="Address"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="discLabel1">
+            <Component class="javax.swing.JLabel" name="userNumberLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI" size="14" style="0"/>

@@ -4,7 +4,13 @@
  */
 package com.college.view;
 
+import com.college.model.*;
 import com.college.view.interfaces.Showable;
+import com.college.view.utilites.ImageUploader;
+import java.awt.Point;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
@@ -12,6 +18,7 @@ import com.college.view.interfaces.Showable;
  */
 public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
     private Showable lastWindow;
+    private Contract contract;
 
     /**
      * Creates new form ConfirmationWindow
@@ -22,12 +29,50 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         this.setLocationRelativeTo(null);
     }
     
-    public ConfirmationWindow(Showable lastWindow) {
+    public ConfirmationWindow(Showable lastWindow, Contract contract) {
         initComponents();
         this.lastWindow = lastWindow;
+        this.contract = contract;
         this.setLocationRelativeTo(null);
+        customInitComponents();
     }
-
+    
+    private void customInitComponents() {
+        Automobile auto = contract.getAutomobile();
+        
+        welcomeLabel.setText(auto.getMark());
+        welcomeSubLable.setText(auto.getModel());
+        
+        Icon icon = ImageUploader.uploadImage(imageLabel.getWidth(), imageLabel.getHeight(), auto.getImagePath(), ImageUploader.WIDTH);
+        imageLabel.setIcon(icon);
+        
+        Dealer dealer = contract.getDealer();
+        
+        nameLabel.setText(dealer.getName());
+        addressLabel.setText(dealer.getAddress());
+        discLabel.setText(dealer.getTelephone());
+        
+        User user = contract.getUser();
+        
+        userNameLabel.setText(user.getName());
+        userSurnameLabel.setText(user.getSurname());
+        userNumberLabel.setText(user.getTelephone());
+        
+        Equipment equipment = contract.getEquipment();
+        
+        compName.setText(equipment.getName());
+        compPrice.setText(String.valueOf(equipment.getPrice()));
+        
+        //list
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = equipment.getShortEquipment();
+            @Override
+            public int getSize() { return strings.length; }
+            @Override
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,28 +90,29 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         dealerLabel = new javax.swing.JLabel();
         elemPanel = new javax.swing.JPanel();
         compName = new javax.swing.JLabel();
-        compName1 = new javax.swing.JLabel();
+        compPrice = new javax.swing.JLabel();
         listScrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
         mainPanel1 = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
         welcomeSubLable = new javax.swing.JLabel();
+        imageLabel = new javax.swing.JLabel();
         elemOfList1 = new javax.swing.JPanel();
-        nameLabel1 = new javax.swing.JLabel();
-        addressLabel1 = new javax.swing.JLabel();
-        discLabel1 = new javax.swing.JLabel();
+        userNameLabel = new javax.swing.JLabel();
+        userSurnameLabel = new javax.swing.JLabel();
+        userNumberLabel = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         confirmButton = new javax.swing.JToggleButton();
         menuBar = new javax.swing.JMenuBar();
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
         dealrsItem = new javax.swing.JMenu();
-        pricingItem = new javax.swing.JMenu();
-        contactsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         elemOfList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        elemOfList.setMaximumSize(new java.awt.Dimension(240, 153));
+        elemOfList.setPreferredSize(new java.awt.Dimension(240, 153));
         elemOfList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 elemOfListMouseClicked(evt);
@@ -90,18 +136,19 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         elemOfList.setLayout(elemOfListLayout);
         elemOfListLayout.setHorizontalGroup(
             elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfListLayout.createSequentialGroup()
-                .addGroup(elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(elemOfListLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, elemOfListLayout.createSequentialGroup()
+                .addGroup(elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, elemOfListLayout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(dealerLabel)
+                        .addGap(0, 89, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, elemOfListLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameLabel)
-                            .addComponent(addressLabel)
-                            .addComponent(discLabel)))
-                    .addGroup(elemOfListLayout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(dealerLabel)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                            .addComponent(discLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addressLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         elemOfListLayout.setVerticalGroup(
             elemOfListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +171,9 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         compName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         compName.setText("Title");
 
-        compName1.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
-        compName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        compName1.setText("1500$");
+        compPrice.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
+        compPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        compPrice.setText("1500$");
 
         listScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
@@ -145,7 +192,7 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         elemPanelLayout.setHorizontalGroup(
             elemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(compName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(compName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(compPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(elemPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(listScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,63 +204,47 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
                 .addContainerGap()
                 .addComponent(compName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(compName1)
+                .addComponent(compPrice)
                 .addGap(18, 18, 18)
                 .addComponent(listScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         mainPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        mainPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         welcomeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Automobile");
         welcomeLabel.setToolTipText("");
+        mainPanel1.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 86, 490, -1));
 
         welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         welcomeSubLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeSubLable.setText("Mark");
+        mainPanel1.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 152, 490, -1));
 
-        javax.swing.GroupLayout mainPanel1Layout = new javax.swing.GroupLayout(mainPanel1);
-        mainPanel1.setLayout(mainPanel1Layout);
-        mainPanel1Layout.setHorizontalGroup(
-            mainPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanel1Layout.createSequentialGroup()
-                .addContainerGap(154, Short.MAX_VALUE)
-                .addGroup(mainPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanel1Layout.createSequentialGroup()
-                        .addComponent(welcomeLabel)
-                        .addGap(152, 152, 152))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanel1Layout.createSequentialGroup()
-                        .addComponent(welcomeSubLable)
-                        .addGap(229, 229, 229))))
-        );
-        mainPanel1Layout.setVerticalGroup(
-            mainPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanel1Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(welcomeLabel)
-                .addGap(18, 18, 18)
-                .addComponent(welcomeSubLable)
-                .addGap(54, 54, 54))
-        );
+        imageLabel.setMaximumSize(new java.awt.Dimension(231, 500));
+        mainPanel1.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 231));
 
         elemOfList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        elemOfList1.setMaximumSize(new java.awt.Dimension(240, 153));
+        elemOfList1.setPreferredSize(new java.awt.Dimension(240, 153));
         elemOfList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 elemOfList1MouseClicked(evt);
             }
         });
 
-        nameLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
-        nameLabel1.setText("Name");
+        userNameLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        userNameLabel.setText("Name");
 
-        addressLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        addressLabel1.setText("Address");
+        userSurnameLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        userSurnameLabel.setText("Address");
 
-        discLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        discLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        discLabel1.setText("Description");
+        userNumberLabel.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        userNumberLabel.setForeground(new java.awt.Color(153, 153, 153));
+        userNumberLabel.setText("Description");
 
         userLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         userLabel.setText("User");
@@ -222,31 +253,32 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         elemOfList1.setLayout(elemOfList1Layout);
         elemOfList1Layout.setHorizontalGroup(
             elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemOfList1Layout.createSequentialGroup()
-                .addGroup(elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(elemOfList1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, elemOfList1Layout.createSequentialGroup()
+                .addGroup(elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, elemOfList1Layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(userLabel)
+                        .addGap(0, 88, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, elemOfList1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameLabel1)
-                            .addComponent(addressLabel1)
-                            .addComponent(discLabel1)))
-                    .addGroup(elemOfList1Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(userLabel)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                            .addComponent(userSurnameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(userNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(userNumberLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         elemOfList1Layout.setVerticalGroup(
             elemOfList1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(elemOfList1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nameLabel1)
+                .addComponent(userNameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addressLabel1)
+                .addComponent(userSurnameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(discLabel1)
+                .addComponent(userNumberLabel)
                 .addGap(18, 18, 18)
                 .addComponent(userLabel)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         confirmButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
@@ -259,21 +291,20 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                        .addGap(20, 20, 20)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mainPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addComponent(elemOfList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(elemOfList1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(mainPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(elemOfList1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(elemPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(confirmButton)
-                .addGap(232, 232, 232))
+                        .addGap(159, 159, 159)
+                        .addComponent(elemPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(confirmButton)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,13 +313,13 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
                 .addComponent(mainPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(elemOfList1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(elemOfList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(elemOfList1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(elemOfList, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(elemPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(confirmButton)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         menuBar.setBorder(new javax.swing.border.MatteBorder(null));
@@ -325,22 +356,6 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         });
         menuBar.add(dealrsItem);
 
-        pricingItem.setText("Pricing");
-        pricingItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        pricingItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pricingItemMouseClicked(evt);
-            }
-        });
-        menuBar.add(pricingItem);
-
-        contactsItem.setText("Contacts");
-        contactsItem.setAutoscrolls(true);
-        contactsItem.setBorderPainted(false);
-        contactsItem.setEnabled(false);
-        contactsItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        menuBar.add(contactsItem);
-
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -376,12 +391,6 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         new DealersWindow().showWindow();
         this.dispose();
     }//GEN-LAST:event_dealrsItemMouseClicked
-
-    private void pricingItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pricingItemMouseClicked
-        // TODO add your handling code here:
-        new BuyingWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_pricingItemMouseClicked
 
     private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elemOfListMouseClicked
         // TODO add your handling code here:
@@ -439,29 +448,28 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;
-    private javax.swing.JLabel addressLabel1;
     private javax.swing.JMenu automobilesItem;
     private javax.swing.JLabel compName;
-    private javax.swing.JLabel compName1;
+    private javax.swing.JLabel compPrice;
     private javax.swing.JToggleButton confirmButton;
-    private javax.swing.JMenu contactsItem;
     private javax.swing.JLabel dealerLabel;
     private javax.swing.JMenu dealrsItem;
     private javax.swing.JLabel discLabel;
-    private javax.swing.JLabel discLabel1;
     private javax.swing.JPanel elemOfList;
     private javax.swing.JPanel elemOfList1;
     private javax.swing.JPanel elemPanel;
     private javax.swing.JMenu hometsItem;
+    private javax.swing.JLabel imageLabel;
     private javax.swing.JList<String> list;
     private javax.swing.JScrollPane listScrollPane;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel mainPanel1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JLabel nameLabel1;
-    private javax.swing.JMenu pricingItem;
     private javax.swing.JLabel userLabel;
+    private javax.swing.JLabel userNameLabel;
+    private javax.swing.JLabel userNumberLabel;
+    private javax.swing.JLabel userSurnameLabel;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeSubLable;
     // End of variables declaration//GEN-END:variables

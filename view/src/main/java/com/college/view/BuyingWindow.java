@@ -5,8 +5,11 @@
 package com.college.view;
 
 import com.college.controller.AutomobileController;
+import com.college.controller.manager.ControllerManager;
 import com.college.model.Automobile;
+import com.college.model.Contract;
 import com.college.model.Equipment;
+import com.college.model.User;
 import com.college.view.interfaces.Showable;
 import com.college.view.utilites.ImageUploader;
 import java.awt.Color;
@@ -42,7 +45,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
 
     public BuyingWindow(Showable lastWindow, int autoId) {
         initComponents();
-        automobileController = new AutomobileController();
+        automobileController = ControllerManager.getAutomobileController();
         this.lastWindow = lastWindow;
         this.autoId = autoId;
         this.setLocationRelativeTo(null);
@@ -350,7 +353,16 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         // TODO add your handling code here:
-        new DealersWindow().showWindow();
+        User user = ControllerManager.getUserController().getAuthentificatedUser();
+        Automobile auto = automobileController.getAutoById(autoId);
+        Equipment equip = automobileController.getEquipmentById(autoId, equipmentId);
+        
+        Contract contract = new Contract();
+        contract.setUser(user);
+        contract.setAutomobile(auto);
+        contract.setEquipment(equip);
+        
+        new DealersWindow(this, contract).showWindow();
         this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
