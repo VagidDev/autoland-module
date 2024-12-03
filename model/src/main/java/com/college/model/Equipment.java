@@ -177,6 +177,23 @@ public class Equipment {
     public void setPrice(double price) {
         this.price = price;
     }
+    
+    public String[] getShortEquipment() {
+        return new String[] {
+                "Engine: " + this.engineName,
+                "Engine type: " + this.engineType,
+                "Engine volume: " + this.engineVolume,
+                "Horsepower: " + this.horsepower,
+                "Suspension: " + this.suspensiveType,
+                "Drive type: " + this.driveType,
+                "Gearbox: " + this.gearboxType,
+                "Speed count: " + this.speedCount,
+                "Fuel: " + this.fuelType,
+                "Interior: " + this.interior,
+                "Body kit: " + this.bodyKit,
+                "Weight: " + this.weigth,
+        };
+    }
 
     @Override
     public String toString() {
