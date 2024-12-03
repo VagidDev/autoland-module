@@ -5,6 +5,7 @@
 package com.college.view;
 
 import com.college.controller.AutomobileController;
+import com.college.controller.manager.ControllerManager;
 import com.college.model.Automobile;
 import com.college.view.interfaces.Showable;
 import com.college.view.utilites.ImageUploader;
@@ -48,7 +49,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     
     private void customInitComponents() {
         this.setLocationRelativeTo(null);
-        automobileController = new AutomobileController();
+        automobileController = ControllerManager.getAutomobileController();
         List<Automobile> automobiles = automobileController.getAllAutomobiles();
         for (Automobile auto : automobiles) {
             addDynamicAutoPane(auto);

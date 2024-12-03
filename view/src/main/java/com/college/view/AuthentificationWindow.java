@@ -5,6 +5,7 @@
 package com.college.view;
 
 import com.college.controller.UserController;
+import com.college.controller.manager.ControllerManager;
 import com.college.view.interfaces.Showable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
     public AuthentificationWindow() {
         initComponents();
         this.setLocationRelativeTo(null);
-        userController = new UserController();
+        userController = ControllerManager.getUserController();
     }
 
     /**
