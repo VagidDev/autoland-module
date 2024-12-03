@@ -4,16 +4,21 @@
  */
 package com.college.view;
 
+import com.college.controller.AutomobileController;
+import com.college.model.Automobile;
+import com.college.model.Equipment;
 import com.college.view.interfaces.Showable;
+import com.college.view.utilites.ImageUploader;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
@@ -23,7 +28,9 @@ import javax.swing.border.LineBorder;
 public class BuyingWindow extends javax.swing.JFrame implements Showable {
 
     private final Showable lastWindow;
-
+    private AutomobileController automobileController;
+    private int autoId;
+    private int equipmentId;
     /**
      * Creates new form BuyingForm
      */
@@ -33,17 +40,102 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         this.setLocationRelativeTo(null);
     }
 
-    /**
-     * Creates new form BuyingForm
-     *
-     * @param lastWindow
-     */
-    public BuyingWindow(Showable lastWindow) {
+    public BuyingWindow(Showable lastWindow, int autoId) {
         initComponents();
+        automobileController = new AutomobileController();
         this.lastWindow = lastWindow;
+        this.autoId = autoId;
         this.setLocationRelativeTo(null);
+        loadImage();
     }
+    
+    private void loadImage() {
+        Automobile auto = automobileController.getAutoById(autoId);
+       
+        ImageIcon icon = ImageUploader.uploadImage(imageLabel.getWidth(), imageLabel.getHeight(), auto.getImagePath(), ImageUploader.WIDTH);
+        imageLabel.setIcon(icon);
+        
+        List<Equipment> equipments = automobileController.getEquipmentsByAutomobile(auto);
+        for (Equipment e : equipments) {
+            addPlate(e);        
+        }
+        
+    }
+    
+    private void addPlate(Equipment equipment) {
+        JPanel newPanel = new JPanel();
+        
+        JLabel idLabel = new JLabel();
+        idLabel.setText(String.valueOf(equipment.getId()));
+        newPanel.add(idLabel);
+        
+        newPanel.setBackground(new java.awt.Color(255, 255, 255));
+        newPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        newPanel.setMinimumSize(new java.awt.Dimension(251, 220));
+        newPanel.setPreferredSize(new java.awt.Dimension(215, 253));
+        newPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        JLabel newCompName = new JLabel(); 
+        
+        newCompName.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        newCompName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        newCompName.setText("Title");
+        newPanel.add(newCompName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 7, 230, -1));
+
+        JLabel newPrice = new JLabel();
+        
+        newPrice.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
+        newPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        newPrice.setText("1500$");
+        newPanel.add(newPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 38, 230, -1));
+
+        JScrollPane newListScrollPane = new JScrollPane();
+        
+        newListScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        JList newList = new JList();
+        
+        newList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        newList.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        newList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = equipment.getShortEquipment();
+            @Override
+            public int getSize() { return strings.length; }
+            @Override
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        newList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        newListScrollPane.setViewportView(newList);
+
+        newPanel.add(newListScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 83, 183, 130));
+
+        JButton newChooseButton = new JButton();
+        
+        newChooseButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        newChooseButton.setText("Select");
+        newChooseButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+            chooseButtonClicked(evt);
+        });
+        newPanel.add(newChooseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        
+        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = getGridX();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 14;
+        gridBagConstraints.ipady = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 15, 8, 15);
+        
+        newCompName.setText(equipment.getName());
+        newPrice.setText(equipment.getPrice() + " $");
+        
+        compPanel.add(newPanel, gridBagConstraints);
+    }
+    
+    private int getGridX() {
+       return compPanel.getComponents().length;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,32 +148,15 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         mainPanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
         welcomeSubLable = new javax.swing.JLabel();
+        imageLabel = new javax.swing.JLabel();
         complLabel = new javax.swing.JLabel();
-        compPanel = new javax.swing.JPanel();
-        elemPanel = new javax.swing.JPanel();
-        compName = new javax.swing.JLabel();
-        compName1 = new javax.swing.JLabel();
-        listScrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList<>();
-        chooseButton = new javax.swing.JButton();
-        elemPanel1 = new javax.swing.JPanel();
-        compName2 = new javax.swing.JLabel();
-        compName3 = new javax.swing.JLabel();
-        listScrollPane1 = new javax.swing.JScrollPane();
-        list1 = new javax.swing.JList<>();
-        chooseButton1 = new javax.swing.JButton();
-        elemPanel2 = new javax.swing.JPanel();
-        compName4 = new javax.swing.JLabel();
-        compName5 = new javax.swing.JLabel();
-        chooseButton2 = new javax.swing.JButton();
-        listScrollPane2 = new javax.swing.JScrollPane();
-        list2 = new javax.swing.JList<>();
         confirmButton = new javax.swing.JToggleButton();
+        equipScrollPane = new javax.swing.JScrollPane();
+        compPanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
         dealrsItem = new javax.swing.JMenu();
-        pricingItem = new javax.swing.JMenu();
         contactsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -92,254 +167,24 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         });
 
         mainPanel.setBackground(new java.awt.Color(204, 204, 204));
+        mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         welcomeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Automobile");
         welcomeLabel.setToolTipText("");
+        mainPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
 
         welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         welcomeSubLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeSubLable.setText("Mark");
-
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(welcomeLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(welcomeSubLable)
-                .addGap(378, 378, 378))
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(welcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(welcomeSubLable)
-                .addContainerGap(120, Short.MAX_VALUE))
-        );
+        mainPanel.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 154, -1, -1));
+        mainPanel.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 299));
 
         complLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
         complLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         complLabel.setText("Equipment");
         complLabel.setToolTipText("");
-
-        elemPanel.setBackground(new java.awt.Color(255, 255, 255));
-        elemPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-
-        compName.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        compName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        compName.setText("Title");
-
-        compName1.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
-        compName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        compName1.setText("1500$");
-
-        listScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-
-        list.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        list.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-        list.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listScrollPane.setViewportView(list);
-
-        chooseButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        chooseButton.setText("Select");
-        chooseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout elemPanelLayout = new javax.swing.GroupLayout(elemPanel);
-        elemPanel.setLayout(elemPanelLayout);
-        elemPanelLayout.setHorizontalGroup(
-            elemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(compName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(compName1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-            .addGroup(elemPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(listScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, elemPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(chooseButton)
-                .addGap(74, 74, 74))
-        );
-        elemPanelLayout.setVerticalGroup(
-            elemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(compName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(compName1)
-                .addGap(18, 18, 18)
-                .addComponent(listScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chooseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        elemPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        elemPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-
-        compName2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        compName2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        compName2.setText("Title");
-
-        compName3.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
-        compName3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        compName3.setText("1500$");
-
-        listScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-
-        list1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        list1.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-        list1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        list1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                list1MouseClicked(evt);
-            }
-        });
-        listScrollPane1.setViewportView(list1);
-
-        chooseButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        chooseButton1.setText("Select");
-        chooseButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout elemPanel1Layout = new javax.swing.GroupLayout(elemPanel1);
-        elemPanel1.setLayout(elemPanel1Layout);
-        elemPanel1Layout.setHorizontalGroup(
-            elemPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(compName2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(compName3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-            .addGroup(elemPanel1Layout.createSequentialGroup()
-                .addGroup(elemPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(elemPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(listScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(elemPanel1Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(chooseButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        elemPanel1Layout.setVerticalGroup(
-            elemPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(compName2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(compName3)
-                .addGap(18, 18, 18)
-                .addComponent(listScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chooseButton1)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
-        elemPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        elemPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-
-        compName4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        compName4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        compName4.setText("Title");
-
-        compName5.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
-        compName5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        compName5.setText("1500$");
-
-        chooseButton2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        chooseButton2.setText("Select");
-        chooseButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseButtonActionPerformed(evt);
-            }
-        });
-
-        listScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-
-        list2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        list2.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
-        list2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        list2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listScrollPane2.setViewportView(list2);
-
-        javax.swing.GroupLayout elemPanel2Layout = new javax.swing.GroupLayout(elemPanel2);
-        elemPanel2.setLayout(elemPanel2Layout);
-        elemPanel2Layout.setHorizontalGroup(
-            elemPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(compName4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(compName5, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-            .addGroup(elemPanel2Layout.createSequentialGroup()
-                .addGroup(elemPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(elemPanel2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(listScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(elemPanel2Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(chooseButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        elemPanel2Layout.setVerticalGroup(
-            elemPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(elemPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(compName4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(compName5)
-                .addGap(18, 18, 18)
-                .addComponent(listScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(chooseButton2)
-                .addGap(14, 14, 14))
-        );
-
-        javax.swing.GroupLayout compPanelLayout = new javax.swing.GroupLayout(compPanel);
-        compPanel.setLayout(compPanelLayout);
-        compPanelLayout.setHorizontalGroup(
-            compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(compPanelLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(elemPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(elemPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(elemPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-        compPanelLayout.setVerticalGroup(
-            compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(compPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(compPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(elemPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(elemPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(elemPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, Short.MAX_VALUE))
-                .addContainerGap(8, Short.MAX_VALUE))
-        );
 
         confirmButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         confirmButton.setText("Next");
@@ -348,6 +193,11 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
                 confirmButtonActionPerformed(evt);
             }
         });
+
+        equipScrollPane.setBorder(null);
+
+        compPanel.setLayout(new java.awt.GridBagLayout());
+        equipScrollPane.setViewportView(compPanel);
 
         menuBar.setBorder(new javax.swing.border.MatteBorder(null));
         menuBar.setBorderPainted(false);
@@ -383,16 +233,6 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         });
         menuBar.add(dealrsItem);
 
-        pricingItem.setText("Pricing");
-        pricingItem.setEnabled(false);
-        pricingItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        pricingItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pricingItemMouseClicked(evt);
-            }
-        });
-        menuBar.add(pricingItem);
-
         contactsItem.setText("Contacts");
         contactsItem.setAutoscrolls(true);
         contactsItem.setBorderPainted(false);
@@ -406,16 +246,17 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(compPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+            .addComponent(equipScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(complLabel)
-                .addGap(308, 308, 308))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(360, 360, 360)
-                .addComponent(confirmButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(complLabel)
+                        .addGap(308, 308, 308))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(confirmButton)
+                        .addGap(360, 360, 360))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,10 +265,10 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(complLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(compPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(equipScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(confirmButton)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -458,12 +299,6 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         new DealersWindow().showWindow();
         this.dispose();
     }//GEN-LAST:event_dealrsItemMouseClicked
-
-    private void pricingItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pricingItemMouseClicked
-        // TODO add your handling code here:
-        new BuyingWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_pricingItemMouseClicked
 
     private void setBlack(JPanel comp) {
         if (comp instanceof JPanel) {
@@ -513,33 +348,23 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         }
     }
 
-    private void chooseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseButtonActionPerformed
-        // TODO add your handling code here:
-        Component comp = ((JButton) evt.getSource()).getParent();
-        setAllWhite((JPanel) comp.getParent());
-        setBlack((JPanel) comp);
-    }//GEN-LAST:event_chooseButtonActionPerformed
-
-    private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
-        // TODO add your handling code here:
-        Component cmp = evt.getComponent();
-        do {
-            System.out.println(cmp.getClass());
-            if (cmp instanceof Component) {
-                cmp = cmp.getParent();
-            } else {
-                break;
-            }
-        } while (cmp != null);
-
-    }//GEN-LAST:event_list1MouseClicked
-
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         // TODO add your handling code here:
         new DealersWindow().showWindow();
         this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
+    private void chooseButtonClicked(java.awt.event.ActionEvent evt) {
+        Component comp = ((JButton) evt.getSource()).getParent();
+        if (comp instanceof JPanel panel) {
+            int id = Integer.parseInt(((JLabel) panel.getComponent(0)).getText());
+            this.equipmentId = id;
+            setAllWhite((JPanel) panel.getParent());
+            setBlack(panel);
+        }
+        
+    }
+    
     @Override
     public void showWindow() {
         /* Create and display the form */
@@ -548,33 +373,16 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu automobilesItem;
-    private javax.swing.JButton chooseButton;
-    private javax.swing.JButton chooseButton1;
-    private javax.swing.JButton chooseButton2;
-    private javax.swing.JLabel compName;
-    private javax.swing.JLabel compName1;
-    private javax.swing.JLabel compName2;
-    private javax.swing.JLabel compName3;
-    private javax.swing.JLabel compName4;
-    private javax.swing.JLabel compName5;
     private javax.swing.JPanel compPanel;
     private javax.swing.JLabel complLabel;
     private javax.swing.JToggleButton confirmButton;
     private javax.swing.JMenu contactsItem;
     private javax.swing.JMenu dealrsItem;
-    private javax.swing.JPanel elemPanel;
-    private javax.swing.JPanel elemPanel1;
-    private javax.swing.JPanel elemPanel2;
+    private javax.swing.JScrollPane equipScrollPane;
     private javax.swing.JMenu hometsItem;
-    private javax.swing.JList<String> list;
-    private javax.swing.JList<String> list1;
-    private javax.swing.JList<String> list2;
-    private javax.swing.JScrollPane listScrollPane;
-    private javax.swing.JScrollPane listScrollPane1;
-    private javax.swing.JScrollPane listScrollPane2;
+    private javax.swing.JLabel imageLabel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu pricingItem;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeSubLable;
     // End of variables declaration//GEN-END:variables
