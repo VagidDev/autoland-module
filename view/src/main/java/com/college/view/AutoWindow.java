@@ -33,9 +33,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     public AutoWindow() {
         initComponents();
         this.lastWindow = null;
-        this.setLocationRelativeTo(null);
-        automobileController = new AutomobileController();
-        loadAutomobiles();
+        customInitComponents();
     }
     
     /**
@@ -45,9 +43,16 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     public AutoWindow(Showable lastWindow) {
         initComponents();
         this.lastWindow = lastWindow;
-        this.setLocationRelativeTo(null); 
+        customInitComponents();
+    }
+    
+    private void customInitComponents() {
+        this.setLocationRelativeTo(null);
         automobileController = new AutomobileController();
-        loadAutomobiles();
+        List<Automobile> automobiles = automobileController.getAllAutomobiles();
+        for (Automobile auto : automobiles) {
+            addDynamicAutoPane(auto);
+        }
     }
     
     private void addDynamicAutoPane(Automobile automobile) {
@@ -132,14 +137,7 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         Component[] components = autoViewPanel.getComponents();
         return (int) Math.floor(components.length / 3);
     }
-    
-    
-    private void loadAutomobiles() {
-        List<Automobile> automobiles = automobileController.getAllAutomobiles();
-        for (Automobile auto : automobiles) {
-            addDynamicAutoPane(auto);
-        }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,7 +146,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         filterPanel = new javax.swing.JPanel();
         bodyLabel = new javax.swing.JLabel();
@@ -183,7 +180,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
         dealrsItem = new javax.swing.JMenu();
-        pricingItem = new javax.swing.JMenu();
         contactsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -534,15 +530,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         });
         menuBar.add(dealrsItem);
 
-        pricingItem.setText("Pricing");
-        pricingItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        pricingItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pricingItemMouseClicked(evt);
-            }
-        });
-        menuBar.add(pricingItem);
-
         contactsItem.setText("Contacts");
         contactsItem.setAutoscrolls(true);
         contactsItem.setBorderPainted(false);
@@ -597,12 +584,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         this.dispose();
     }//GEN-LAST:event_dealrsItemMouseClicked
 
-    private void pricingItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pricingItemMouseClicked
-        // TODO add your handling code here:
-        new BuyingWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_pricingItemMouseClicked
-
     private void hometsItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hometsItemMouseClicked
         // TODO add your handling code here:
         new HomeWindow().showWindow();
@@ -626,7 +607,11 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     }//GEN-LAST:event_checkBoxMouseClicked
     
     private void autoPanelItemMouseClicked(java.awt.event.MouseEvent evt) {
-        new BuyingWindow().showWindow();
+        Component component = evt.getComponent();
+        if (component instanceof JPanel jpanel) {
+            int id = Integer.parseInt(((JLabel) jpanel.getComponent(0)).getText());
+            new BuyingWindow(this, id).showWindow();
+        }
         this.dispose();
     }
     
@@ -687,7 +672,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     private javax.swing.JPanel pricePanel;
     private javax.swing.JLabel priceRangeLabel;
     private javax.swing.JSlider priceSlider;
-    private javax.swing.JMenu pricingItem;
     private javax.swing.JToggleButton ratingButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JCheckBox sedanCheckBox;
