@@ -88,8 +88,6 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
         dealrsItem = new javax.swing.JMenu();
-        pricingItem = new javax.swing.JMenu();
-        contactsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Home");
@@ -149,11 +147,6 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
         hometsItem.setBorderPainted(false);
         hometsItem.setEnabled(false);
         hometsItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        hometsItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hometsItemMouseClicked(evt);
-            }
-        });
         menuBar.add(hometsItem);
 
         automobilesItem.setText("Automobiles");
@@ -173,22 +166,6 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
             }
         });
         menuBar.add(dealrsItem);
-
-        pricingItem.setText("Pricing");
-        pricingItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        pricingItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pricingItemMouseClicked(evt);
-            }
-        });
-        menuBar.add(pricingItem);
-
-        contactsItem.setText("Contacts");
-        contactsItem.setAutoscrolls(true);
-        contactsItem.setBorderPainted(false);
-        contactsItem.setEnabled(false);
-        contactsItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        menuBar.add(contactsItem);
 
         setJMenuBar(menuBar);
 
@@ -222,12 +199,6 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
         this.dispose();
     }//GEN-LAST:event_dealrsItemMouseClicked
 
-    private void pricingItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pricingItemMouseClicked
-        // TODO add your handling code here:
-        new BuyingWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_pricingItemMouseClicked
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         if (lastWindow != null)
@@ -235,12 +206,6 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
         else 
             System.exit(0);
     }//GEN-LAST:event_formWindowClosing
-
-    private void hometsItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hometsItemMouseClicked
-        // TODO add your handling code here:
-        new HomeWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_hometsItemMouseClicked
      
     @Override
     public void showWindow() {
@@ -253,13 +218,11 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
     private javax.swing.JPanel additPanel;
     private javax.swing.JMenu automobilesItem;
     private javax.swing.JLabel backgroundImage;
-    private javax.swing.JMenu contactsItem;
     private javax.swing.JMenu dealrsItem;
     private javax.swing.JMenu hometsItem;
     private javax.swing.JLabel leftImg;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu pricingItem;
     private javax.swing.JLabel rightImg;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeSubLable;

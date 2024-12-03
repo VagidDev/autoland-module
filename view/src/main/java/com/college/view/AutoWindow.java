@@ -181,7 +181,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
         dealrsItem = new javax.swing.JMenu();
-        contactsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Automobiles");
@@ -515,11 +514,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         automobilesItem.setText("Automobiles");
         automobilesItem.setEnabled(false);
         automobilesItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        automobilesItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                automobilesItemMouseClicked(evt);
-            }
-        });
         menuBar.add(automobilesItem);
 
         dealrsItem.setText("Dealers");
@@ -530,13 +524,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
             }
         });
         menuBar.add(dealrsItem);
-
-        contactsItem.setText("Contacts");
-        contactsItem.setAutoscrolls(true);
-        contactsItem.setBorderPainted(false);
-        contactsItem.setEnabled(false);
-        contactsItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        menuBar.add(contactsItem);
 
         setJMenuBar(menuBar);
 
@@ -572,12 +559,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         else 
             System.exit(0);
     }//GEN-LAST:event_formWindowClosing
-
-    private void automobilesItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_automobilesItemMouseClicked
-        // TODO add your handling code here:
-        new AutoWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_automobilesItemMouseClicked
 
     private void dealrsItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dealrsItemMouseClicked
         // TODO add your handling code here:
@@ -652,7 +633,6 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
     private javax.swing.JMenu automobilesItem;
     private javax.swing.JLabel bodyLabel;
     private javax.swing.JPanel bodyPanel;
-    private javax.swing.JMenu contactsItem;
     private javax.swing.JCheckBox coupeCheckBox;
     private javax.swing.JMenu dealrsItem;
     private javax.swing.JToggleButton descPrice;

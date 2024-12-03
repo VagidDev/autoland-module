@@ -159,9 +159,6 @@
               <Dimension value="[240, 153]"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="elemOfListMouseClicked"/>
-          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -416,9 +413,6 @@
               <Dimension value="[240, 153]"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="elemOfList1MouseClicked"/>
-          </Events>
 
           <Layout>
             <DimensionLayout dim="0">

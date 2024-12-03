@@ -7,10 +7,7 @@ package com.college.view;
 import com.college.model.*;
 import com.college.view.interfaces.Showable;
 import com.college.view.utilites.ImageUploader;
-import java.awt.Point;
 import javax.swing.Icon;
-import javax.swing.JLabel;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
@@ -113,11 +110,6 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         elemOfList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         elemOfList.setMaximumSize(new java.awt.Dimension(240, 153));
         elemOfList.setPreferredSize(new java.awt.Dimension(240, 153));
-        elemOfList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                elemOfListMouseClicked(evt);
-            }
-        });
 
         nameLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         nameLabel.setText("Name");
@@ -230,11 +222,6 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         elemOfList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         elemOfList1.setMaximumSize(new java.awt.Dimension(240, 153));
         elemOfList1.setPreferredSize(new java.awt.Dimension(240, 153));
-        elemOfList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                elemOfList1MouseClicked(evt);
-            }
-        });
 
         userNameLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         userNameLabel.setText("Name");
@@ -392,59 +379,11 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         this.dispose();
     }//GEN-LAST:event_dealrsItemMouseClicked
 
-    private void elemOfListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elemOfListMouseClicked
-        // TODO add your handling code here:
-//        if (evt.getComponent() instanceof JPanel) {
-//            JPanel clickedPanel = (JPanel) evt.getComponent();
-//            if (clickedPanel.getComponent(0) instanceof JLabel) {
-//                String message = "Clicked panel name of label = " + ((JLabel)clickedPanel.getComponent(0)).getText();
-//                JOptionPane.showMessageDialog(this, "You clicked the dealers button!\n" + message);
-//            }
-//        }
-    }//GEN-LAST:event_elemOfListMouseClicked
-
-    private void elemOfList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elemOfList1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_elemOfList1MouseClicked
-
     @Override
     public void showWindow() {
         this.setVisible(true);
     }
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ConfirmationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ConfirmationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ConfirmationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ConfirmationWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ConfirmationWindow().setVisible(true);
-//            }
-//        });
-//    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;

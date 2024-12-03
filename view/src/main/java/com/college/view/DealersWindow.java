@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -93,7 +94,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         idLabel.setText(String.valueOf(dealer.getId()));
         idLabel.setVisible(false);
         newPanel.add(idLabel);
-        
+
         // Копируем слушатель событий
         newPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -167,7 +168,6 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         mainPanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
@@ -183,8 +183,6 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
         dealrsItem = new javax.swing.JMenu();
-        pricingItem = new javax.swing.JMenu();
-        contactsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -292,28 +290,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         dealrsItem.setText("Dealers");
         dealrsItem.setEnabled(false);
         dealrsItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        dealrsItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dealrsItemMouseClicked(evt);
-            }
-        });
         menuBar.add(dealrsItem);
-
-        pricingItem.setText("Pricing");
-        pricingItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        pricingItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pricingItemMouseClicked(evt);
-            }
-        });
-        menuBar.add(pricingItem);
-
-        contactsItem.setText("Contacts");
-        contactsItem.setAutoscrolls(true);
-        contactsItem.setBorderPainted(false);
-        contactsItem.setEnabled(false);
-        contactsItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        menuBar.add(contactsItem);
 
         setJMenuBar(menuBar);
 
@@ -355,18 +332,6 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         this.dispose();
     }//GEN-LAST:event_automobilesItemMouseClicked
 
-    private void dealrsItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dealrsItemMouseClicked
-        // TODO add your handling code here:
-        new DealersWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_dealrsItemMouseClicked
-
-    private void pricingItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pricingItemMouseClicked
-        // TODO add your handling code here:
-        new BuyingWindow().showWindow();
-        this.dispose();
-    }//GEN-LAST:event_pricingItemMouseClicked
-
     private void setBlack(JPanel clickedPanel) {
         clickedPanel.setBackground(Color.black);
         for (Component cmp : clickedPanel.getComponents()) {
@@ -400,10 +365,14 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         // TODO add your handling code here:
-        Dealer dealer = dealerController.getDealerById(dealerId);
-        contract.setDealer(dealer);
-        new ConfirmationWindow(this, contract).showWindow();
-        this.dispose();
+        if (dealerId != 0) {
+            Dealer dealer = dealerController.getDealerById(dealerId);
+            contract.setDealer(dealer);
+            new ConfirmationWindow(this, contract).showWindow();
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Choose dealer by clicking on him!", "Choose error", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     @Override
@@ -416,7 +385,6 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     private javax.swing.JMenu automobilesItem;
     private javax.swing.JLabel backgroundImage;
     private javax.swing.JToggleButton confirmButton;
-    private javax.swing.JMenu contactsItem;
     private javax.swing.JScrollPane dealerScrollPane;
     private javax.swing.JLabel dealersLabel;
     private javax.swing.JPanel dealersPanel;
@@ -426,7 +394,6 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
     private javax.swing.JPanel listPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu pricingItem;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeSubLable;
     // End of variables declaration//GEN-END:variables

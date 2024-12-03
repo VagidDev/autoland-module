@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
@@ -34,6 +35,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
     private AutomobileController automobileController;
     private int autoId;
     private int equipmentId;
+
     /**
      * Creates new form BuyingForm
      */
@@ -51,61 +53,67 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         this.setLocationRelativeTo(null);
         loadImage();
     }
-    
+
     private void loadImage() {
         Automobile auto = automobileController.getAutoById(autoId);
-       
+
         ImageIcon icon = ImageUploader.uploadImage(imageLabel.getWidth(), imageLabel.getHeight(), auto.getImagePath(), ImageUploader.WIDTH);
         imageLabel.setIcon(icon);
-        
+
         List<Equipment> equipments = automobileController.getEquipmentsByAutomobile(auto);
         for (Equipment e : equipments) {
-            addPlate(e);        
+            addPlate(e);
         }
-        
+
     }
-    
+
     private void addPlate(Equipment equipment) {
         JPanel newPanel = new JPanel();
-        
+
         JLabel idLabel = new JLabel();
         idLabel.setText(String.valueOf(equipment.getId()));
         newPanel.add(idLabel);
-        
+
         newPanel.setBackground(new java.awt.Color(255, 255, 255));
         newPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         newPanel.setMinimumSize(new java.awt.Dimension(251, 220));
         newPanel.setPreferredSize(new java.awt.Dimension(215, 253));
         newPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        JLabel newCompName = new JLabel(); 
-        
+        JLabel newCompName = new JLabel();
+
         newCompName.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         newCompName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         newCompName.setText("Title");
         newPanel.add(newCompName, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 7, 230, -1));
 
         JLabel newPrice = new JLabel();
-        
+
         newPrice.setFont(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
         newPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         newPrice.setText("1500$");
         newPanel.add(newPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 38, 230, -1));
 
         JScrollPane newListScrollPane = new JScrollPane();
-        
+
         newListScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         JList newList = new JList();
-        
+
         newList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         newList.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
         newList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = equipment.getShortEquipment();
+
             @Override
-            public int getSize() { return strings.length; }
+            public int getSize() {
+                return strings.length;
+            }
+
             @Override
-            public String getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) {
+                return strings[i];
+            }
         });
         newList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         newListScrollPane.setViewportView(newList);
@@ -113,14 +121,14 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         newPanel.add(newListScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 83, 183, 130));
 
         JButton newChooseButton = new JButton();
-        
+
         newChooseButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         newChooseButton.setText("Select");
         newChooseButton.addActionListener((java.awt.event.ActionEvent evt) -> {
             chooseButtonClicked(evt);
         });
         newPanel.add(newChooseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
-        
+
         java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = getGridX();
         gridBagConstraints.gridy = 0;
@@ -128,17 +136,17 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 15, 8, 15);
-        
+
         newCompName.setText(equipment.getName());
         newPrice.setText(equipment.getPrice() + " $");
-        
+
         compPanel.add(newPanel, gridBagConstraints);
     }
-    
+
     private int getGridX() {
-       return compPanel.getComponents().length;
+        return compPanel.getComponents().length;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,7 +168,6 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         hometsItem = new javax.swing.JMenu();
         automobilesItem = new javax.swing.JMenu();
         dealrsItem = new javax.swing.JMenu();
-        contactsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -235,13 +242,6 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
             }
         });
         menuBar.add(dealrsItem);
-
-        contactsItem.setText("Contacts");
-        contactsItem.setAutoscrolls(true);
-        contactsItem.setBorderPainted(false);
-        contactsItem.setEnabled(false);
-        contactsItem.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        menuBar.add(contactsItem);
 
         setJMenuBar(menuBar);
 
@@ -321,7 +321,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
                             list.setBorder(new LineBorder(Color.BLACK, 1));
                         }
                     }
-                } 
+                }
             }
         }
     }
@@ -345,7 +345,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
                                 list.setBorder(new LineBorder(Color.WHITE, 1));
                             }
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -353,17 +353,21 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         // TODO add your handling code here:
-        User user = ControllerManager.getUserController().getAuthentificatedUser();
-        Automobile auto = automobileController.getAutoById(autoId);
-        Equipment equip = automobileController.getEquipmentById(autoId, equipmentId);
-        
-        Contract contract = new Contract();
-        contract.setUser(user);
-        contract.setAutomobile(auto);
-        contract.setEquipment(equip);
-        
-        new DealersWindow(this, contract).showWindow();
-        this.dispose();
+        if (equipmentId != 0) {
+            User user = ControllerManager.getUserController().getAuthentificatedUser();
+            Automobile auto = automobileController.getAutoById(autoId);
+            Equipment equip = automobileController.getEquipmentById(autoId, equipmentId);
+
+            Contract contract = new Contract();
+            contract.setUser(user);
+            contract.setAutomobile(auto);
+            contract.setEquipment(equip);
+
+            new DealersWindow(this, contract).showWindow();
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Choose equipment for auto!", "Choose option", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void chooseButtonClicked(java.awt.event.ActionEvent evt) {
@@ -374,9 +378,9 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
             setAllWhite((JPanel) panel.getParent());
             setBlack(panel);
         }
-        
+
     }
-    
+
     @Override
     public void showWindow() {
         /* Create and display the form */
@@ -388,7 +392,6 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
     private javax.swing.JPanel compPanel;
     private javax.swing.JLabel complLabel;
     private javax.swing.JToggleButton confirmButton;
-    private javax.swing.JMenu contactsItem;
     private javax.swing.JMenu dealrsItem;
     private javax.swing.JScrollPane equipScrollPane;
     private javax.swing.JMenu hometsItem;

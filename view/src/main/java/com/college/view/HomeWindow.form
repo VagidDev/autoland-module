@@ -28,9 +28,6 @@
               <Font name="Yu Gothic UI" size="18" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="hometsItemMouseClicked"/>
-          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="automobilesItem">
           <Properties>
@@ -53,28 +50,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dealrsItemMouseClicked"/>
           </Events>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="pricingItem">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pricing"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Yu Gothic UI" size="18" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pricingItemMouseClicked"/>
-          </Events>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="contactsItem">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Contacts"/>
-            <Property name="autoscrolls" type="boolean" value="true"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Yu Gothic UI" size="18" style="0"/>
-            </Property>
-          </Properties>
         </Menu>
       </SubComponents>
     </Menu>
