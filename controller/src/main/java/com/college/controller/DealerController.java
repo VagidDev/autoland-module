@@ -24,5 +24,8 @@ public class DealerController {
         return dealerRepository.getAll();
     }
     
+    public Dealer getDealerById(int id) {
+        return dealerRepository.getById(id);
+    }
     
 }
