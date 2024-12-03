@@ -206,15 +206,17 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         mainPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         welcomeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Automobile");
         welcomeLabel.setToolTipText("");
-        mainPanel1.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 86, 490, -1));
+        mainPanel1.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 500, -1));
 
-        welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        welcomeSubLable.setForeground(new java.awt.Color(255, 255, 255));
         welcomeSubLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeSubLable.setText("Mark");
-        mainPanel1.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 152, 490, -1));
+        mainPanel1.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 500, -1));
 
         imageLabel.setMaximumSize(new java.awt.Dimension(231, 500));
         mainPanel1.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 231));

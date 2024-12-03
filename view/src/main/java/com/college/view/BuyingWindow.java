@@ -57,6 +57,9 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
     private void loadImage() {
         Automobile auto = automobileController.getAutoById(autoId);
 
+        welcomeLabel.setText(auto.getMark());
+        welcomeSubLable.setText(auto.getModel());
+
         ImageIcon icon = ImageUploader.uploadImage(imageLabel.getWidth(), imageLabel.getHeight(), auto.getImagePath(), ImageUploader.WIDTH);
         imageLabel.setIcon(icon);
 
@@ -179,16 +182,20 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         mainPanel.setBackground(new java.awt.Color(204, 204, 204));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        welcomeLabel.setBackground(new java.awt.Color(102, 102, 102));
         welcomeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Automobile");
         welcomeLabel.setToolTipText("");
-        mainPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
+        mainPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 790, -1));
 
-        welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
+        welcomeSubLable.setBackground(new java.awt.Color(41, 41, 41));
+        welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        welcomeSubLable.setForeground(new java.awt.Color(255, 255, 255));
         welcomeSubLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeSubLable.setText("Mark");
-        mainPanel.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 154, -1, -1));
+        mainPanel.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 790, -1));
         mainPanel.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 299));
 
         complLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
@@ -205,6 +212,8 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         });
 
         equipScrollPane.setBorder(null);
+        equipScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        equipScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         compPanel.setLayout(new java.awt.GridBagLayout());
         equipScrollPane.setViewportView(compPanel);

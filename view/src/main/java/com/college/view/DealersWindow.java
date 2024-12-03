@@ -198,13 +198,13 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         welcomeLabel.setForeground(new java.awt.Color(255, 255, 255));
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Dealers");
-        mainPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, -1));
+        mainPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 810, -1));
 
         welcomeSubLable.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 20)); // NOI18N
         welcomeSubLable.setForeground(new java.awt.Color(255, 255, 255));
         welcomeSubLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeSubLable.setText("Choose the best");
-        mainPanel.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
+        mainPanel.add(welcomeSubLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 810, -1));
         mainPanel.add(backgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 299));
 
         dealersLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
