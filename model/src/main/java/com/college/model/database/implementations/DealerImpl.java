@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,22 +115,28 @@ public class DealerImpl implements DealerDAO {
     }
 
     @Override
-    public void delete(Dealer t) {
+    public boolean delete(Dealer t) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
+            return true;
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            return false;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public void deleteByID(Integer id) {
+    public boolean deleteByID(Integer id) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
+            return true;
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            return false;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
