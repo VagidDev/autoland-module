@@ -5,11 +5,8 @@
 package com.college.controller;
 
 import com.college.model.Automobile;
-import com.college.model.Equipment;
 import com.college.model.database.interfaces.AutomobileDAO;
-import com.college.model.database.interfaces.EquipmentDAO;
 import com.college.model.database.session.SessionManager;
-import com.college.model.keys.EquipmentId;
 import java.util.List;
 
 /**
@@ -18,11 +15,9 @@ import java.util.List;
  */
 public class AutomobileController {
     private final AutomobileDAO automobileRepository;
-    private final EquipmentDAO equipmentRepository;
     
     public AutomobileController() {
         automobileRepository = SessionManager.getSession().getAutomobileRepository();
-        equipmentRepository = SessionManager.getSession().getEquipmentRepository();
     }
     
     public List<Automobile> getAllAutomobiles() {
@@ -33,11 +28,4 @@ public class AutomobileController {
         return automobileRepository.getById(id);
     }
     
-    public List<Equipment> getEquipmentsByAutomobile(Automobile auto) {
-        return equipmentRepository.getByAuto(auto);
-    }
-    
-    public Equipment getEquipmentById(int autoId, int equipId) {
-        return equipmentRepository.getById(new EquipmentId(autoId, equipId));
-    }
 }
