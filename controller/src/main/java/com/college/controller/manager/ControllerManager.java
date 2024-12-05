@@ -13,8 +13,10 @@ import com.college.controller.*;
 public abstract class ControllerManager {
     private static final UserController userController = new UserController();
     private static final AutomobileController automobileController = new AutomobileController();
+    private static final EquipmentController equipmentController = new EquipmentController();
     private static final DealerController dealerController = new DealerController();
     private static final ContractController contractController = new ContractController();
+    private static final WarrantyController warrantyContlroller = new WarrantyController();
 
     public static ContractController getContractController() {
         return contractController;
@@ -32,4 +34,11 @@ public abstract class ControllerManager {
         return userController;
     }
     
+    public static EquipmentController getEquipmentController() {
+        return equipmentController;
+    }
+    
+    public static WarrantyController getWarrantyContlroller() {
+        return warrantyContlroller;
+    }
 }
