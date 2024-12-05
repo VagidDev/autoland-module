@@ -5,6 +5,7 @@
 package com.college.view;
 
 import com.college.controller.AutomobileController;
+import com.college.controller.EquipmentController;
 import com.college.controller.manager.ControllerManager;
 import com.college.model.Automobile;
 import com.college.model.Contract;
@@ -33,6 +34,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
 
     private final Showable lastWindow;
     private AutomobileController automobileController;
+    private EquipmentController equipmentController;
     private int autoId;
     private int equipmentId;
 
@@ -48,6 +50,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
     public BuyingWindow(Showable lastWindow, int autoId) {
         initComponents();
         automobileController = ControllerManager.getAutomobileController();
+        equipmentController = ControllerManager.getEquipmentController();
         this.lastWindow = lastWindow;
         this.autoId = autoId;
         this.setLocationRelativeTo(null);
@@ -63,7 +66,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         ImageIcon icon = ImageUploader.uploadImage(imageLabel.getWidth(), imageLabel.getHeight(), auto.getImagePath(), ImageUploader.WIDTH);
         imageLabel.setIcon(icon);
 
-        List<Equipment> equipments = automobileController.getEquipmentsByAutomobile(auto);
+        List<Equipment> equipments = equipmentController.getEquipmentsByAutomobile(auto);
         for (Equipment e : equipments) {
             addPlate(e);
         }
@@ -365,7 +368,7 @@ public class BuyingWindow extends javax.swing.JFrame implements Showable {
         if (equipmentId != 0) {
             User user = ControllerManager.getUserController().getAuthentificatedUser();
             Automobile auto = automobileController.getAutoById(autoId);
-            Equipment equip = automobileController.getEquipmentById(autoId, equipmentId);
+            Equipment equip = equipmentController.getEquipmentById(autoId, equipmentId);
 
             Contract contract = new Contract();
             contract.setUser(user);
