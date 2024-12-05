@@ -1,0 +1,36 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.college.controller;
+
+import com.college.model.Automobile;
+import com.college.model.Equipment;
+import com.college.model.database.interfaces.EquipmentDAO;
+import com.college.model.database.session.SessionManager;
+import com.college.model.keys.EquipmentId;
+import java.util.List;
+
+/**
+ *
+ * @author Vagid Zibliuc
+ */
+public class EquipmentController {
+    private final EquipmentDAO equipmentRepository;
+    
+    public EquipmentController() {
+        equipmentRepository = SessionManager.getSession().getEquipmentRepository();
+    }
+    
+    public List<Equipment> getAllEquipments() {
+        return equipmentRepository.getAll();
+    }
+    
+    public List<Equipment> getEquipmentsByAutomobile(Automobile auto) {
+        return equipmentRepository.getByAuto(auto);
+    }
+    
+    public Equipment getEquipmentById(int autoId, int equipId) {
+        return equipmentRepository.getById(new EquipmentId(autoId, equipId));
+    }
+}
