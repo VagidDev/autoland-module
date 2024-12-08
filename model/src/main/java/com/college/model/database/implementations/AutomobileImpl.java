@@ -26,9 +26,9 @@ public class AutomobileImpl implements AutomobileDAO {
     private static final String GET_BY_ID_QUERY = "SELECT * FROM AutomobileWithBodyType WHERE a_id = ?";
     private static final String GET_ALL_QUERY = "SELECT * FROM AutomobileWithBodyType";
     private static final String INSERT_QUERY = "INSERT INTO au_automobiles (a_mark, a_model, a_body_id, a_place_count, a_prod_year, a_image) "
-                                                + "VALUES(?,?,?,?,?)";
+                                                + "VALUES(?,?,?,?,?,?)";
     private static final String UPDATE_QUERY = "UPDATE au_automobiles\n" +
-                                                "SET a_mark = ?, a_model = ?, a_body_id = ?, a_place_count = ?, a_prod_year = ?\n" +
+                                                "SET a_mark = ?, a_model = ?, a_body_id = ?, a_place_count = ?, a_prod_year = ?, a_image = ?\n" +
                                                 "WHERE a_id = ?;";
     private static final String DELETE_QUERY = "DELETE FROM au_automobiles WHERE a_id = ?";
     
