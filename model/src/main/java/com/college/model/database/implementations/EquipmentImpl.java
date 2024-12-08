@@ -132,12 +132,12 @@ public class EquipmentImpl implements EquipmentDAO {
     public Equipment save(Equipment t) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(INSERT_QUERY);
-
+            
             statement.setInt(1, t.getAutomobile().getId());
             statement.setInt(2, t.getId());
             statement.setString(3, t.getName());
             statement.setString(4, t.getEngineName());
-            statement.setInt(5, getIdByName(t.getEngineName(), "engine_type"));
+            statement.setInt(5, getIdByName(t.getEngineType(), "engine_type"));
             statement.setDouble(6, t.getEngineVolume());
             statement.setInt(7, t.getHorsepower());
             statement.setInt(8, getIdByName(t.getSuspensiveType(), "suspensive_type"));
@@ -167,7 +167,7 @@ public class EquipmentImpl implements EquipmentDAO {
 
             statement.setString(1, t.getName());
             statement.setString(2, t.getEngineName());
-            statement.setInt(3, getIdByName(t.getEngineName(), "engine_type"));
+            statement.setInt(3, getIdByName(t.getEngineType(), "engine_type"));
             statement.setDouble(4, t.getEngineVolume());
             statement.setInt(5, t.getHorsepower());
             statement.setInt(6, getIdByName(t.getSuspensiveType(), "suspensive_type"));
