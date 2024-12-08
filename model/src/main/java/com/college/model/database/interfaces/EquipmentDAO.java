@@ -13,6 +13,11 @@ import java.util.List;
  *
  * @author Vagid Zibliuc
  */
-public interface EquipmentDAO extends CRUDRepository<EquipmentId, Equipment>{
+public interface EquipmentDAO extends CRUDRepository<EquipmentId, Equipment> {
     List<Equipment> getByAuto(Automobile automobile);
+    List<String> getEngineTypes();
+    List<String> getDriveTypes();
+    List<String> getGearboxTypes();
+    List<String> getSuspensionTypes();
+    List<String> getFuelTypes();
 }

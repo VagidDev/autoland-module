@@ -245,10 +245,85 @@ public class EquipmentImpl implements EquipmentDAO {
                 equipment.setBodyKit(result.getString("e_body_kit"));
                 equipment.setWeigth(result.getInt("e_weigth"));
                 equipment.setPrice(result.getDouble("e_price"));
-                
+
                 equipments.add(equipment);
             }
             return equipments;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<String> getEngineTypes() {
+        try (Connection conn = Database.getConnection()) {
+            Statement statement = conn.createStatement();
+            List<String> engines = new ArrayList<>();
+            ResultSet result = statement.executeQuery("SELECT et_name FROM au_engine_type;");
+            while (result.next()) {
+                engines.add(result.getString(1));
+            }
+            return engines;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<String> getDriveTypes() {
+        try (Connection conn = Database.getConnection()) {
+            Statement statement = conn.createStatement();
+            List<String> driveTypes = new ArrayList<>();
+            ResultSet result = statement.executeQuery("SELECT dt_name FROM au_drive_type;");
+            while (result.next()) {
+                driveTypes.add(result.getString(1));
+            }
+            return driveTypes;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<String> getGearboxTypes() {
+        try (Connection conn = Database.getConnection()) {
+            Statement statement = conn.createStatement();
+            List<String> gearboxTypes = new ArrayList<>();
+            ResultSet result = statement.executeQuery("SELECT gt_name FROM au_gearbox_type;");
+            while (result.next()) {
+                gearboxTypes.add(result.getString(1));
+            }
+            return gearboxTypes;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<String> getSuspensionTypes() {
+        try (Connection conn = Database.getConnection()) {
+            Statement statement = conn.createStatement();
+            List<String> suspensionTypes = new ArrayList<>();
+            ResultSet result = statement.executeQuery("SELECT st_name FROM au_suspensive_type;");
+            while (result.next()) {
+                suspensionTypes.add(result.getString(1));
+            }
+            return suspensionTypes;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<String> getFuelTypes() {
+        try (Connection conn = Database.getConnection()) {
+            Statement statement = conn.createStatement();
+            List<String> fuelTypes = new ArrayList<>();
+            ResultSet result = statement.executeQuery("SELECT ft_name FROM au_fuel_type;");
+            while (result.next()) {
+                fuelTypes.add(result.getString(1));
+            }
+            return fuelTypes;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
