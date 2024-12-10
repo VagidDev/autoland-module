@@ -23,4 +23,38 @@ public class WarrantyController {
     public List<Warranty> getAllWarranties() {
         return warrantyRepository.getAll();
     }
+    
+    public Warranty getWarrantyById(int id) {
+        return warrantyRepository.getById(id);
+    }
+    
+    public boolean saveWarranty(String name, String duration, String price) {
+        int parsedDuraction = Integer.parseInt(duration);
+        double parsedPrice = Double.parseDouble(price);
+        
+        Warranty warranty = new Warranty();
+        warranty.setName(name);
+        warranty.setDuration(parsedDuraction);
+        warranty.setPrice(parsedPrice);
+        
+        Warranty savedWarranty = warrantyRepository.save(warranty);
+        return savedWarranty != null;   
+    }
+    
+    public boolean updateWarranty(Warranty warranty, String name, String duration, String price) {
+        int parsedDuraction = Integer.parseInt(duration);
+        double parsedPrice = Double.parseDouble(price);
+        
+        warranty.setName(name);
+        warranty.setDuration(parsedDuraction);
+        warranty.setPrice(parsedPrice);
+        
+        Warranty savedWarranty = warrantyRepository.save(warranty);
+        return savedWarranty != null;   
+    }
+    
+    public boolean deleteWarranty(int id) {
+        return warrantyRepository.deleteByID(id);
+    }
+    
 }

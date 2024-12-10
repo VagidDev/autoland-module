@@ -28,4 +28,25 @@ public class DealerController {
         return dealerRepository.getById(id);
     }
     
+    public boolean saveDealer(String name, String address, String telephone, String fax) {
+        Dealer dealer = new Dealer();
+        dealer.setName(name);
+        dealer.setAddress(address);
+        dealer.setTelephone(telephone);
+        dealer.setFax(fax);
+        Dealer savedDealer = dealerRepository.save(dealer);
+        return savedDealer != null;
+    }
+    
+    public boolean updateDealer(Dealer dealer, String name, String address, String telephone, String fax) {
+        dealer.setName(name);
+        dealer.setAddress(address);
+        dealer.setTelephone(telephone);
+        dealer.setFax(fax);
+        return dealerRepository.update(dealer);
+    }
+    
+    public boolean deleteDealer(int id) {
+        return dealerRepository.deleteByID(id);
+    }
 }
