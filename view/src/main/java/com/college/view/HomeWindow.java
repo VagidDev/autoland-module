@@ -4,6 +4,7 @@
  */
 package com.college.view;
 
+import com.college.Main;
 import com.college.view.interfaces.Showable;
 import com.college.view.utilites.ImageUploader;
 import javax.swing.ImageIcon;
@@ -203,8 +204,9 @@ public class HomeWindow extends javax.swing.JFrame implements Showable {
         // TODO add your handling code here:
         if (lastWindow != null)
             lastWindow.showWindow();
-        else 
-            System.exit(0);
+        else {
+            Main.run();
+        }
     }//GEN-LAST:event_formWindowClosing
      
     @Override

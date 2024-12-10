@@ -4,6 +4,7 @@
  */
 package com.college.view;
 
+import com.college.Main;
 import com.college.controller.AutomobileController;
 import com.college.controller.manager.ControllerManager;
 import com.college.model.Automobile;
@@ -556,8 +557,9 @@ public class AutoWindow extends javax.swing.JFrame implements Showable{
         // TODO add your handling code here:
         if (lastWindow != null)
             lastWindow.showWindow();
-        else 
-            System.exit(0);
+        else {
+            Main.run();
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void dealrsItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dealrsItemMouseClicked

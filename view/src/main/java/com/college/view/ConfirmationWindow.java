@@ -111,6 +111,7 @@ public class ConfirmationWindow extends javax.swing.JFrame implements Showable {
         dealrsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Confirmation");
 
         elemOfList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         elemOfList.setMaximumSize(new java.awt.Dimension(240, 153));

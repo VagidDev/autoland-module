@@ -4,6 +4,7 @@
  */
 package com.college.view;
 
+import com.college.Main;
 import com.college.controller.DealerController;
 import com.college.controller.manager.ControllerManager;
 import com.college.model.Contract;
@@ -185,6 +186,7 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         dealrsItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dealers");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -316,8 +318,9 @@ public class DealersWindow extends javax.swing.JFrame implements Showable {
         // TODO add your handling code here:
         if (lastWindow != null)
             lastWindow.showWindow();
-        else
-            System.exit(0);
+        else {
+            Main.run();
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void hometsItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hometsItemMouseClicked
