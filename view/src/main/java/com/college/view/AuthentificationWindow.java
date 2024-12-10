@@ -18,8 +18,9 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Vagid Zibliuc
  */
 public class AuthentificationWindow extends javax.swing.JFrame implements Showable {
-    
+
     private UserController userController;
+
     /**
      * Creates new form AuthentificationWindow
      */
@@ -47,6 +48,7 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
         singInButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Authorisation");
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         jLabel1.setText("Login");
@@ -167,29 +169,39 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
 
     private void loginFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginFieldFocusGained
         // TODO add your handling code here:
-        if (loginField.getText().equals("Input Login")) loginField.setText("");
+        if (loginField.getText().equals("Input Login"))
+            loginField.setText("");
     }//GEN-LAST:event_loginFieldFocusGained
 
     private void loginFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginFieldFocusLost
         // TODO add your handling code here:
-        if (loginField.getText().equals("")) loginField.setText("Input Login");
+        if (loginField.getText().equals(""))
+            loginField.setText("Input Login");
     }//GEN-LAST:event_loginFieldFocusLost
 
     private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
         // TODO add your handling code here:
-        if (passwordField.getText().equals("password")) passwordField.setText("");
+        if (passwordField.getText().equals("password"))
+            passwordField.setText("");
     }//GEN-LAST:event_passwordFieldFocusGained
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
         // TODO add your handling code here:
-        if (passwordField.getText().equals("")) passwordField.setText("password");
+        if (passwordField.getText().equals(""))
+            passwordField.setText("password");
     }//GEN-LAST:event_passwordFieldFocusLost
 
     private void singInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singInButtonActionPerformed
         // TODO add your handling code here:
         String login = loginField.getText();
         String password = String.valueOf(passwordField.getPassword());
-        
+
+        if (login.equals("admin") && password.equals("admin")) {
+            new com.college.view.admin.AdminWindow().showWindow();
+            this.dispose();
+            return;
+        }
+
         boolean isAunteficated = userController.authentificateUser(login, password);
         if (isAunteficated) {
             new HomeWindow().showWindow();
@@ -204,7 +216,7 @@ public class AuthentificationWindow extends javax.swing.JFrame implements Showab
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
             singInButtonActionPerformed(null);
     }//GEN-LAST:event_passwordFieldKeyPressed
-    
+
     @Override
     public void showWindow() {
         try {
