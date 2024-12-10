@@ -40,4 +40,8 @@ public class ContractController {
         Contract newContract = contractRepository.save(contract);
         return newContract != null;
     }
+    
+    public boolean deleteContract(int id) {
+        return contractRepository.deleteByID(id);
+    }
 }
