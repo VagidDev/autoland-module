@@ -16,9 +16,21 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-    
-<!--    <properties>
-        <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>com.college.controller.UserController</exec.mainClass>
-    </properties>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--    <properties>
+            <maven.compiler.release>21</maven.compiler.release>
+            <exec.mainClass>com.college.controller.UserController</exec.mainClass>
+        </properties>-->
 </project>
