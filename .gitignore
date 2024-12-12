@@ -1,6 +1,10 @@
 /.idea
 
+/target/
+/car_images/
+
 /view/target/
+/view/src/resources/
 /model/target/
 /controller/target/
 /viewfx/target/
