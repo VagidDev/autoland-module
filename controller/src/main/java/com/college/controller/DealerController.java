@@ -5,8 +5,9 @@
 package com.college.controller;
 
 import com.college.model.Dealer;
-import com.college.model.database.implementations.DealerImpl;
 import com.college.model.database.interfaces.DealerDAO;
+import com.college.model.database.session.SessionManager;
+
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class DealerController {
     private final DealerDAO dealerRepository;
         
     public DealerController() {
-        dealerRepository = new DealerImpl();
+        dealerRepository = SessionManager.getSession().getDealerRepository();
     }
     
     public List<Dealer> getAllDealers() {
