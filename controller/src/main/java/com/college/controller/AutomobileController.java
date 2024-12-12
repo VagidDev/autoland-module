@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -44,8 +45,17 @@ public class AutomobileController {
 
     private String saveImage(String imagePath) {
         try {
+
+            String targetPath = "car_images/";
+
+            if (!Files.exists(Path.of(targetPath))) {
+                Files.createDirectories(Path.of(targetPath));
+            }
+
+            imagePath = imagePath.replace("\\", "/");
             String[] splitedPath = imagePath.split("/");
-            String targetPath = "src/resources/car_images/" + splitedPath[splitedPath.length - 1];
+            targetPath += splitedPath[splitedPath.length - 1];
+
             Files.copy(Path.of(imagePath), Path.of(targetPath), StandardCopyOption.REPLACE_EXISTING);
             return targetPath;
         } catch (IOException ex) {
@@ -106,7 +116,7 @@ public class AutomobileController {
         Automobile auto = automobileRepository.getById(id);
         try {
             boolean isDeleted = automobileRepository.deleteByID(id);
-            if (isDeleted)
+            if (isDeleted && !auto.getImagePath().isEmpty())
                 Files.deleteIfExists(Path.of(auto.getImagePath()));
             return isDeleted;
         } catch (IOException ex) {

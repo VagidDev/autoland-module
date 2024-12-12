@@ -29,12 +29,12 @@ public class WarrantyController {
     }
     
     public boolean saveWarranty(String name, String duration, String price) {
-        int parsedDuraction = Integer.parseInt(duration);
+        int parsedDuration = Integer.parseInt(duration);
         double parsedPrice = Double.parseDouble(price);
         
         Warranty warranty = new Warranty();
         warranty.setName(name);
-        warranty.setDuration(parsedDuraction);
+        warranty.setDuration(parsedDuration);
         warranty.setPrice(parsedPrice);
         
         Warranty savedWarranty = warrantyRepository.save(warranty);
@@ -49,8 +49,7 @@ public class WarrantyController {
         warranty.setDuration(parsedDuraction);
         warranty.setPrice(parsedPrice);
         
-        Warranty savedWarranty = warrantyRepository.save(warranty);
-        return savedWarranty != null;   
+        return warrantyRepository.update(warranty);
     }
     
     public boolean deleteWarranty(int id) {
