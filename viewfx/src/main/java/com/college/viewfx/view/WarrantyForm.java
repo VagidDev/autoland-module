@@ -4,6 +4,8 @@
  */
 package com.college.viewfx.view;
 
+import com.college.controller.WarrantyController;
+import com.college.model.Warranty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,11 +14,24 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 /**
- *
  * @author Vagid Zibliuc
  */
 
 public class WarrantyForm {
+    private Warranty warranty;
+    private WarrantyController warrantyController;
+    private Runnable onFormSubmit;
+
+    public WarrantyForm(WarrantyController warrantyController, Runnable onFormSubmit) {
+        this.warrantyController = warrantyController;
+        this.onFormSubmit = onFormSubmit;
+    }
+
+    public WarrantyForm(Warranty warranty, WarrantyController warrantyController, Runnable onFormSubmit) {
+        this.warranty = warranty;
+        this.warrantyController = warrantyController;
+        this.onFormSubmit = onFormSubmit;
+    }
 
     public void show() {
         // Создаём новое окно (Stage)
@@ -31,7 +46,7 @@ public class WarrantyForm {
         nameLabel.setStyle("-fx-font-size: 16;");
         durationLabel.setStyle("-fx-font-size: 16;");
         priceLabel.setStyle("-fx-font-size: 16;");
-        
+
         // 
         nameLabel.setMaxWidth(Double.MAX_VALUE);
         durationLabel.setMaxWidth(Double.MAX_VALUE);
@@ -41,6 +56,12 @@ public class WarrantyForm {
         TextField nameField = createTextField("Введите название гарантии");
         TextField durationField = createTextField("Введите количество месяцев");
         TextField priceField = createTextField("Введите цену");
+
+        if (warranty != null) {
+            nameField.setText(warranty.getName());
+            durationField.setText(String.valueOf(warranty.getDuration()));
+            priceField.setText(String.valueOf(warranty.getPrice()));
+        }
 
         // Ограничение ввода на числовые значения для полей продолжительности и цены
         durationField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -67,11 +88,28 @@ public class WarrantyForm {
         buttonsBox.setAlignment(Pos.CENTER);
 
         saveButton.setOnAction(e -> {
-            System.out.println("Сохранены данные гарантии!");
-            System.out.println("Название: " + nameField.getText());
-            System.out.println("Продолжительность: " + durationField.getText() + " месяцев");
-            System.out.println("Цена: " + priceField.getText() + "");
-            stage.close();
+            String name = nameField.getText();
+            String duration = durationField.getText();
+            String price = priceField.getText();
+
+            boolean isProcessed = false;
+            String processedText = null;
+
+            if (warranty == null) {
+                isProcessed = warrantyController.saveWarranty(name, duration, price);
+                processedText = "Гарантия добавлена";
+            } else {
+                isProcessed = warrantyController.updateWarranty(warranty, name, duration, price);
+                processedText = "Гарантия обновлена";
+            }
+
+            if (isProcessed) {
+                new Alert(Alert.AlertType.INFORMATION, processedText, ButtonType.APPLY).showAndWait();
+                onFormSubmit.run();
+                stage.close();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Ошибка");
+            }
         });
 
         cancelButton.setOnAction(e -> stage.close());

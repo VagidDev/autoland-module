@@ -4,6 +4,8 @@
  */
 package com.college.viewfx.view;
 
+import com.college.controller.DealerController;
+import com.college.model.Dealer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +19,20 @@ import javafx.stage.Stage;
  */
 
 public class DealerForm {
+    private Dealer dealer;
+    private DealerController dealerController;
+    private Runnable onFormSubmit;
+
+    public DealerForm(DealerController dealerController, Runnable onFormSubmit) {
+        this.dealerController = dealerController;
+        this.onFormSubmit = onFormSubmit;
+    }
+
+    public DealerForm(Dealer dealer, DealerController dealerController, Runnable onFormSubmit) {
+        this.dealer = dealer;
+        this.dealerController = dealerController;
+        this.onFormSubmit = onFormSubmit;
+    }
 
     public void show() {
         // Создаём новое окно (Stage)
@@ -43,10 +59,15 @@ public class DealerForm {
         // Поля ввода
         TextField nameField = createTextField("Введите название");
         TextField addressField = createTextField("Введите адрес");
-
         TextField phoneField = createTextField("+373(XXX)-XX-XX");
-
         TextField faxField = createTextField("+373(XXX)-XX-XX");
+
+        if (dealer != null) {
+            nameField.setText(dealer.getName());
+            addressField.setText(dealer.getAddress());
+            phoneField.setText(dealer.getTelephone());
+            faxField.setText(dealer.getFax());
+        }
 
         // Кнопки
         Button saveButton = new Button("Сохранить");
@@ -60,9 +81,30 @@ public class DealerForm {
         buttonsBox.setAlignment(Pos.CENTER);
 
         saveButton.setOnAction(e -> {
-            System.out.println("Сохранены данные дилера!");
-            System.out.println("Название: " + nameField.getText());
-            stage.close();
+            String name = nameField.getText();
+            String address = addressField.getText();
+            String phone = phoneField.getText();
+            String fax = faxField.getText();
+
+            boolean isProcessed = false;
+            String processedText = null;
+
+            if (dealer == null) {
+                isProcessed = dealerController.saveDealer(name, address, phone, fax);
+                processedText = "Дилер добавлен";
+            } else {
+                isProcessed = dealerController.updateDealer(dealer, name, address, phone, fax);
+                processedText = "Дилер обновлен";
+            }
+
+            if (isProcessed) {
+                new Alert(Alert.AlertType.INFORMATION, processedText, ButtonType.APPLY).showAndWait();
+                onFormSubmit.run();
+                stage.close();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Ошибка");
+            }
+
         });
 
         cancelButton.setOnAction(e -> stage.close());

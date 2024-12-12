@@ -4,6 +4,8 @@
  */
 package com.college.viewfx.view;
 
+import com.college.controller.UserController;
+import com.college.model.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +14,14 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class UserForm {
+    private User user;
+    private UserController controller;
+    private Runnable onFormSubmit;
+
+    public UserForm(UserController controller, Runnable onFormSubmit) {
+        this.controller = controller;
+        this.onFormSubmit = onFormSubmit;
+    }
 
     public void show() {
         // Создаём новое окно (Stage)
@@ -43,7 +53,7 @@ public class UserForm {
         emailLabel.setMaxWidth(Double.MAX_VALUE);
         phoneLabel.setMaxWidth(Double.MAX_VALUE);
         addressLabel.setMaxWidth(Double.MAX_VALUE);
-        
+
         // Поля ввода
         TextField usernameField = createTextField("Введите логин");
         PasswordField passwordField = createPasswordField("Введите пароль");
@@ -68,8 +78,23 @@ public class UserForm {
         buttonsBox.setAlignment(Pos.CENTER);
 
         saveButton.setOnAction(e -> {
-            System.out.println("Сохранены данные пользователя!");
-            stage.close();
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String birthday = "2005-05-23";
+            String email = emailField.getText();
+            String phone = phoneField.getText();
+            String address = addressField.getText();
+
+            boolean res = controller.saveUser(username, password, firstName, lastName, birthday, email, phone, address);
+            if (res) {
+                new Alert(Alert.AlertType.INFORMATION, "Пользователь добавлен", ButtonType.APPLY).showAndWait();
+                onFormSubmit.run();
+                stage.close();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Ошибка");
+            }
         });
 
         cancelButton.setOnAction(e -> stage.close());
@@ -115,5 +140,5 @@ public class UserForm {
         passwordField.setMaxWidth(Double.MAX_VALUE);
         return passwordField;
     }
-   
+
 }
