@@ -12,4 +12,5 @@ import com.college.model.User;
  */
 public interface UserDAO extends CRUDRepository<Integer, User> {
     User getByLoginAndPassword(String login, String password);
+    boolean ifUserExists(String login);
 }

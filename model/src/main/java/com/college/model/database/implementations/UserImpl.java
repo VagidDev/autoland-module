@@ -6,6 +6,8 @@ package com.college.model.database.implementations;
 
 import com.college.model.User;
 import com.college.model.database.Database;
+import com.college.model.database.exceptions.CascadeDependencyException;
+import com.college.model.database.exceptions.EntityNotFoundException;
 import com.college.model.database.interfaces.UserDAO;
 import java.sql.Connection;
 import java.sql.Date;
@@ -32,6 +34,7 @@ public class UserImpl implements UserDAO {
                                                 + "WHERE u_id = ?;";
     private static final String DELETE_QUERY = "DELETE FROM au_users WHERE u_id = ?;";
     private static final String SEARCH_BY_LOGIN_AND_PASSWORD = "SELECT * FROM au_users WHERE u_login = ? AND u_password = ?";
+    private static final String USER_EXISTS_QUERY = "SELECT * FROM au_users WHERE u_login = ?";
     
     @Override
     public User getById(Integer id) {
@@ -111,7 +114,7 @@ public class UserImpl implements UserDAO {
     }
 
     @Override
-    public boolean update(User t) {
+    public void update(User t) {
         try (Connection conn = Database.getConnection()) {
             
             PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
@@ -128,36 +131,36 @@ public class UserImpl implements UserDAO {
 
             int result = statement.executeUpdate();
 
-            return result != 0;
+            if (result == 0) {
+                throw new EntityNotFoundException("User with id=" + t.getId() + " did not update, because he does not exists!");
+            }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public boolean delete(User t) {
+    public void delete(User t) throws CascadeDependencyException {
         try (Connection conn = Database.getConnection()) {
             
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
-            return true;
         } catch (SQLIntegrityConstraintViolationException ex) {
-            return false;
+            throw new CascadeDependencyException("User with id " + t.getId() + " is using in other tables!");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public boolean deleteByID(Integer id) {
+    public void deleteByID(Integer id) throws CascadeDependencyException {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
-            return true;
         } catch (SQLIntegrityConstraintViolationException ex) {
-            return false;
+            throw new CascadeDependencyException("User with id " + id + " is using in other tables!");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -184,6 +187,18 @@ public class UserImpl implements UserDAO {
                 return user;
             }
             return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public boolean ifUserExists(String login) {
+        try (Connection conn = Database.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(USER_EXISTS_QUERY);
+            statement.setString(1, login);
+            ResultSet result = statement.executeQuery();
+            return result.next();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
