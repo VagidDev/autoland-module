@@ -55,7 +55,7 @@ public class UserImpl implements UserDAO {
                 user.setAddress(result.getString("u_address"));
                 return user;
             }
-            throw new RuntimeException("User not found!");
+            return null;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

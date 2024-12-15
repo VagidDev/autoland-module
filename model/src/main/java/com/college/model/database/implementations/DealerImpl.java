@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.college.model.database.implementations;
 
 import com.college.model.Dealer;
 import com.college.model.database.Database;
+import com.college.model.database.exceptions.CascadeDependencyException;
+import com.college.model.database.exceptions.EntityNotFoundException;
 import com.college.model.database.interfaces.DealerDAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,19 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Vagid Zibliuc
  */
+
 public class DealerImpl implements DealerDAO {
     private static final String GET_BY_ID_QUERY = "SELECT * FROM au_dealers WHERE d_id = ?";
     private static final String GET_ALL_QUERY = "SELECT * FROM au_dealers";
     private static final String INSERT_QUERY = "INSERT INTO au_dealers (d_name, d_address, d_telephone, d_fax)\n"
-                                                + "VALUES(?,?,?,?)";
+            + "VALUES(?,?,?,?)";
     private static final String UPDATE_QUERY = "UPDATE au_dealers\n" +
-                                                "SET d_name = ?, d_address = ?, d_telephone = ?, d_fax = ?\n" +
-                                                "WHERE d_id = ?;";
+            "SET d_name = ?, d_address = ?, d_telephone = ?, d_fax = ?\n" +
+            "WHERE d_id = ?;";
     private static final String DELETE_QUERY = "DELETE FROM au_dealers WHERE d_id = ?";
-    
+
     @Override
     public Dealer getById(Integer id) {
         try (Connection conn = Database.getConnection()) {
@@ -45,7 +44,7 @@ public class DealerImpl implements DealerDAO {
                 dealer.setFax(result.getString("d_fax"));
                 return dealer;
             }
-            throw new RuntimeException("Dealer not found!");
+            return null;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -96,7 +95,7 @@ public class DealerImpl implements DealerDAO {
     }
 
     @Override
-    public boolean update(Dealer t) {
+    public void update(Dealer t) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
 
@@ -108,35 +107,36 @@ public class DealerImpl implements DealerDAO {
 
             int result = statement.executeUpdate();
 
-            return result != 0;
+            if (result == 0) {
+                throw new EntityNotFoundException("Dealer with id=" + t.getId() + " did not update, because it does not exists!");
+            }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public boolean delete(Dealer t) {
+    public void delete(Dealer t) throws CascadeDependencyException {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, t.getId());
             statement.execute();
-            return true;
         } catch (SQLIntegrityConstraintViolationException ex) {
-            return false;
+            throw new CascadeDependencyException("Dealer with id=" + t.getId() + " using in other tables");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public boolean deleteByID(Integer id) {
+    public void deleteByID(Integer id) throws CascadeDependencyException {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
             statement.setInt(1, id);
             statement.execute();
-            return true;
+
         } catch (SQLIntegrityConstraintViolationException ex) {
-            return false;
+            throw new CascadeDependencyException("Dealer with id " + id + " using in other tables");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
