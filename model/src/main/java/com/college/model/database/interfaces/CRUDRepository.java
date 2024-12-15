@@ -4,6 +4,8 @@
  */
 package com.college.model.database.interfaces;
 
+import com.college.model.database.exceptions.CascadeDependencyException;
+
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ public interface CRUDRepository<ID,T> {
     T getById(ID id);
     List<T> getAll();
     T save(T t);
-    boolean update(T t);
-    boolean delete(T t);
-    boolean deleteByID(ID id);
+    void update(T t);
+    void delete(T t) throws CascadeDependencyException;
+    void deleteByID(ID id) throws CascadeDependencyException;
 }
