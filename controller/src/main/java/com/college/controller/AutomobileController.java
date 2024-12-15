@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +28,8 @@ public class AutomobileController {
 
     public List<String> getBodyTypes() {
         Map<Integer, String> map = automobileRepository.getBodyTypes();
-        return map.entrySet()
+        return map.values()
                 .stream()
-                .map(e -> e.getValue())
                 .toList();
     }
 
@@ -91,7 +89,7 @@ public class AutomobileController {
         int processedProdYear = Integer.parseInt(prodYear);
 
         String targetPath = "";
-        if (imagePath.equals(auto.getImagePath()) || imagePath.equals("") || imagePath == null) {
+        if (imagePath.equals(auto.getImagePath()) || imagePath.isEmpty()) {
             targetPath = auto.getImagePath();
         } else {
             try {
