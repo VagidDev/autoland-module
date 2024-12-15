@@ -26,7 +26,6 @@ public class LoginForm {
         int prefSize = 250;
         Font font = new Font("Arial", 16);
 
-        //labels
         Label usernameLabel = new Label("Login");
         Label passwordLabel = new Label("Password");
 

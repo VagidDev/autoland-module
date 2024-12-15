@@ -1,24 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.college.viewfx.view;
 
-/**
- *
- * @author Vagid Zibliuc
- */
 import com.college.controller.AutomobileController;
 import com.college.model.Automobile;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -39,71 +27,35 @@ public class AutomobileForm {
     }
 
     public void show() {
+        Stage stage = new Stage();
 
-        Stage primaryStage = new Stage();
+        stage.setTitle("Добавление автомобиля");
 
-        primaryStage.setTitle("Добавление автомобиля");
+        Label brandLabel = createLabel("Марка авто:");
+        TextField brandField = createTextField("Введите марку авто");
 
-        AnchorPane root = new AnchorPane();
+        Label modelLabel = createLabel("Модель автомобиля:");
+        TextField modelField = createTextField("Введите модель автомобиля");
 
-        GridPane grid = new GridPane();
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20));
-
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setHgrow(Priority.ALWAYS);
-        grid.getColumnConstraints().add(columnConstraints);
-        
-
-        Label brandLabel = new Label("Марка авто:");
-        brandLabel.setStyle("-fx-font-size: 16px;");
-        TextField brandField = new TextField();
-        brandField.setStyle("-fx-font-size: 14px;");
-        grid.add(brandLabel, 0, 0);
-        grid.add(brandField, 0, 1);
-
-        Label modelLabel = new Label("Модель автомобиля:");
-        modelLabel.setStyle("-fx-font-size: 16px;");
-        TextField modelField = new TextField();
-        modelField.setStyle("-fx-font-size: 14px;");
-        grid.add(modelLabel, 0, 2);
-        grid.add(modelField, 0, 3);
-
-        Label bodyTypeLabel = new Label("Тип кузова:");
-        bodyTypeLabel.setStyle("-fx-font-size: 16px;");
+        Label bodyTypeLabel = createLabel("Тип кузова:");
         ComboBox<String> bodyTypeComboBox = new ComboBox<>();
-        bodyTypeComboBox.setStyle("-fx-font-size: 14px;");
         bodyTypeComboBox.getItems().addAll(controller.getBodyTypes());
-        grid.add(bodyTypeLabel, 0, 4);
-        grid.add(bodyTypeComboBox, 0, 5);
+        bodyTypeComboBox.setPromptText("Выберите тип кузова");
+        bodyTypeComboBox.setStyle("-fx-font-size: 14");
+        bodyTypeComboBox.setMaxWidth(Double.MAX_VALUE);
 
-        Label seatsLabel = new Label("Количество мест:");
-        seatsLabel.setStyle("-fx-font-size: 16px;");
-        TextField seatsField = new TextField();
-        seatsField.setStyle("-fx-font-size: 14px;");
-        grid.add(seatsLabel, 0, 6);
-        grid.add(seatsField, 0, 7);
+        Label seatsLabel = createLabel("Количество мест:");
+        TextField seatsField = createTextField("Введите количество мест");
 
-        Label yearLabel = new Label("Год производства:");
-        yearLabel.setStyle("-fx-font-size: 16px;");
-        TextField yearField = new TextField();
-        yearField.setStyle("-fx-font-size: 14px;");
-        grid.add(yearLabel, 0, 8);
-        grid.add(yearField, 0, 9);
+        Label yearLabel = createLabel("Год производства:");
+        TextField yearField = createTextField("Введите год производства");
 
-        Label imageLabel = new Label("Путь к изображению:");
-        imageLabel.setStyle("-fx-font-size: 16px;");
-        TextField imagePathField = new TextField();
-        imagePathField.setStyle("-fx-font-size: 14px;");
+        Label imageLabel = createLabel("Изображение:");
+        TextField imagePathField = createTextField("Выберите изображение");
         imagePathField.setEditable(false);
-        Button chooseImageButton = new Button("Выбрать");
-        chooseImageButton.setStyle("-fx-font-size: 14px;");
-        HBox imageChooser = new HBox(10);
-        imageChooser.getChildren().add(imagePathField);
-        imageChooser.getChildren().add(chooseImageButton);
-        
-        grid.add(imageLabel, 0, 10);
-        grid.add(imageChooser, 0, 11);
+        imagePathField.setMaxWidth(Double.MAX_VALUE);
+        Button chooseImageButton = new Button("Выберите картинку");
+        chooseImageButton.setStyle("-fx-font-size: 14;");
 
         chooseImageButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
@@ -111,7 +63,7 @@ public class AutomobileForm {
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
             );
-            java.io.File selectedFile = fileChooser.showOpenDialog(primaryStage);
+            java.io.File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 imagePathField.setText(selectedFile.getAbsolutePath());
             }
@@ -126,69 +78,105 @@ public class AutomobileForm {
             imagePathField.setText(automobile.getImagePath());
         }
 
-        Button saveButton = new Button("Сохранить");
-        saveButton.setOnAction(event -> {
-            String brand = brandField.getText();
-            String model = modelField.getText();
-            String bodyType = bodyTypeComboBox.getValue();
-            String seats = seatsField.getText();
-            String year = yearField.getText();
-            String imagePath = imagePathField.getText();
+        Button saveButton = createButton("Сохранить", "-fx-background-color: green; -fx-text-fill: white;");
+        Button cancelButton = createButton("Отменить", "-fx-background-color: red; -fx-text-fill: white;");
 
-            boolean isProcessed = false;
-            String processedText = null;
+        saveButton.setOnAction(e -> {
+            if (validateInputs(brandField, modelField, seatsField, yearField) && validateComboBox(bodyTypeComboBox)) {
+                String brand = brandField.getText();
+                String model = modelField.getText();
+                String bodyType = bodyTypeComboBox.getValue();
+                String seats = seatsField.getText();
+                String year = yearField.getText();
+                String imagePath = imagePathField.getText();
 
-            if (automobile == null) {
-                isProcessed = controller.saveAutomobile(brand, model, bodyType, seats, year, imagePath);
-                processedText = "Автомобиль добавлен";
-            } else {
-                isProcessed = controller.updateAutomobile(automobile, brand, model, bodyType, seats, year, imagePath);
-                processedText = "Автомобиль обновлен";
+                boolean isProcessed;
+                String processedText;
+
+                if (automobile == null) {
+                    isProcessed = controller.saveAutomobile(brand, model, bodyType, seats, year, imagePath);
+                    processedText = "Автомобиль добавлен";
+                } else {
+                    isProcessed = controller.updateAutomobile(automobile, brand, model, bodyType, seats, year, imagePath);
+                    processedText = "Автомобиль обновлен";
+                }
+
+                if (isProcessed) {
+                    new Alert(Alert.AlertType.INFORMATION, processedText, ButtonType.OK).showAndWait();
+                    onFormSubmit.run();
+                    stage.close();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Ошибка при обработке данных", ButtonType.OK).showAndWait();
+                }
             }
-
-            if (isProcessed) {
-                new Alert(Alert.AlertType.INFORMATION, processedText, ButtonType.APPLY).showAndWait();
-                onFormSubmit.run();
-                primaryStage.close();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Ошибка");
-            }
-
         });
-        Button cancelButton = new Button("Отменить");
-        saveButton.setStyle("-fx-font-size: 14px;");
-        cancelButton.setStyle("-fx-font-size: 14px;");
-        HBox formButtons = new HBox(30);
-        formButtons.getChildren().add(saveButton);
-        formButtons.getChildren().add(cancelButton);
-        formButtons.setAlignment(Pos.CENTER);
-        HBox.setHgrow(imagePathField, Priority.ALWAYS);
-        chooseImageButton.setMaxWidth(Double.MAX_VALUE);
-        imageChooser.setMaxWidth(Double.MAX_VALUE);
-        grid.add(formButtons, 0, 12);
 
-        // Растягиваем поля ввода на всю ширину
-        brandField.setMaxWidth(Double.MAX_VALUE);
-        modelField.setMaxWidth(Double.MAX_VALUE);
-        bodyTypeComboBox.setMaxWidth(Double.MAX_VALUE);
-        seatsField.setMaxWidth(Double.MAX_VALUE);
-        yearField.setMaxWidth(Double.MAX_VALUE);
-        imagePathField.setMaxWidth(Double.MAX_VALUE);
-        imageChooser.setMaxWidth(Double.MAX_VALUE);
-        formButtons.setMaxWidth(Double.MAX_VALUE);
-        
-        grid.setMaxWidth(Double.MAX_VALUE);
-        grid.setPrefWidth(Double.MAX_VALUE);
+        cancelButton.setOnAction(e -> stage.close());
 
-        AnchorPane.setTopAnchor(grid, 0.0);
-        AnchorPane.setRightAnchor(grid, 0.0);
-        AnchorPane.setBottomAnchor(grid, 0.0);
-        AnchorPane.setLeftAnchor(grid, 0.0);
+        HBox imageButtons = new HBox(10, imagePathField, chooseImageButton);
+        imageButtons.setMaxWidth(Double.MAX_VALUE);
 
-        root.getChildren().add(grid);
+        HBox confirmButtons = new HBox(10, saveButton, cancelButton);
+        confirmButtons.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(root, 400, 600);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        VBox formLayout = new VBox(15,
+                brandLabel, brandField,
+                modelLabel, modelField,
+                bodyTypeLabel, bodyTypeComboBox,
+                seatsLabel, seatsField,
+                yearLabel, yearField,
+                imageLabel, imageButtons,
+                confirmButtons
+        );
+        formLayout.setPadding(new Insets(20));
+        formLayout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(formLayout, 450, 550);
+        stage.setTitle(automobile == null ? "Добавление автомобиля" : "Редактирование автомобиля");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private boolean validateInputs(TextField... fields) {
+        boolean isValid = true;
+        for (TextField field : fields) {
+            if (field.getText().isEmpty()) {
+                field.setStyle("-fx-border-color: red;");
+                isValid = false;
+            } else {
+                field.setStyle("");
+            }
+        }
+        return isValid;
+    }
+
+    private boolean validateComboBox(ComboBox<String> comboBox) {
+        if (comboBox.getValue() == null) {
+            comboBox.setStyle("-fx-border-color: red;");
+            return false;
+        } else {
+            comboBox.setStyle("");
+            return true;
+        }
+    }
+
+    private Label createLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-size: 14; -fx-font-weight: bold;");
+        label.setMaxWidth(Double.MAX_VALUE);
+        return label;
+    }
+
+    private TextField createTextField(String placeholder) {
+        TextField textField = new TextField();
+        textField.setPromptText(placeholder);
+        textField.setStyle("-fx-font-size: 14;");
+        return textField;
+    }
+
+    private Button createButton(String text, String style) {
+        Button button = new Button(text);
+        button.setStyle(style + " -fx-font-size: 14; -fx-padding: 10 20;");
+        return button;
     }
 }

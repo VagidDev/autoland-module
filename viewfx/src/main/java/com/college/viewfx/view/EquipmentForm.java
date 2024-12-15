@@ -40,16 +40,13 @@ public class EquipmentForm {
 
         primaryStage.setTitle("Добавление комплектации автомобиля");
 
-        // Создаем корневой контейнер
         VBox root = new VBox(10);
         root.setPadding(new Insets(20));
 
-        // Создаем ScrollPane и VBox для полей ввода
         ScrollPane scrollPane = new ScrollPane();
         VBox contentBox = new VBox(10);
         contentBox.setPadding(new Insets(10));
 
-        // Добавляем поля ввода
         addTextField(contentBox, "Название комплектации");
         addTextField(contentBox, "Название двигателя");
         addComboBox(contentBox, "Тип двигателя", controller.getEngineTypes());
@@ -67,7 +64,7 @@ public class EquipmentForm {
 
         scrollPane.setContent(contentBox);
         scrollPane.setFitToWidth(true);
-        scrollPane.setPrefViewportHeight(600); // Устанавливаем предпочтительную высоту для ScrollPane
+        scrollPane.setPrefViewportHeight(600);
 
         if (equipment != null) {
             String[] values = new String[] {equipment.getName(), equipment.getEngineName(), equipment.getEngineType(), String.valueOf(equipment.getEngineVolume()),
@@ -86,7 +83,6 @@ public class EquipmentForm {
             });
         }
 
-        // Создаем кнопки
         Button saveButton = new Button("Сохранить");
         saveButton.setOnAction(e -> {
             List<String> strings = new ArrayList<>();

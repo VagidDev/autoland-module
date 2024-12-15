@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.college.viewfx.view;
 
 import com.college.controller.DealerController;
@@ -12,11 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-/**
- *
- * @author Vagid Zibliuc
- */
 
 public class DealerForm {
     private Dealer dealer;
@@ -35,31 +26,19 @@ public class DealerForm {
     }
 
     public void show() {
-        // Создаём новое окно (Stage)
         Stage stage = new Stage();
 
-        // Лейблы
-        Label nameLabel = new Label("Название:");
-        Label addressLabel = new Label("Адрес:");
-        Label phoneLabel = new Label("Телефон:");
-        Label faxLabel = new Label("Телефон-факс:");
-        
-        // Увеличиваем шрифт лейблов
-        nameLabel.setStyle("-fx-font-size: 16;");
-        addressLabel.setStyle("-fx-font-size: 16;");
-        phoneLabel.setStyle("-fx-font-size: 16;");
-        faxLabel.setStyle("-fx-font-size: 16;");
-
-        //
-        nameLabel.setMaxWidth(Double.MAX_VALUE);
-        addressLabel.setMaxWidth(Double.MAX_VALUE);
-        phoneLabel.setMaxWidth(Double.MAX_VALUE);
-        faxLabel.setMaxWidth(Double.MAX_VALUE);
-
-        // Поля ввода
+        // Labels and Input Fields
+        Label nameLabel = createLabel("Название:");
         TextField nameField = createTextField("Введите название");
+
+        Label addressLabel = createLabel("Адрес:");
         TextField addressField = createTextField("Введите адрес");
+
+        Label phoneLabel = createLabel("Телефон:");
         TextField phoneField = createTextField("+373(XXX)-XX-XX");
+
+        Label faxLabel = createLabel("Телефон-факс:");
         TextField faxField = createTextField("+373(XXX)-XX-XX");
 
         if (dealer != null) {
@@ -69,76 +48,88 @@ public class DealerForm {
             faxField.setText(dealer.getFax());
         }
 
-        // Кнопки
-        Button saveButton = new Button("Сохранить");
-        Button cancelButton = new Button("Отменить");
-
-        // Стили кнопок
-        saveButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-padding: 10; -fx-font-size: 16;");
-        cancelButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-padding: 10; -fx-font-size: 16;");
-
-        HBox buttonsBox = new HBox(10, saveButton, cancelButton);
-        buttonsBox.setAlignment(Pos.CENTER);
+        // Buttons
+        Button saveButton = createButton("Сохранить", "-fx-background-color: green; -fx-text-fill: white;");
+        Button cancelButton = createButton("Отменить", "-fx-background-color: red; -fx-text-fill: white;");
 
         saveButton.setOnAction(e -> {
-            String name = nameField.getText();
-            String address = addressField.getText();
-            String phone = phoneField.getText();
-            String fax = faxField.getText();
+            if (validateInputs(nameField, addressField, phoneField, faxField)) {
+                String name = nameField.getText();
+                String address = addressField.getText();
+                String phone = phoneField.getText();
+                String fax = faxField.getText();
 
-            boolean isProcessed = false;
-            String processedText = null;
+                boolean isProcessed;
+                String processedText;
 
-            if (dealer == null) {
-                isProcessed = dealerController.saveDealer(name, address, phone, fax);
-                processedText = "Дилер добавлен";
-            } else {
-                isProcessed = dealerController.updateDealer(dealer, name, address, phone, fax);
-                processedText = "Дилер обновлен";
+                if (dealer == null) {
+                    isProcessed = dealerController.saveDealer(name, address, phone, fax);
+                    processedText = "Дилер добавлен";
+                } else {
+                    isProcessed = dealerController.updateDealer(dealer, name, address, phone, fax);
+                    processedText = "Дилер обновлен";
+                }
+
+                if (isProcessed) {
+                    new Alert(Alert.AlertType.INFORMATION, processedText, ButtonType.OK).showAndWait();
+                    onFormSubmit.run();
+                    stage.close();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Ошибка при обработке данных", ButtonType.OK).showAndWait();
+                }
             }
-
-            if (isProcessed) {
-                new Alert(Alert.AlertType.INFORMATION, processedText, ButtonType.APPLY).showAndWait();
-                onFormSubmit.run();
-                stage.close();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Ошибка");
-            }
-
         });
 
         cancelButton.setOnAction(e -> stage.close());
-
-        // Размещение элементов в VBox
-        VBox vBox = new VBox(10);
-        vBox.setPadding(new Insets(20));
-        vBox.setAlignment(Pos.TOP_CENTER);
-
-        // Добавляем элементы в VBox
-        vBox.getChildren().addAll(
+        HBox buttonPane = new HBox(15, saveButton, cancelButton);
+        buttonPane.setAlignment(Pos.CENTER);
+        // Layout
+        VBox formLayout = new VBox(15,
                 nameLabel, nameField,
                 addressLabel, addressField,
                 phoneLabel, phoneField,
                 faxLabel, faxField,
-                buttonsBox
+                buttonPane
         );
+        formLayout.setPadding(new Insets(20));
+        formLayout.setAlignment(Pos.CENTER);
 
-        // Настройка сцены и стадии
-        Scene scene = new Scene(vBox, 400, 400);
-        stage.setTitle("Добавление дилера");
+        Scene scene = new Scene(formLayout, 400, 500);
+        stage.setTitle(dealer == null ? "Добавление дилера" : "Редактирование дилера");
         stage.setScene(scene);
         stage.show();
     }
 
-    // Метод для создания текстовых полей с плейсхолдерами и стилями
+    private boolean validateInputs(TextField... fields) {
+        boolean isValid = true;
+        for (TextField field : fields) {
+            if (field.getText().isEmpty()) {
+                field.setStyle("-fx-border-color: red;");
+                isValid = false;
+            } else {
+                field.setStyle("");
+            }
+        }
+        return isValid;
+    }
+
+    private Label createLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-size: 14; -fx-font-weight: bold;");
+        label.setMaxWidth(Double.MAX_VALUE);
+        return label;
+    }
+
     private TextField createTextField(String placeholder) {
         TextField textField = new TextField();
         textField.setPromptText(placeholder);
         textField.setStyle("-fx-font-size: 14;");
-        textField.setMaxWidth(Double.MAX_VALUE);
         return textField;
     }
 
-    
+    private Button createButton(String text, String style) {
+        Button button = new Button(text);
+        button.setStyle(style + " -fx-font-size: 14; -fx-padding: 10 20;");
+        return button;
+    }
 }
-
