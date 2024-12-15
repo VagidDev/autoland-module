@@ -22,10 +22,6 @@ public final class Database {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
-    public static void closeConnection() {
-        System.out.println("Don't work");
-    }
-
     private Database() {
     }
 }
