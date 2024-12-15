@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.college.viewfx.view;
 
 /**
@@ -17,18 +13,19 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.skin.MenuButtonSkin;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Orientation;
 import javafx.geometry.Insets;
 
-import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AdminWindow {
@@ -64,7 +61,6 @@ public class AdminWindow {
         splitPane.setOrientation(Orientation.HORIZONTAL);
 
         VBox buttonPanel = createButtonPanel();
-
         tableView = createUserTable();
 
         splitPane.getItems().addAll(buttonPanel, tableView);
@@ -120,23 +116,18 @@ public class AdminWindow {
         VBox buttonPanel = new VBox(10);
         buttonPanel.setPadding(new Insets(10));
 
-        Button addButton = new Button("Добавить");
-        addButton.setOnAction(actionEvent -> {
-            addValue();
-        });
-        Button updateButton = new Button("Редактировать");
-        updateButton.setOnAction(actionEvent -> {
-            updateValue();
-        });
-        Button deleteButton = new Button("Удалить");
-        deleteButton.setOnAction(actionEvent -> {
-            deleteValue();
-        });
-        addEquipButton = new Button("Добавить комплектацию");
+        Button addButton = createIconButton("Добавить", "viewfx/src/main/resources/icons/add.png");
+        addButton.setOnAction(actionEvent -> addValue());
+
+        Button updateButton = createIconButton("Редактировать", "viewfx/src/main/resources/icons/edit.png");
+        updateButton.setOnAction(actionEvent -> updateValue());
+
+        Button deleteButton = createIconButton("Удалить", "viewfx/src/main/resources/icons/delete.png");
+        deleteButton.setOnAction(actionEvent -> deleteValue());
+
+        addEquipButton = createIconButton("Добавить комплектацию", "viewfx/src/main/resources/icons/equip.png");
         addEquipButton.setVisible(false);
-        addEquipButton.setOnAction(actionEvent -> {
-            addEquipValue();
-        });
+        addEquipButton.setOnAction(actionEvent -> addEquipValue());
 
         addButton.setMaxWidth(Double.MAX_VALUE);
         updateButton.setMaxWidth(Double.MAX_VALUE);
@@ -145,6 +136,22 @@ public class AdminWindow {
 
         buttonPanel.getChildren().addAll(addButton, updateButton, deleteButton, addEquipButton);
         return buttonPanel;
+    }
+
+    private Button createIconButton(String text, String iconPath) {
+        try {
+            Button button = new Button(text);
+            ImageView icon = new ImageView(new Image(Files.newInputStream(Path.of(iconPath))));
+            icon.setFitHeight(20);
+            icon.setFitWidth(20);
+            button.setGraphic(icon);
+            button.setStyle("-fx-font-size: 14; -fx-text-fill: #333;");
+            button.setMaxWidth(Double.MAX_VALUE);
+            return button;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void loadTable(Tables table) {
@@ -187,6 +194,7 @@ public class AdminWindow {
         table.getItems().clear();
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        table.setStyle("-fx-font-size: 14;");
 
         TableColumn<User, String> loginColumn = new TableColumn<>("Логин");
         loginColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getLogin()));
@@ -228,6 +236,7 @@ public class AdminWindow {
         table.getItems().clear();
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        table.setStyle("-fx-font-size: 14;");
 
         TableColumn<Dealer, String> nameColumn = new TableColumn<>("Название");
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
@@ -257,6 +266,7 @@ public class AdminWindow {
         table.getItems().clear();
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        table.setStyle("-fx-font-size: 14;");
 
         TableColumn<Warranty, String> nameColumn = new TableColumn<>("Название");
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
@@ -283,6 +293,7 @@ public class AdminWindow {
         table.getItems().clear();
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        table.setStyle("-fx-font-size: 14;");
 
         TableColumn<Automobile, String> markColumn = new TableColumn<>("Марка");
         markColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMark()));
@@ -318,6 +329,7 @@ public class AdminWindow {
         table.getItems().clear();
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        table.setStyle("-fx-font-size: 14;");
 
         TableColumn<Equipment, String> autoColumn = new TableColumn<>("Автомобиль");
         autoColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getAutomobile().getMark() + " " + data.getValue().getAutomobile().getModel()));
@@ -381,6 +393,7 @@ public class AdminWindow {
         table.getItems().clear();
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        table.setStyle("-fx-font-size: 14;");
 
         TableColumn<Contract, String> userColumn = new TableColumn<>("Покупатель");
         userColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUser().getName() + " " + data.getValue().getUser().getSurname()));
