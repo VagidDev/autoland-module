@@ -12,6 +12,4 @@ import java.util.Map;
  * @author Vagid Zibliuc
  */
 public interface AutomobileDAO extends CRUDRepository<Integer, Automobile> {
-    Map<Integer, String> getBodyTypes();
-
 }

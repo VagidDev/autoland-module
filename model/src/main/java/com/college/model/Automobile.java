@@ -4,6 +4,8 @@
  */
 package com.college.model;
 
+import java.util.Map;
+
 /**
  *
  * @author Vagid Zibliuc
@@ -12,7 +14,7 @@ public class Automobile {
     private int id;
     private String mark;
     private String model;
-    private String bodyType;
+    private BodyType bodyType;
     private int placeCount;
     private int prodYear;
     private String imagePath;
@@ -20,7 +22,7 @@ public class Automobile {
     public Automobile() {
     }
 
-    public Automobile(int id, String mark, String model, String bodyType, int placeCount, int prodYear, String imagePath) {
+    public Automobile(int id, String mark, String model, BodyType bodyType, int placeCount, int prodYear, String imagePath) {
         this.id = id;
         this.mark = mark;
         this.model = model;
@@ -54,11 +56,11 @@ public class Automobile {
         this.model = model;
     }
 
-    public String getBodyType() {
+    public BodyType getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(String bodyType) {
+    public void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
     }
 
