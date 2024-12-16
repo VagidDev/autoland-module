@@ -13,25 +13,26 @@ public class Equipment {
     private int id;
     private String name;
     private String engineName;
-    private String engineType;
+    private EngineType engineType;
     private float engineVolume;
     private int horsepower;
-    private String suspensiveType;
-    private String driveType;
-    private String gearboxType;
+    private SuspensionType suspensionType;
+    private DriveType driveType;
+    private GearboxType gearboxType;
     private int speedCount;
-    private String fuelType;
+    private FuelType fuelType;
     private String interior;
     private String bodyKit;
-    private int weigth;
+    private int weight;
     private double price;
+    private String imagePath;
 
     public Equipment() {
     }
 
-    public Equipment(Automobile automobile, int id, String name, String engineName, String engineType, 
-            float engineVolume, int horsepower, String suspensiveType, String driveType, String gearboxType, 
-            int speedCount, String fuelType, String interior, String bodyKit, int weigth, double price) {
+    public Equipment(Automobile automobile, int id, String name, String engineName, EngineType engineType,
+                     float engineVolume, int horsepower, SuspensionType suspensionType, DriveType driveType, GearboxType gearboxType,
+                     int speedCount, FuelType fuelType, String interior, String bodyKit, int weight, double price, String imagePath) {
         this.automobile = automobile;
         this.id = id;
         this.name = name;
@@ -39,15 +40,16 @@ public class Equipment {
         this.engineType = engineType;
         this.engineVolume = engineVolume;
         this.horsepower = horsepower;
-        this.suspensiveType = suspensiveType;
+        this.suspensionType = suspensionType;
         this.driveType = driveType;
         this.gearboxType = gearboxType;
         this.speedCount = speedCount;
         this.fuelType = fuelType;
         this.interior = interior;
         this.bodyKit = bodyKit;
-        this.weigth = weigth;
+        this.weight = weight;
         this.price = price;
+        this.imagePath = imagePath;
     }
 
     public Automobile getAutomobile() {
@@ -82,11 +84,11 @@ public class Equipment {
         this.engineName = engineName;
     }
 
-    public String getEngineType() {
+    public EngineType getEngineType() {
         return engineType;
     }
 
-    public void setEngineType(String engineType) {
+    public void setEngineType(EngineType engineType) {
         this.engineType = engineType;
     }
 
@@ -106,27 +108,27 @@ public class Equipment {
         this.horsepower = horsepower;
     }
 
-    public String getSuspensiveType() {
-        return suspensiveType;
+    public SuspensionType getSuspensionType() {
+        return suspensionType;
     }
 
-    public void setSuspensiveType(String suspensiveType) {
-        this.suspensiveType = suspensiveType;
+    public void setSuspensionType(SuspensionType suspensionType) {
+        this.suspensionType = suspensionType;
     }
 
-    public String getDriveType() {
+    public DriveType getDriveType() {
         return driveType;
     }
 
-    public void setDriveType(String driveType) {
+    public void setDriveType(DriveType driveType) {
         this.driveType = driveType;
     }
 
-    public String getGearboxType() {
+    public GearboxType getGearboxType() {
         return gearboxType;
     }
 
-    public void setGearboxType(String gearboxType) {
+    public void setGearboxType(GearboxType gearboxType) {
         this.gearboxType = gearboxType;
     }
 
@@ -138,11 +140,11 @@ public class Equipment {
         this.speedCount = speedCount;
     }
 
-    public String getFuelType() {
+    public FuelType getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(String fuelType) {
+    public void setFuelType(FuelType fuelType) {
         this.fuelType = fuelType;
     }
 
@@ -162,12 +164,12 @@ public class Equipment {
         this.bodyKit = bodyKit;
     }
 
-    public int getWeigth() {
-        return weigth;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setWeigth(int weigth) {
-        this.weigth = weigth;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public double getPrice() {
@@ -177,28 +179,52 @@ public class Equipment {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public String[] getShortEquipment() {
         return new String[] {
                 "Engine: " + this.engineName,
                 "Engine type: " + this.engineType,
                 "Engine volume: " + this.engineVolume,
                 "Horsepower: " + this.horsepower,
-                "Suspension: " + this.suspensiveType,
+                "Suspension: " + this.suspensionType,
                 "Drive type: " + this.driveType,
                 "Gearbox: " + this.gearboxType,
                 "Speed count: " + this.speedCount,
                 "Fuel: " + this.fuelType,
                 "Interior: " + this.interior,
                 "Body kit: " + this.bodyKit,
-                "Weight: " + this.weigth,
+                "Weight: " + this.weight,
         };
     }
 
     @Override
     public String toString() {
-        return "Equipment{" + "automobile=" + automobile + ", id=" + id + ", name=" + name + ", engineName=" + engineName + ", engineType=" + engineType + ", engineVolume=" + engineVolume + ", horsepower=" + horsepower + ", suspensiveType=" + suspensiveType + ", driveType=" + driveType + ", gearboxType=" + gearboxType + ", speedCount=" + speedCount + ", fuelType=" + fuelType + ", interior=" + interior + ", bodyKit=" + bodyKit + ", weigth=" + weigth + ", price=" + price + '}';
+        return "Equipment{" +
+                "automobile=" + automobile +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", engineName='" + engineName + '\'' +
+                ", engineType='" + engineType + '\'' +
+                ", engineVolume=" + engineVolume +
+                ", horsepower=" + horsepower +
+                ", suspensionType='" + suspensionType + '\'' +
+                ", driveType='" + driveType + '\'' +
+                ", gearboxType='" + gearboxType + '\'' +
+                ", speedCount=" + speedCount +
+                ", fuelType='" + fuelType + '\'' +
+                ", interior='" + interior + '\'' +
+                ", bodyKit='" + bodyKit + '\'' +
+                ", weight=" + weight +
+                ", price=" + price +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
     }
-    
-    
 }
