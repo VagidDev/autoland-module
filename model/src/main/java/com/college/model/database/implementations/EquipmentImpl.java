@@ -8,7 +8,6 @@ import com.college.model.database.exceptions.EntityNotFoundException;
 import com.college.model.database.interfaces.*;
 import com.college.model.keys.EquipmentId;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
