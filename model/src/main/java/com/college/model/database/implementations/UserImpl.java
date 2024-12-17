@@ -47,6 +47,7 @@ public class UserImpl implements UserDAO {
                 user.setId(result.getInt("u_id"));
                 user.setLogin(result.getString("u_login"));
                 user.setPassword(result.getString("u_password"));
+                user.setRole(result.getString("u_role"));
                 user.setName(result.getString("u_name"));
                 user.setSurname(result.getString("u_surname"));
                 user.setBirthday(result.getDate("u_birthday"));
@@ -72,6 +73,7 @@ public class UserImpl implements UserDAO {
                 user.setId(result.getInt("u_id"));
                 user.setLogin(result.getString("u_login"));
                 user.setPassword(result.getString("u_password"));
+                user.setRole(result.getString("u_role"));
                 user.setName(result.getString("u_name"));
                 user.setSurname(result.getString("u_surname"));
                 user.setBirthday(result.getDate("u_birthday"));
@@ -105,6 +107,7 @@ public class UserImpl implements UserDAO {
             ResultSet keys = statement.getGeneratedKeys();
             if (keys.next()) {
                 t.setId(keys.getInt(1));
+                t.setRole("user");
                 return t;
             }
             return null;
@@ -178,6 +181,7 @@ public class UserImpl implements UserDAO {
                 user.setId(result.getInt("u_id"));
                 user.setLogin(result.getString("u_login"));
                 user.setPassword(result.getString("u_password"));
+                user.setRole(result.getString("u_role"));
                 user.setName(result.getString("u_name"));
                 user.setSurname(result.getString("u_surname"));
                 user.setBirthday(result.getDate("u_birthday"));

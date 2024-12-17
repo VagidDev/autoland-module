@@ -7,13 +7,13 @@ package com.college.model;
 import java.util.Date;
 
 /**
- *
  * @author Vagid Zibliuc
  */
 public class User {
     private int id;
     private String login;
     private String password;
+    private String role;
     private String name;
     private String surname;
     private Date birthday;
@@ -21,11 +21,13 @@ public class User {
     private String telephone;
     private String address;
 
-    public User(){}
-    
-    public User(int id, String login, String password, String name, String surname, Date birthday, String email, String telephone, String address) {
+    public User() {
+    }
+
+    public User(int id, String login, String password, String role, String name, String surname, Date birthday, String email, String telephone, String address) {
         this.id = id;
         this.login = login;
+        this.role = role;
         this.password = password;
         this.name = name;
         this.surname = surname;
@@ -57,6 +59,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getName() {
@@ -111,7 +121,6 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", name=" + name + ", surname=" + surname + ", birthday=" + birthday + ", email=" + email + ", telephone=" + telephone + ", address=" + address + '}';
     }
-    
-    
-    
+
+
 }
