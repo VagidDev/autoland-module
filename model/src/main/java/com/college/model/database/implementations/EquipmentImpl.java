@@ -54,19 +54,24 @@ public class EquipmentImpl implements EquipmentDAO {
         this.fuelTypeDAO = fuelTypeDAO;
     }
 
+    public Equipment getBySimpleId(int autoId, int equipId) {
+        EquipmentId id = new EquipmentId(
+                automobileRepository.getById(autoId),
+                equipId
+        );
+        return getById(id);
+    }
+
     @Override
     public Equipment getById(EquipmentId id) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
-            statement.setInt(1, id.getAutomobileId());
+            statement.setInt(1, id.getAutomobile().getId());
             statement.setInt(2, id.getEquipmentId());
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 Equipment equipment = new Equipment();
-                equipment.setAutomobile(
-                        automobileRepository.getById(result.getInt("e_auto_id"))
-                );
-                equipment.setId(result.getInt("e_id"));
+                equipment.setId(id);
                 equipment.setName(result.getString("e_name"));
                 equipment.setEngineName(result.getString("e_engine_name"));
                 equipment.setEngineType(engineTypeDAO.getById(result.getInt("e_engine_id")));
@@ -99,10 +104,12 @@ public class EquipmentImpl implements EquipmentDAO {
             ResultSet result = statement.executeQuery(GET_ALL_QUERY);
             while (result.next()) {
                 Equipment equipment = new Equipment();
-                equipment.setAutomobile(
-                        automobileRepository.getById(result.getInt("e_auto_id"))
+                EquipmentId id = new EquipmentId(
+                        automobileRepository.getById(result.getInt("e_auto_id")),
+                        result.getInt("e_id")
                 );
-                equipment.setId(result.getInt("e_id"));
+
+                equipment.setId(id);
                 equipment.setName(result.getString("e_name"));
                 equipment.setEngineName(result.getString("e_engine_name"));
                 equipment.setEngineType(engineTypeDAO.getById(result.getInt("e_engine_id")));
@@ -127,15 +134,16 @@ public class EquipmentImpl implements EquipmentDAO {
         }
     }
     //better this method create as a stored procedure in database
-    private int getActualId(int autoId) {
+    private EquipmentId getActualId(int autoId) {
         try (Connection connection = Database.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_FREE_ID);
             statement.setInt(1, autoId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt(1) + 1;
+                int newId = resultSet.getInt(1) + 1;
+                return new EquipmentId(automobileRepository.getById(autoId), newId);
             }
-            return -1;
+            return null;
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -144,12 +152,12 @@ public class EquipmentImpl implements EquipmentDAO {
     @Override
     public Equipment save(Equipment t) {
         try (Connection conn = Database.getConnection()) {
-            t.setId(getActualId(t.getAutomobile().getId()));
+            t.setId(getActualId(t.getId().getAutomobile().getId()));
 
             PreparedStatement statement = conn.prepareStatement(INSERT_QUERY);
 
-            statement.setInt(1, t.getAutomobile().getId());
-            statement.setInt(2, t.getId());
+            statement.setInt(1, t.getId().getAutomobile().getId());
+            statement.setInt(2, t.getId().getEquipmentId());
             statement.setString(3, t.getName());
             statement.setString(4, t.getEngineName());
             statement.setInt(5, t.getEngineType().getId());
@@ -195,13 +203,13 @@ public class EquipmentImpl implements EquipmentDAO {
             statement.setInt(13, t.getWeight());
             statement.setDouble(14, t.getPrice());
             statement.setString(15, t.getImagePath());
-            statement.setInt(16, t.getAutomobile().getId());
-            statement.setInt(17, t.getId());
+            statement.setInt(16, t.getId().getAutomobile().getId());
+            statement.setInt(17, t.getId().getEquipmentId());
 
             int result = statement.executeUpdate();
 
             if (result == 0) {
-                throw new EntityNotFoundException("Equipment with auto_id= " + t.getAutomobile().getId() + " id=" + t.getId() + " did not update, because it does not exists!");
+                throw new EntityNotFoundException("Equipment with auto_id= " + t.getId().getAutomobile().getId() + " id=" + t.getId().getEquipmentId() + " did not update, because it does not exists!");
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -212,11 +220,11 @@ public class EquipmentImpl implements EquipmentDAO {
     public void delete(Equipment t) throws CascadeDependencyException {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
-            statement.setInt(1, t.getAutomobile().getId());
-            statement.setInt(2, t.getId());
+            statement.setInt(1, t.getId().getAutomobile().getId());
+            statement.setInt(2, t.getId().getEquipmentId());
             statement.execute();
         } catch (SQLIntegrityConstraintViolationException ex) {
-            throw new CascadeDependencyException("Equipment with auto_id= " + t.getAutomobile().getId() + " id=" + t.getId() + " using in other tables");
+            throw new CascadeDependencyException("Equipment with auto_id= " + t.getId().getAutomobile().getId() + " id=" + t.getId() + " using in other tables");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -226,11 +234,11 @@ public class EquipmentImpl implements EquipmentDAO {
     public void deleteByID(EquipmentId id) throws CascadeDependencyException {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
-            statement.setInt(1, id.getAutomobileId());
+            statement.setInt(1, id.getAutomobile().getId());
             statement.setInt(2, id.getEquipmentId());
             statement.execute();
         } catch (SQLIntegrityConstraintViolationException ex) {
-            throw new CascadeDependencyException("Equipment with auto_id= " + id.getAutomobileId() + " id=" + id.getEquipmentId() + " using in other tables");
+            throw new CascadeDependencyException("Equipment with auto_id= " + id.getAutomobile().getId() + " id=" + id.getEquipmentId() + " using in other tables");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -245,8 +253,10 @@ public class EquipmentImpl implements EquipmentDAO {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Equipment equipment = new Equipment();
-                equipment.setAutomobile(automobile);
-                equipment.setId(result.getInt("e_id"));
+                equipment.setId(new EquipmentId(
+                        automobile,
+                        result.getInt("e_id")
+                ));
                 equipment.setName(result.getString("e_name"));
                 equipment.setEngineName(result.getString("e_engine_name"));
                 equipment.setEngineType(engineTypeDAO.getById(result.getInt("e_engine_id")));

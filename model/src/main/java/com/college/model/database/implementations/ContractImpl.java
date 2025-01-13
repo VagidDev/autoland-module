@@ -53,7 +53,12 @@ public class ContractImpl implements ContractDAO {
                 contract.setUser(userRepository.getById(result.getInt("c_user_id")));
                 contract.setDealer(dealerRepository.getById(result.getInt("c_dealer_id")));
                 contract.setAutomobile(automobileRepository.getById(result.getInt("c_auto_id")));
-                contract.setEquipment(equipmentRepository.getById(new EquipmentId(result.getInt("c_auto_id"), result.getInt("c_equip_id"))));
+                contract.setEquipment(equipmentRepository.getById(
+                        new EquipmentId(
+                                automobileRepository.getById(result.getInt("c_auto_id")),
+                                result.getInt("c_equip_id"))
+                        )
+                );
                 contract.setWarranty(warrantyRepository.getById(result.getInt("c_warranty_id")));
                 contract.setConclusionDate(result.getDate("c_data"));
                 return contract;
@@ -76,7 +81,12 @@ public class ContractImpl implements ContractDAO {
                 contract.setUser(userRepository.getById(result.getInt("c_user_id")));
                 contract.setDealer(dealerRepository.getById(result.getInt("c_dealer_id")));
                 contract.setAutomobile(automobileRepository.getById(result.getInt("c_auto_id")));
-                contract.setEquipment(equipmentRepository.getById(new EquipmentId(result.getInt("c_auto_id"), result.getInt("c_equip_id"))));
+                contract.setEquipment(equipmentRepository.getById(
+                        new EquipmentId(
+                                automobileRepository.getById(result.getInt("c_auto_id")),
+                                result.getInt("c_equip_id"))
+                        )
+                );
                 contract.setWarranty(warrantyRepository.getById(result.getInt("c_warranty_id")));
                 contract.setConclusionDate(result.getDate("c_data"));
                 contracts.add(contract);
@@ -95,7 +105,7 @@ public class ContractImpl implements ContractDAO {
             statement.setInt(1, t.getUser().getId());
             statement.setInt(2, t.getDealer().getId());
             statement.setInt(3, t.getAutomobile().getId());
-            statement.setInt(4, t.getEquipment().getId());
+            statement.setInt(4, t.getEquipment().getId().getEquipmentId());
             statement.setInt(5, t.getWarranty().getId());
 
             statement.execute();
@@ -120,7 +130,7 @@ public class ContractImpl implements ContractDAO {
             statement.setInt(1, t.getUser().getId());
             statement.setInt(2, t.getDealer().getId());
             statement.setInt(3, t.getAutomobile().getId());
-            statement.setInt(4, t.getEquipment().getId());
+            statement.setInt(4, t.getEquipment().getId().getEquipmentId());
             statement.setInt(5, t.getWarranty().getId());
             statement.setDate(6, new Date(t.getConclusionDate().getTime()));
             statement.setInt(7, t.getId());

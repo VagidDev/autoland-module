@@ -4,6 +4,8 @@
  */
 package com.college.model.keys;
 
+import com.college.model.Automobile;
+
 import java.util.Objects;
 
 /**
@@ -11,16 +13,16 @@ import java.util.Objects;
  * @author Vagid Zibliuc
  */
 public class EquipmentId {
-    private final int automobileId;
+    private final Automobile automobile;
     private final int equipmentId;
 
-    public EquipmentId(int automobileId, int equipmentId) {
-        this.automobileId = automobileId;
+    public EquipmentId(Automobile automobile, int equipmentId) {
+        this.automobile = automobile;
         this.equipmentId = equipmentId;
     }
 
-    public int getAutomobileId() {
-        return automobileId;
+    public Automobile getAutomobile() {
+        return automobile;
     }
 
     public int getEquipmentId() {
@@ -32,11 +34,11 @@ public class EquipmentId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EquipmentId that = (EquipmentId) o;
-        return automobileId == that.automobileId && equipmentId == that.equipmentId;
+        return automobile.getId() == that.automobile.getId() && equipmentId == that.equipmentId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(automobileId, equipmentId);
+        return Objects.hash(automobile.getId(), equipmentId);
     }
 }

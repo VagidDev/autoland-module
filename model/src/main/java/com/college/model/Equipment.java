@@ -4,13 +4,14 @@
  */
 package com.college.model;
 
+import com.college.model.keys.EquipmentId;
+
 /**
  *
  * @author Vagid Zibliuc
  */
 public class Equipment {
-    private Automobile automobile;
-    private int id;
+    private EquipmentId id;
     private String name;
     private String engineName;
     private EngineType engineType;
@@ -33,8 +34,7 @@ public class Equipment {
     public Equipment(Automobile automobile, int id, String name, String engineName, EngineType engineType,
                      float engineVolume, int horsepower, SuspensionType suspensionType, DriveType driveType, GearboxType gearboxType,
                      int speedCount, FuelType fuelType, String interior, String bodyKit, int weight, double price, String imagePath) {
-        this.automobile = automobile;
-        this.id = id;
+        this.id = new EquipmentId(automobile, id);
         this.name = name;
         this.engineName = engineName;
         this.engineType = engineType;
@@ -52,19 +52,11 @@ public class Equipment {
         this.imagePath = imagePath;
     }
 
-    public Automobile getAutomobile() {
-        return automobile;
-    }
-
-    public void setAutomobile(Automobile automobile) {
-        this.automobile = automobile;
-    }
-
-    public int getId() {
+    public EquipmentId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(EquipmentId id) {
         this.id = id;
     }
 
@@ -208,8 +200,8 @@ public class Equipment {
     @Override
     public String toString() {
         return "Equipment{" +
-                "automobile=" + automobile +
-                ", id=" + id +
+                "automobile=" + id.getAutomobile() +
+                ", id=" + id.getEquipmentId() +
                 ", name='" + name + '\'' +
                 ", engineName='" + engineName + '\'' +
                 ", engineType='" + engineType + '\'' +
