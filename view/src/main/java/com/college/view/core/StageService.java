@@ -30,7 +30,7 @@ public class StageService {
         return stage;
     }
 
-    public static void buildSimpleStage(String title, String fxml) throws IOException {
+    public static void buildAndShowStage(String title, String fxml) throws IOException {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxml));
         Scene scene = new Scene(fxmlLoader.load());

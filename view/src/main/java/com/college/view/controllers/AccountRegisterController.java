@@ -14,6 +14,6 @@ public class AccountRegisterController {
     @FXML
     public void confirmButtonClicked(ActionEvent event) throws IOException {
         StageService.closeCurrentStage(event);
-        StageService.buildSimpleStage("Registration", "registration-form.fxml");
+        StageService.buildAndShowStage("Registration", "registration-form.fxml");
     }
 }
