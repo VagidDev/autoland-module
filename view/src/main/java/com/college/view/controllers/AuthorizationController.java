@@ -3,7 +3,6 @@ package com.college.view.controllers;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -21,20 +20,16 @@ public class AuthorizationController {
     @FXML
     public void openRegisterForm(ActionEvent event) throws IOException {
         StageService.closeCurrentStage(event);
-        StageService.buildSimpleStage("Account Information", "account-register-form.fxml");
+        StageService.buildAndShowStage("Account Information", "account-register-form.fxml");
     }
 
     @FXML
-    public void onLoginButtonAction(ActionEvent event) {
-        //just for checking
+    public void onLoginButtonAction(ActionEvent event) throws IOException {
         if (!loginTextField.getText().equals("vaxa") || !passwordTextField.getText().equals("qwerty")) {
             return;
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Login");
-        alert.setHeaderText("You are logged in");
-        alert.setContentText("Welcome " + loginTextField.getText());
-        alert.showAndWait();
+        StageService.closeCurrentStage(event);
+        StageService.buildAndShowStage("Home", "home-form.fxml");
     }
 
     public void setLoginAndPasswordFields(String login, String password) {
