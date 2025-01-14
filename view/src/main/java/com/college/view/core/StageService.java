@@ -17,7 +17,20 @@ public class StageService {
         stage.close();
     }
 
-    public static void showNewStage(String title, String fxml) throws IOException {
+    public static FXMLLoader loadFXMLLoader(String fxml) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource(fxml));
+        loader.load();
+        return loader;
+    }
+
+    public static Stage buildStage(String title, FXMLLoader fxmlLoader) throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setScene(new Scene(fxmlLoader.getRoot()));
+        return stage;
+    }
+
+    public static void buildSimpleStage(String title, String fxml) throws IOException {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxml));
         Scene scene = new Scene(fxmlLoader.load());

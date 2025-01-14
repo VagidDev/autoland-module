@@ -51,7 +51,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="43.0" layoutY="139.0" prefHeight="25.0" prefWidth="390.0" promptText="Input login" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
+      <TextField fx:id="loginTextField" layoutX="43.0" layoutY="139.0" prefHeight="25.0" prefWidth="390.0" promptText="Input login" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -61,12 +61,12 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <PasswordField layoutX="43.0" layoutY="247.0" prefHeight="39.0" prefWidth="390.0" promptText="Input password" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
+      <PasswordField fx:id="passwordTextField" layoutX="43.0" layoutY="247.0" prefHeight="39.0" prefWidth="390.0" promptText="Input password" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
          <font>
             <Font size="18.0" />
          </font>
       </PasswordField>
-      <Button layoutX="43.0" layoutY="328.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="390.0" style="-fx-background-color: #000000;" text="Login" textFill="WHITE" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
+      <Button fx:id="loginButton" layoutX="43.0" layoutY="328.0" mnemonicParsing="false" onAction="#onLoginButtonAction" prefHeight="25.0" prefWidth="390.0" style="-fx-background-color: #000000;" text="Login" textFill="WHITE" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
