@@ -39,7 +39,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="461.0" style="-fx-background-color: #FFFFFFFF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="461.0" style="-fx-background-color: #FFFFFFFF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AuthorizationController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="71.0" layoutY="38.0" prefHeight="50.0" prefWidth="320.0" style="-fx-background-color: #FFFFFF;" text="Authorization" textAlignment="CENTER" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="38.0">
          <font>
@@ -71,7 +71,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="43.0" layoutY="380.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="390.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="Register" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
+      <Button fx:id="registerButton" layoutX="43.0" layoutY="380.0" mnemonicParsing="false" onAction="#openRegisterForm" prefHeight="25.0" prefWidth="390.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="Register" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

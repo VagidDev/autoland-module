@@ -1,8 +1,6 @@
 package com.college.view;
 
 
-import com.college.view.controllers.AccountRegisterForm;
-import com.college.view.controllers.AuthorizationForm;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
