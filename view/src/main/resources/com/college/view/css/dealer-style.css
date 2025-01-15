@@ -1,0 +1,37 @@
+.dealer-container {
+    -fx-background-color: #a4a4a4;
+    -fx-border-color: #a4a4a4;
+    -fx-border-width: 1px;
+}
+
+.dealer-container .scroll-bar {
+    -fx-background-color: #a4a4a4;
+}
+
+.scroll-pane .thumb {
+    -fx-background-color: #535353;
+}
+
+.scroll-pane .thumb:hover {
+    -fx-background-color: #303030;
+}
+
+.dealer-list, .dealer-container .viewport {
+    -fx-background-color: #000000;
+}
+
+.dealer-list > .list-element {
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.button {
+    -fx-background-color: rgba(255,255,255, 0.3);
+    -fx-text-fill: #a4a4a4;
+}
+
+.button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-text-fill: #000000;
+}
