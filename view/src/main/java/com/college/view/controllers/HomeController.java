@@ -22,8 +22,10 @@ public class HomeController {
     }
 
     @FXML
-    public void onShoppingButtonClicked() {
+    public void onShoppingButtonClicked(ActionEvent event) throws IOException {
         //some code
+        StageService.closeCurrentStage(event);
+        StageService.buildAndShowStage("Shop", "shop-form.fxml");
     }
 
     @FXML
