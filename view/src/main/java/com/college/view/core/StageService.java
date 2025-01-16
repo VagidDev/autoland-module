@@ -2,6 +2,7 @@ package com.college.view.core;
 
 import com.college.view.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class StageService {
 
-    public static void closeCurrentStage(ActionEvent event) {
+    public static void closeCurrentStage(Event event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

@@ -1,10 +1,12 @@
 package com.college.view.controllers;
 
+import com.college.view.core.StageService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -63,18 +65,19 @@ public class ShopController {
 
         pane.getChildren().addAll(imageView, labelMark, labelPrice);
 
-        pane.setOnMouseClicked(event -> click());
+        pane.setOnMouseClicked(event -> click(event));
 
         return pane;
     }
 
     //TODO: rename method
-    private void click() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Click");
-        alert.setHeaderText("Congratulations!");
-        alert.setContentText("You clicked me!");
-        alert.showAndWait();
+    private void click(MouseEvent event) {
+        StageService.closeCurrentStage(event);
+        try {
+            StageService.buildAndShowStage("Car", "auto-form.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
