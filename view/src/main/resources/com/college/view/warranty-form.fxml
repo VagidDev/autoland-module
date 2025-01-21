@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="960.0" prefWidth="720.0" style="-fx-background-color: #000000;" stylesheets="@css/warranty-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.WarrantyController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="120.0" prefWidth="720.0" text="Warranty" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Lucida Bright Demibold" size="48.0" />
+         </font>
+      </Label>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="130.0" prefHeight="774.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
+         <content>
+            <FlowPane fx:id="flowPane" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="50.0" prefHeight="540.0" vgap="50.0">
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="550.0" styleClass="warranty-pane">
+                     <children>
+                        <Label layoutX="25.0" layoutY="30.0" text="Warranty Name" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="25.0" layoutY="85.0" text="Duration" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="25.0" layoutY="140.0" text="Price $" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="550.0" styleClass="warranty-pane">
+                     <children>
+                        <Label layoutX="25.0" layoutY="30.0" text="Warranty Name" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="25.0" layoutY="85.0" text="Duration" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="25.0" layoutY="140.0" text="Price $" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+               <padding>
+                  <Insets bottom="25.0" top="25.0" />
+               </padding>
+            </FlowPane>
+         </content>
+      </ScrollPane>
+      <StackPane layoutX="285.0" layoutY="890.0" prefHeight="50.0" prefWidth="428.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Button" textAlignment="CENTER">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
