@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="360.0" spacing="30.0" style="-fx-border-color: #FFFFFF;">
+         <children>
+            <Label text="User" textFill="#a4a4a4">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="48.0" />
+               </font>
+            </Label>
+            <Avatar radius="80.0">
+               <image>
+                  <Image url="@../../../images/ilya-kuvshinov-t3.jpg" />
+               </image>
+            </Avatar>
+            <Label text="name surname" textFill="#a4a4a4">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="24.0" />
+               </font>
+            </Label>
+            <GridPane hgap="20.0" prefHeight="190.0" prefWidth="318.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="70.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Login:" textFill="#a4a4a4">
+                     <font>
+                        <Font name="Lucida Bright Demibold Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="login" textFill="#a4a4a4" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Password:" textFill="#a4a4a4" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Lucida Bright Demibold Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Telephone:" textFill="#a4a4a4" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Lucida Bright Demibold Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="Address:" textFill="#a4a4a4" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Lucida Bright Demibold Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="********" textFill="#a4a4a4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="+3736854712" textFill="#a4a4a4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label text="somwhere" textFill="#a4a4a4" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
