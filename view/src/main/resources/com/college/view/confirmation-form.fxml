@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="640.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="797.0" prefWidth="640.0" style="-fx-background-color: #000000;" stylesheets="@css/confirmation-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.ConfirmationController">
    <children>
       <StackPane layoutX="10.0" layoutY="10.0" prefHeight="360.0" prefWidth="640.0" styleClass="image-container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,11 +21,16 @@
             </ImageView>
          </children>
       </StackPane>
-      <AnchorPane layoutY="360.0" prefHeight="480.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="360.0">
+      <AnchorPane layoutY="360.0" minHeight="400.0" prefHeight="565.0" prefWidth="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="360.0">
          <children>
-            <FlowPane alignment="TOP_CENTER" hgap="25.0" layoutX="55.0" layoutY="77.0" prefHeight="400.0" prefWidth="520.0" vgap="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="80.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" text="Check" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="48.0" />
+               </font>
+            </Label>
+            <FlowPane alignment="TOP_CENTER" hgap="25.0" layoutX="55.0" layoutY="77.0" prefHeight="400.0" prefWidth="520.0" vgap="25.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
                <children>
-                  <Pane prefHeight="130.0" prefWidth="240.0" style="-fx-border-color: #FFFFFF;">
+                  <Pane prefHeight="130.0" prefWidth="280.0" styleClass="conf-pane">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="User" textFill="#a4a4a4">
                            <font>
@@ -45,7 +49,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane prefHeight="130.0" prefWidth="240.0" style="-fx-border-color: #FFFFFF;">
+                  <Pane prefHeight="130.0" prefWidth="280.0" styleClass="conf-pane">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Dealer" textFill="#a4a4a4">
                            <font>
@@ -64,7 +68,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane prefHeight="200.0" prefWidth="240.0" style="-fx-border-color: #FFFFFF;">
+                  <Pane prefHeight="200.0" prefWidth="280.0" styleClass="conf-pane">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Automobile" textFill="#a4a4a4">
                            <font>
@@ -93,7 +97,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane prefHeight="130.0" prefWidth="240.0" style="-fx-border-color: #FFFFFF;">
+                  <Pane prefHeight="200.0" prefWidth="280.0" styleClass="conf-pane">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Warranty" textFill="#a4a4a4">
                            <font>
@@ -114,21 +118,16 @@
                   </Pane>
                </children>
             </FlowPane>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" text="Check" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="48.0" />
-               </font>
-            </Label>
+            <StackPane layoutY="458.0" prefHeight="110.0" prefWidth="640.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="460.0">
+               <children>
+                  <Button fx:id="confirmationButton" mnemonicParsing="false" onAction="#onConfirmButtonClicked" prefHeight="45.0" prefWidth="200.0" text="Confirm">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </StackPane>
          </children>
       </AnchorPane>
-      <StackPane layoutY="840.0" prefHeight="80.0" prefWidth="640.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="840.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" text="Buy">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="24.0" />
-               </font>
-            </Button>
-         </children>
-      </StackPane>
    </children>
 </AnchorPane>
