@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="800.0" prefWidth="1080.0" style="-fx-background-color: #000000;" stylesheets="@css/account-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AccountController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="360.0" spacing="30.0" style="-fx-border-color: #FFFFFF;">
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="360.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="User" textFill="#a4a4a4">
+            <Label text="User" textFill="#a3a3a3">
                <font>
                   <Font name="Lucida Bright Demibold" size="48.0" />
                </font>
             </Label>
-            <Avatar radius="80.0">
-               <image>
-                  <Image url="@../../../images/ilya-kuvshinov-t3.jpg" />
-               </image>
-            </Avatar>
-            <Label text="name surname" textFill="#a4a4a4">
+            <StackPane maxHeight="200.0" maxWidth="200.0" styleClass="avatar-photo">
+               <children>
+                  <ImageView fx:id="avatar" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                     <image>
+                        <Image url="@../../../images/ilya-kuvshinov-t3.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <Label text="name surname" textFill="#a3a3a3">
                <font>
                   <Font name="Lucida Bright Demibold" size="24.0" />
                </font>
@@ -43,52 +50,70 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Login:" textFill="#a4a4a4">
+                  <Label text="Login:" textFill="#a3a3a3">
                      <font>
                         <Font name="Lucida Bright Demibold Italic" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="login" textFill="#a4a4a4" GridPane.columnIndex="1">
+                  <Label text="login" textFill="#a3a3a3" GridPane.columnIndex="1">
                      <font>
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Password:" textFill="#a4a4a4" GridPane.rowIndex="1">
+                  <Label text="Password:" textFill="#a3a3a3" GridPane.rowIndex="1">
                      <font>
                         <Font name="Lucida Bright Demibold Italic" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Telephone:" textFill="#a4a4a4" GridPane.rowIndex="2">
+                  <Label text="Telephone:" textFill="#a3a3a3" GridPane.rowIndex="2">
                      <font>
                         <Font name="Lucida Bright Demibold Italic" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Address:" textFill="#a4a4a4" GridPane.rowIndex="3">
+                  <Label text="Address:" textFill="#a3a3a3" GridPane.rowIndex="3">
                      <font>
                         <Font name="Lucida Bright Demibold Italic" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="********" textFill="#a4a4a4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label text="********" textFill="#a3a3a3" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="+3736854712" textFill="#a4a4a4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label text="+3736854712" textFill="#a3a3a3" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="somwhere" textFill="#a4a4a4" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label text="somwhere" textFill="#a3a3a3" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>
                   </Label>
                </children>
             </GridPane>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Edit">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
          </children>
          <padding>
             <Insets top="15.0" />
          </padding>
       </VBox>
+      <AnchorPane layoutX="380.0" layoutY="6.0" prefHeight="800.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="380.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TableView layoutX="40.0" layoutY="44.0" prefHeight="540.0" prefWidth="620.0" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
