@@ -1,8 +1,8 @@
 package com.college.view.controllers;
 
 import com.college.view.core.StageService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -78,6 +78,11 @@ public class ShopController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void backButtonClicked(ActionEvent actionEvent) throws IOException {
+        StageService.closeCurrentStage(actionEvent);
+        StageService.buildAndShowStage("Home", "home-form.fxml");
     }
 
 }

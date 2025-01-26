@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,121 +15,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="850.0" prefWidth="1335.0" style="-fx-background-color: #000000;" stylesheets="@css/shop-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.ShopController">
+<AnchorPane prefHeight="900.0" prefWidth="1340.0" style="-fx-background-color: #000000;" stylesheets="@css/shop-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.ShopController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="25.0" text="Shop" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="461.0" AnchorPane.rightAnchor="460.0" AnchorPane.topAnchor="25.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="25.0" text="Shop" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font name="Lucida Bright Demibold" size="64.0" />
          </font>
       </Label>
-      <Pane layoutX="39.0" layoutY="111.0" prefHeight="705.0" prefWidth="300.0" styleClass="pane" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="111.0">
+      <AnchorPane layoutX="345.0" layoutY="111.0" prefHeight="705.0" prefWidth="715.0" styleClass="automobile-pane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
          <children>
-            <Label layoutX="112.0" layoutY="14.0" text="Filters" textFill="#a4a4a4">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="30.0" layoutY="76.0" text="Body Type" textFill="#a4a4a4">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="18.0" />
-               </font>
-            </Label>
-            <VBox layoutX="32.0" layoutY="108.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
-               <children>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="15.0" top="15.0" />
-               </padding>
-            </VBox>
-            <Label layoutX="31.0" layoutY="251.0" text="Engine Type" textFill="#a4a4a4">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="18.0" />
-               </font>
-            </Label>
-            <VBox layoutX="33.0" layoutY="283.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
-               <children>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="15.0" top="15.0" />
-               </padding>
-            </VBox>
-            <Label layoutX="31.0" layoutY="434.0" text="Gearbox Type" textFill="#a4a4a4">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="18.0" />
-               </font>
-            </Label>
-            <VBox layoutX="33.0" layoutY="466.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
-               <children>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Lucida Bright Demibold" size="16.0" />
-                     </font>
-                  </CheckBox>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="15.0" top="15.0" />
-               </padding>
-            </VBox>
-         </children></Pane>
-      <AnchorPane layoutX="345.0" layoutY="111.0" prefHeight="705.0" prefWidth="715.0" styleClass="pane" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="345.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="111.0">
-         <children>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="35.0" layoutY="50.0" prefHeight="600.0" prefWidth="630.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="35.0" layoutY="50.0" prefHeight="600.0" prefWidth="630.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                <content>
-                  <FlowPane fx:id="flowPane" hgap="30.0" prefHeight="600.0" prefWidth="620.0" style="-fx-background-color: #000000;" vgap="30.0">
+                  <FlowPane fx:id="flowPane" hgap="30.0" prefHeight="300.0" prefWidth="620.0" vgap="30.0">
                      <children>
                         <Pane prefHeight="220.0" prefWidth="270.0" styleClass="pane">
-                           <FlowPane.margin>
-                              <Insets />
-                           </FlowPane.margin>
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="220.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true">
                                  <image>
@@ -190,7 +92,152 @@
                   </FlowPane>
                </content>
             </ScrollPane>
+            <Pane prefHeight="705.0" prefWidth="300.0" styleClass="filter-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <Label layoutX="112.0" layoutY="14.0" text="Filters" textFill="#a4a4a4">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="76.0" text="Body Type" textFill="#a4a4a4">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="32.0" layoutY="108.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  <Label layoutX="31.0" layoutY="251.0" text="Engine Type" textFill="#a4a4a4">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="33.0" layoutY="283.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  <Label layoutX="31.0" layoutY="434.0" text="Gearbox Type" textFill="#a4a4a4">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="33.0" layoutY="466.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="16.0" />
+                           </font>
+                        </CheckBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </Pane>
+            <AnchorPane layoutX="733.0" layoutY="5.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <FlowPane alignment="CENTER" hgap="50.0" layoutX="569.0" prefHeight="100.0" prefWidth="570.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ToggleButton mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="ToggleButton">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="14.0" />
+                           </font>
+                        </ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="ToggleButton">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="14.0" />
+                           </font>
+                        </ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="ToggleButton">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="14.0" />
+                           </font>
+                        </ToggleButton>
+                     </children>
+                  </FlowPane>
+                  <FlowPane alignment="CENTER" layoutX="14.0" layoutY="-61.0" prefHeight="200.0" prefWidth="365.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField promptText="Search" styleClass="search-field">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button mnemonicParsing="false" styleClass="search-button" text="Q">
+                           <font>
+                              <Font name="Lucida Bright Demibold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </FlowPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
+      <FlowPane alignment="CENTER" layoutX="570.0" layoutY="755.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="55.0" prefWidth="150.0" text="Back">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </FlowPane>
    </children>
 </AnchorPane>
