@@ -25,7 +25,7 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         if (password.equals(confirmPassword) && !password.isEmpty()) {
-            FXMLLoader loader = StageService.loadFXMLLoader("authorization-form.fxml");
+            FXMLLoader loader = StageService.loadFXML("authorization-form.fxml");
             AuthorizationController controller = loader.getController();
             controller.setLoginAndPasswordFields(login, password);
             StageService.closeCurrentStage(event);
