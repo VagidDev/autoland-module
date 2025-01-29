@@ -4,8 +4,6 @@ import com.college.view.core.StageService;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -39,9 +37,6 @@ public class DealerController {
         dealerList.getChildren().add(createDealerPane("name", "address", "+3736582"));
         dealerList.getChildren().add(createDealerPane("name", "address", "+3736582"));
 
-        for (Node node : dealerList.getChildren()) {
-            HBox.setMargin(node, new Insets(10));
-        }
     }
 
     private Pane createDealerPane(String name, String address, String phoneNumber) {

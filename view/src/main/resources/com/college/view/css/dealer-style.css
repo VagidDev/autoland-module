@@ -4,21 +4,56 @@
     -fx-border-width: 1px;
 }
 
-.dealer-container .scroll-bar {
+.dealer-photo-container {
+    -fx-background-color: #000000;
+}
+
+.dealer-photo-container .viewport {
+    -fx-background-color: #000000;
+}
+
+.scroll-pane {
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #a4a4a4;
+    -fx-background-color: #a4a4a4;
+    -fx-background-radius: 15px;
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: #a4a4a4;
+    -fx-background-radius: 20px;
+    -fx-padding: 1px 5px 1px 5px;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #FFFFFF;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #424242;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #000000;
+    -fx-background-radius: 15px;
+}
+
+.scroll-bar .increment-button:hover,
+.scroll-bar .decrement-button:hover {
     -fx-background-color: #a4a4a4;
 }
 
-.scroll-pane .thumb {
-    -fx-background-color: #535353;
-}
-
-.scroll-pane .thumb:hover {
-    -fx-background-color: #303030;
-}
-
-.dealer-list, .dealer-container .viewport {
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
     -fx-background-color: #000000;
 }
+
+.scroll-bar .increment-arrow:hover,
+.scroll-bar .decrement-arrow:hover {
+    -fx-background-color: #FFFFFF;
+}
+
 
 .list-element {
     -fx-border-color: white;
