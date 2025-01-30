@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="980.0" prefWidth="640.0" stylesheets="@css/auto-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AutoController">
+<AnchorPane prefHeight="1000.0" prefWidth="640.0" stylesheets="@css/auto-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AutoController">
    <children>
       <StackPane prefHeight="360.0" prefWidth="640.0" styleClass="image-container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,23 +27,23 @@
       </StackPane>
       <AnchorPane layoutY="360.0" prefHeight="560.0" prefWidth="640.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="360.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="14.0" prefHeight="77.0" prefWidth="419.0" text="Equipments" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="14.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="14.0" prefHeight="77.0" prefWidth="419.0" text="Equipments" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font name="Lucida Bright Demibold" size="48.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="50.0" layoutY="109.0" prefHeight="435.0" prefWidth="540.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+            <ScrollPane layoutX="50.0" layoutY="109.0" prefHeight="435.0" prefWidth="540.0" vbarPolicy="NEVER" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="110.0">
                <content>
-                  <FlowPane fx:id="flowPane" hgap="20.0" maxHeight="-Infinity" orientation="VERTICAL" prefHeight="410.0" prefWidth="323.0" style="-fx-background-color: #000000;">
+                  <FlowPane fx:id="flowPane" hgap="20.0" maxHeight="-Infinity" orientation="VERTICAL" prefHeight="387.0" prefWidth="323.0" styleClass="list-container">
                      <children>
                         <Pane prefHeight="375.0" prefWidth="260.0" styleClass="list-element">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="34.0" prefWidth="260.0" text="Equip" textAlignment="CENTER" textFill="#a4a4a4">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="34.0" prefWidth="260.0" text="Equip" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Lucida Bright Demibold" size="28.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="70.0" prefWidth="260.0" text="Price $" textAlignment="CENTER" textFill="#a4a4a4">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="70.0" prefWidth="260.0" text="Price $" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Lucida Bright Demibold" size="20.0" />
                                  </font>
@@ -55,6 +56,30 @@
                               </Button>
                            </children>
                         </Pane>
+                        <Pane prefHeight="375.0" prefWidth="260.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="34.0" prefWidth="260.0" text="Equip" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lucida Bright Demibold" size="28.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="70.0" prefWidth="260.0" text="Price $" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lucida Bright Demibold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <ListView layoutX="20.0" layoutY="106.0" prefHeight="206.0" prefWidth="220.0" />
+                              <Button layoutX="68.0" layoutY="321.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Select">
+                                 <font>
+                                    <Font name="Lucida Bright Demibold" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <styleClass>
+                              <String fx:value="list-element" />
+                              <String fx:value="clicked-list-element" />
+                           </styleClass>
+                        </Pane>
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -62,11 +87,20 @@
                   </FlowPane>
                </content>
             </ScrollPane>
-            <Button layoutX="244.0" layoutY="555.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="153.0" text="Buy" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="243.0" AnchorPane.topAnchor="560.0">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="24.0" />
-               </font>
-            </Button>
+            <FlowPane alignment="CENTER" hgap="25.0" layoutX="-21.0" layoutY="548.0" prefHeight="95.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="545.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="50.0" prefWidth="153.0" text="Cancel">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#buyButtonClicked" prefHeight="50.0" prefWidth="153.0" text="Buy">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </FlowPane>
          </children>
       </AnchorPane>
    </children>
