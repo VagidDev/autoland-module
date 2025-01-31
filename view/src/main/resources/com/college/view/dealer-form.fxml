@@ -74,12 +74,12 @@
             </VBox>
             <FlowPane alignment="CENTER" hgap="50.0" layoutX="440.0" layoutY="346.0" prefHeight="150.0" prefWidth="210.0" vgap="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onClickBackButton" prefHeight="60.0" prefWidth="170.0" text="Back">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onClickBackButton" prefHeight="60.0" prefWidth="170.0" text="Cancel">
                      <font>
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="backButton1" mnemonicParsing="false" onAction="#onClickBackButton" prefHeight="60.0" prefWidth="170.0" text="Confirm">
+                  <Button fx:id="backButton1" mnemonicParsing="false" onAction="#onConfirmButton" prefHeight="60.0" prefWidth="170.0" text="Confirm">
                      <font>
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>

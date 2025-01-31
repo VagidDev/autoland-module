@@ -1,11 +1,15 @@
 package com.college.view.controllers;
 
+import com.college.view.core.StageService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+
+import java.io.IOException;
 
 public class WarrantyController {
     @FXML
@@ -20,7 +24,7 @@ public class WarrantyController {
 
     public Pane createWarrantyPane(String warrantyName, int duration, double price) {
         Pane pane = new Pane();
-        pane.setPrefSize(550, 200);
+        pane.setPrefSize(350, 200);
         pane.getStyleClass().add("warranty-pane");
 
         Label warrantyLabel = new Label(warrantyName);
@@ -55,4 +59,13 @@ public class WarrantyController {
         }
     }
 
+    public void clickCancelButton(ActionEvent actionEvent) throws IOException {
+        StageService.buildAndShowStage("Shop", "auto-form.fxml");
+        StageService.closeCurrentStage(actionEvent);
+    }
+
+    public void clickBuyButton(ActionEvent actionEvent) throws IOException {
+        StageService.buildAndShowStage("Dealer", "dealer-form.fxml");
+        StageService.closeCurrentStage(actionEvent);
+    }
 }

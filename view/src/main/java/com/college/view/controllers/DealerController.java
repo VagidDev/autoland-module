@@ -90,4 +90,9 @@ public class DealerController {
         StageService.buildAndShowStage("Home", "home-form.fxml");
     }
 
+    public void onConfirmButton(ActionEvent event) throws IOException {
+        StageService.buildAndShowStage("Confirm", "confirmation-form.fxml");
+        StageService.closeCurrentStage(event);
+    }
+
 }
