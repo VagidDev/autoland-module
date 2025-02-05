@@ -20,6 +20,7 @@ public class User {
     private String email;
     private String telephone;
     private String address;
+    private String avatar;
 
     public User() {
     }
@@ -117,10 +118,28 @@ public class User {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", name=" + name + ", surname=" + surname + ", birthday=" + birthday + ", email=" + email + ", telephone=" + telephone + ", address=" + address + '}';
+    public String getAvatar() {
+        return avatar;
     }
 
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", address='" + address + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }

@@ -30,7 +30,7 @@ public class UserImpl implements UserDAO {
     private static final String INSERT_QUERY = "INSERT INTO au_users (u_login, u_password, u_name, u_surname, u_birthday, u_email, u_telephone, u_address) "
                                                 + "VALUES(?,?,?,?,?,?,?,?)";
     private static final String UPDATE_QUERY = "UPDATE au_users\n"
-                                                + "SET u_login = ?, u_password = ?, u_name = ?, u_surname = ?, u_birthday = ?, u_email = ?, u_telephone = ?, u_address = ?\n"
+                                                + "SET u_login = ?, u_password = ?, u_name = ?, u_surname = ?, u_birthday = ?, u_email = ?, u_telephone = ?, u_address = ?, u_avatar = ?\n"
                                                 + "WHERE u_id = ?;";
     private static final String DELETE_QUERY = "DELETE FROM au_users WHERE u_id = ?;";
     private static final String SEARCH_BY_LOGIN_AND_PASSWORD = "SELECT * FROM au_users WHERE u_login = ? AND u_password = ?";
@@ -54,6 +54,7 @@ public class UserImpl implements UserDAO {
                 user.setEmail(result.getString("u_email"));
                 user.setTelephone(result.getString("u_telephone"));
                 user.setAddress(result.getString("u_address"));
+                user.setAvatar(result.getString("u_avatar"));
                 return user;
             }
             return null;
@@ -80,6 +81,7 @@ public class UserImpl implements UserDAO {
                 user.setEmail(result.getString("u_email"));
                 user.setTelephone(result.getString("u_telephone"));
                 user.setAddress(result.getString("u_address"));
+                user.setAvatar(result.getString("u_avatar"));
                 users.add(user);
             }
             return users;
@@ -130,7 +132,8 @@ public class UserImpl implements UserDAO {
             statement.setString(6, t.getEmail());
             statement.setString(7, t.getTelephone());
             statement.setString(8, t.getAddress());
-            statement.setInt(9, t.getId());
+            statement.setString(9, t.getAvatar());
+            statement.setInt(10, t.getId());
 
             int result = statement.executeUpdate();
 
@@ -188,6 +191,7 @@ public class UserImpl implements UserDAO {
                 user.setEmail(result.getString("u_email"));
                 user.setTelephone(result.getString("u_telephone"));
                 user.setAddress(result.getString("u_address"));
+                user.setAvatar(result.getString("u_avatar"));
                 return user;
             }
             return null;
