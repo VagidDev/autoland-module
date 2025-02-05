@@ -36,7 +36,7 @@ public class AutoController {
     private Pane createEquipmentPane(String equipmentName, double price, List<String> values) {
         Pane pane = new Pane();
         pane.setPrefSize(260, 375);
-        pane.getStyleClass().add("list-element");
+        pane.getStyleClass().add("equipment-pane");
 
         Label equipmentLabel = new Label(equipmentName);
         equipmentLabel.setLayoutY(20);
@@ -76,10 +76,10 @@ public class AutoController {
         Parent parent = button.getParent();
         if (parent instanceof Pane clikedPane) {
             flowPane.getChildren().stream()
-                    .filter(node -> node.getStyleClass().getLast().equals("clicked-list-element"))
-                    .forEach(node -> node.getStyleClass().remove("clicked-list-element"));
+                    .filter(node -> node.getStyleClass().getLast().equals("clicked-equipment-pane"))
+                    .forEach(node -> node.getStyleClass().remove("clicked-equipment-pane"));
 
-            clikedPane.getStyleClass().add("clicked-list-element");
+            clikedPane.getStyleClass().add("clicked-equipment-pane");
         }
     }
 

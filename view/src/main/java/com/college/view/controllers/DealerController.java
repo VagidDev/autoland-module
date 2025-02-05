@@ -42,7 +42,7 @@ public class DealerController {
     private Pane createDealerPane(String name, String address, String phoneNumber) {
         Pane pane = new Pane();
         pane.setPrefSize(290, 180);
-        pane.getStyleClass().add("list-element");
+        pane.getStyleClass().add("dealer-pane");
 
         Label nameLabel = new Label(name);
         nameLabel.setLayoutX(14);
@@ -76,10 +76,10 @@ public class DealerController {
         Object clickedObject = mouseEvent.getSource();
         if (clickedObject instanceof Pane clikedPane) {
             dealerList.getChildren().stream()
-                    .filter(node -> node.getStyleClass().getLast().equals("clicked-list-element"))
-                    .forEach(node -> node.getStyleClass().remove("clicked-list-element"));
+                    .filter(node -> node.getStyleClass().getLast().equals("clicked-dealer-pane"))
+                    .forEach(node -> node.getStyleClass().remove("clicked-dealer-pane"));
 
-            clikedPane.getStyleClass().add("clicked-list-element");
+            clikedPane.getStyleClass().add("clicked-dealer-pane");
         }
     }
 

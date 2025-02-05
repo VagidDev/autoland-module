@@ -32,7 +32,7 @@ public class ShopController {
     public Pane createCarButton(String mark, double price, String imagePath) {
         Pane pane = new Pane();
         pane.setPrefSize(270, 220);
-        pane.getStyleClass().add("pane");
+        pane.getStyleClass().add("automobile-pane");
 
         var path = Path.of(imagePath).toAbsolutePath();
 

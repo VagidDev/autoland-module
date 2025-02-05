@@ -15,20 +15,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1340.0" style="-fx-background-color: #000000;" stylesheets="@css/shop-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.ShopController">
+<AnchorPane prefHeight="900.0" prefWidth="1340.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.ShopController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="461.0" layoutY="25.0" text="Shop" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font name="Lucida Bright Demibold" size="64.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="345.0" layoutY="111.0" prefHeight="705.0" prefWidth="715.0" styleClass="automobile-pane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+      <AnchorPane layoutX="345.0" layoutY="111.0" prefHeight="705.0" prefWidth="715.0" styleClass="shop-pane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
          <children>
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="35.0" layoutY="50.0" prefHeight="600.0" prefWidth="630.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                <content>
                   <FlowPane fx:id="flowPane" hgap="30.0" prefHeight="300.0" prefWidth="620.0" vgap="30.0">
                      <children>
-                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="pane">
+                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="automobile-pane">
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="220.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true">
                                  <image>
@@ -47,7 +47,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="pane">
+                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="automobile-pane">
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="220.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true">
                                  <image>
@@ -66,7 +66,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="pane">
+                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="automobile-pane">
                            <children>
                               <ImageView fitHeight="124.0" fitWidth="220.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true">
                                  <image>

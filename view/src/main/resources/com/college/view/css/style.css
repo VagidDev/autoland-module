@@ -1,0 +1,223 @@
+.scroll-pane {
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #a4a4a4;
+    -fx-background-color: #a4a4a4;
+    -fx-background-radius: 15px;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #a4a4a4;
+    -fx-background-radius: 20px;
+    -fx-padding: 15px 0px 15px 0px;
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: #a4a4a4;
+    -fx-background-radius: 20px;
+    -fx-padding: 1px 5px 1px 5px;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #FFFFFF;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #424242;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #000000;
+    -fx-background-radius: 15px;
+}
+
+.scroll-bar .increment-button:hover,
+.scroll-bar .decrement-button:hover {
+    -fx-background-color: #a4a4a4;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: #000000;
+}
+
+.scroll-bar .increment-arrow:hover,
+.scroll-bar .decrement-arrow:hover {
+    -fx-background-color: #FFFFFF;
+}
+
+.button {
+    -fx-background-color: rgba(255,255,255, 0.3);
+    -fx-text-fill: #a4a4a4;
+}
+
+.button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-text-fill: #000000;
+}
+
+.toggle-button {
+    -fx-background-radius: 10px;
+    -fx-background-color: rgba(255,255,255, 0.3);
+    -fx-text-fill: #a4a4a4;
+}
+
+.toggle-button:selected {
+    -fx-background-color: white;
+    -fx-text-fill: #000000;
+}
+
+/*warranty*/
+.warranty-pane {
+    -fx-border-color: #a4a4a4;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
+}
+
+.warranty-pane .label {
+    -fx-text-fill: #a4a4a4;
+}
+
+.clicked-warranty-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-background-radius: 20px;
+}
+
+.clicked-warranty-pane .label {
+    -fx-text-fill: #000000;
+}
+/*~*/
+/*shop*/
+.search-field {
+    -fx-padding: 6px 6px 6px 20px;
+    -fx-border-width: 1px 1px 1px 0px;
+    -fx-border-radius: 20px 0px 0px 20px;
+    -fx-background-radius: 20px 0px 0px 20px;
+    -fx-border-color: #FFFFFF;
+}
+
+.search-button, .search-button:hover {
+    -fx-border-width: 1px 1px 0px 1px;
+    -fx-border-radius: 0px 20px 20px 0px;
+    -fx-background-radius: 0px 20px 20px 0px;
+    -fx-border-color: #FFFFFF;
+    -fx-background-color: #FFFFFF;
+}
+
+.filter-pane {
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #a4a4a4;
+}
+
+.shop-pane {
+    -fx-border-color: #a4a4a4;
+    -fx-border-width: 2px 0px 0px 0px;
+}
+
+.automobile-pane {
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #a4a4a4;
+}
+/*~*/
+/*account*/
+.avatar-photo {
+    -fx-background-radius: 50%;
+    -fx-background-color: transparent;
+    -fx-border-radius: 50%;
+    -fx-border-color: #a4a4a4;
+    -fx-border-width: 2px;
+}
+/*~*/
+/*automobile*/
+.image-container {
+    -fx-background-color: #000000;
+}
+
+.equipment-pane {
+    -fx-border-color: #a4a4a4;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-background-color: #000000;
+    -fx-background-radius: 20px;
+}
+
+.equipment-pane .label {
+    -fx-text-fill: #a4a4a4;
+}
+
+.equipment-pane .list-view {
+    -fx-font-family: "Lucida Bright";
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.clicked-equipment-pane {
+    -fx-border-color: #000000;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20px;
+}
+
+.clicked-equipment-pane .label {
+    -fx-text-fill: #000000;
+}
+
+.clicked-equipment-pane .list-view, .clicked-equipment-pane .list-cell {
+    -fx-background-color: #000000;
+    -fx-text-fill: #FFFFFF;
+}
+
+.clicked-equipment-pane .button {
+    -fx-background-color: #000000;
+    -fx-text-fill: #FFFFFF;
+}
+/*~*/
+/*confirmation*/
+.conf-pane {
+    -fx-border-color: #a4a4a4;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
+}
+/**/
+/*dealer*/
+.dealer-container {
+    -fx-background-color: #a4a4a4;
+    -fx-border-color: #a4a4a4;
+    -fx-border-width: 1px;
+}
+
+.dealer-photo-container {
+    -fx-background-color: #000000;
+}
+
+.dealer-photo-container .viewport {
+    -fx-background-color: #000000;
+}
+
+.dealer-pane {
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 15px;
+}
+
+.main-text {
+    -fx-text-fill: white;
+}
+
+.telephone-text {
+    -fx-text-fill: #909090;
+}
+
+.clicked-dealer-pane {
+    -fx-border-color: black;
+    -fx-background-color: white;
+}
+.clicked-dealer-pane * {
+    -fx-text-fill: black;
+}
+/*~*/

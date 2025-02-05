@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="640.0" style="-fx-background-color: #000000;" stylesheets="@css/confirmation-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.ConfirmationController">
+<AnchorPane prefHeight="1000.0" prefWidth="640.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.ConfirmationController">
    <children>
       <StackPane layoutX="10.0" layoutY="10.0" prefHeight="360.0" prefWidth="640.0" styleClass="image-container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -131,9 +131,14 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <FlowPane alignment="CENTER" prefHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <FlowPane alignment="CENTER" hgap="25.0" prefHeight="90.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button fx:id="confirmationButton" mnemonicParsing="false" onAction="#onConfirmButtonClicked" prefHeight="50.0" prefWidth="180.0" text="Confirm">
+            <Button fx:id="confirmationButton" mnemonicParsing="false" onAction="#onConfirmButtonClicked" prefHeight="50.0" prefWidth="170.0" text="Cancel">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="confirmationButton1" mnemonicParsing="false" onAction="#onConfirmButtonClicked" prefHeight="50.0" prefWidth="170.0" text="Confirm">
                <font>
                   <Font name="Lucida Bright Demibold" size="24.0" />
                </font>
