@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.HomeController">
@@ -21,26 +22,30 @@
       </BorderPane>
       <AnchorPane layoutY="401.0" prefHeight="320.0" prefWidth="1080.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="176.0" layoutY="14.0" text="Welcome To AutoLand" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="14.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="176.0" layoutY="14.0" prefHeight="77.0" prefWidth="859.0" text="Welcome To AutoLand" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font name="Lucida Bright Demibold" size="64.0" />
                </font>
             </Label>
-            <Button fx:id="shoppingButton" alignment="CENTER" contentDisplay="CENTER" layoutX="401.0" layoutY="187.0" mnemonicParsing="false" onAction="#onShoppingButtonClicked" prefHeight="180.0" prefWidth="280.0" text="Shopping" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="401.0" AnchorPane.rightAnchor="399.0">
-               <font>
-                  <Font name="Lucida Bright" size="36.0" />
-               </font>
-            </Button>
-            <Button fx:id="dealersButton" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="187.0" mnemonicParsing="false" onAction="#onDealersButtonClicked" prefHeight="180.0" prefWidth="280.0" text="Dealers" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="36.0">
-               <font>
-                  <Font name="Lucida Bright" size="36.0" />
-               </font>
-            </Button>
-            <Button fx:id="accountButton" alignment="CENTER" contentDisplay="CENTER" layoutX="765.0" layoutY="187.0" mnemonicParsing="false" onAction="#onAccountButtonClicked" prefHeight="180.0" prefWidth="280.0" text="Account" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="35.0">
-               <font>
-                  <Font name="Lucida Bright" size="36.0" />
-               </font>
-            </Button>
+            <FlowPane alignment="CENTER" hgap="70.0" layoutY="153.0" prefHeight="308.0" prefWidth="1080.0" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button fx:id="dealersButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDealersButtonClicked" prefHeight="180.0" prefWidth="280.0" text="Dealers">
+                     <font>
+                        <Font name="Lucida Bright" size="36.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="shoppingButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onShoppingButtonClicked" prefHeight="180.0" prefWidth="280.0" text="Shopping">
+                     <font>
+                        <Font name="Lucida Bright" size="36.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="accountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAccountButtonClicked" prefHeight="180.0" prefWidth="280.0" text="Account">
+                     <font>
+                        <Font name="Lucida Bright" size="36.0" />
+                     </font>
+                  </Button>
+               </children>
+            </FlowPane>
          </children>
       </AnchorPane>
    </children>

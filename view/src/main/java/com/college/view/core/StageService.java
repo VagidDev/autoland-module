@@ -8,38 +8,80 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class StageService {
 
-    public static Stage getCurrentStageByEvent(Event event) {
-        return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private final static List<Stage> stages = new LinkedList<>();
+
+    public static FXMLLoader loadFXML(String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Application.class.getResource(fxml));
+            loader.load();
+            return loader;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load FXML", e);
+        }
     }
 
-    public static void closeCurrentStage(Event event) {
-        Stage stage = getCurrentStageByEvent(event);
-        stage.close();
-    }
-
-    public static FXMLLoader loadFXML(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource(fxml));
-        loader.load();
-        return loader;
-    }
-
-    public static Stage buildStage(String title, FXMLLoader fxmlLoader) throws IOException {
+    public static Stage buildStage(String title, FXMLLoader fxmlLoader) {
         Stage stage = new Stage();
         stage.setTitle(title);
         stage.setScene(new Scene(fxmlLoader.getRoot()));
+        stages.add(stage);
         return stage;
     }
 
-    public static void buildAndShowStage(String title, String fxml) throws IOException {
+    public static void buildAndShowStage(String title, String fxml) {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = loadFXML(fxml);
         Scene scene = new Scene(fxmlLoader.getRoot());
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
+        stages.add(stage);
+    }
+
+    public static void registerStage(Stage stage) {
+        stages.add(stage);
+    }
+
+    public static Stage getCurrentStage() {
+        return stages.getLast();
+    }
+
+    public static void closeStage() {
+        stages.removeLast().close();
+    }
+
+    public static void closeAndSaveStage() {
+        stages.getLast().close();
+    }
+
+    public static void closeStageAndOpenPrevious() {
+        stages.removeLast().close();
+        stages.getLast().show();
+    }
+
+    public static void closeStageAndClearStack() {
+        stages.getLast().close();
+        stages.clear();
+    }
+
+    public static void unregisterStage(Stage stage) {
+        stages.remove(stage);
+    }
+
+    @Deprecated
+    public static Stage getCurrentStageByEvent(Event event) {
+        return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    }
+
+    @Deprecated
+    public static void closeCurrentStageByEvent(Event event) {
+        Stage stage = getCurrentStageByEvent(event);
+        stage.close();
     }
 }

@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -83,13 +82,12 @@ public class AutoController {
         }
     }
 
-    public void buyButtonClicked(ActionEvent event) throws IOException {
+    public void buyButtonClicked(ActionEvent event) {
+        StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Warranty", "warranty-form.fxml");
-        StageService.closeCurrentStage(event);
     }
 
-    public void cancelButtonClicked(ActionEvent event) throws IOException {
-        StageService.buildAndShowStage("Home", "home-form.fxml");
-        StageService.closeCurrentStage(event);
+    public void cancelButtonClicked(ActionEvent event) {
+        StageService.closeStageAndOpenPrevious();
     }
 }

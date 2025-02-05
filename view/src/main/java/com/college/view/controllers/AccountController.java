@@ -5,12 +5,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class AccountController {
     @FXML
@@ -22,31 +20,22 @@ public class AccountController {
 
         Platform.runLater(() -> {
             Stage stage = (Stage) avatar.getScene().getWindow();
-            stage.setOnCloseRequest(event -> {
-                try {
-                    StageService.buildAndShowStage("Home", "home-form.fxml");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+            stage.setOnCloseRequest(event -> StageService.buildAndShowStage("Home", "home-form.fxml"));
         });
 
     }
 
-    public synchronized void editButtonClicked(ActionEvent actionEvent) throws IOException {
-        Stage currentStage = StageService.getCurrentStageByEvent(actionEvent);
+    public void editButtonClicked(ActionEvent actionEvent) {
+        Stage currentStage = StageService.getCurrentStage();
         FXMLLoader loader = StageService.loadFXML("account-register-form.fxml");
+        Stage tmpStage = StageService.buildStage("Edit Account", loader);
         currentStage.hide();
-        StageService.buildStage("Edit Account", loader).showAndWait();
+        tmpStage.showAndWait();
+        StageService.unregisterStage(tmpStage);
         currentStage.show();
     }
 
     public void cancelButtonClicked(ActionEvent actionEvent) {
-        try {
-            StageService.buildAndShowStage("Home", "home-form.fxml");
-            StageService.closeCurrentStage(actionEvent);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StageService.closeStageAndOpenPrevious();
     }
 }

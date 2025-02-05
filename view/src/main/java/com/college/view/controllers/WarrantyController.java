@@ -59,13 +59,12 @@ public class WarrantyController {
         }
     }
 
-    public void clickCancelButton(ActionEvent actionEvent) throws IOException {
-        StageService.buildAndShowStage("Shop", "auto-form.fxml");
-        StageService.closeCurrentStage(actionEvent);
+    public void clickCancelButton(ActionEvent actionEvent) {
+        StageService.closeStageAndOpenPrevious();
     }
 
-    public void clickBuyButton(ActionEvent actionEvent) throws IOException {
+    public void clickBuyButton(ActionEvent actionEvent) {
+        StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Dealer", "dealer-form.fxml");
-        StageService.closeCurrentStage(actionEvent);
     }
 }

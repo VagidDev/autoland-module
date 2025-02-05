@@ -16,20 +16,20 @@ public class HomeController {
     private Button accountButton;
 
     @FXML
-    public void onDealersButtonClicked(ActionEvent event) throws IOException {
-        StageService.closeCurrentStage(event);
+    public void onDealersButtonClicked(ActionEvent event) {
+        StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Dealers", "dealer-form.fxml");
     }
 
     @FXML
-    public void onShoppingButtonClicked(ActionEvent event) throws IOException {
-        StageService.closeCurrentStage(event);
+    public void onShoppingButtonClicked(ActionEvent event) {
+        StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Shop", "shop-form.fxml");
     }
 
     @FXML
-    public void onAccountButtonClicked(ActionEvent event) throws IOException {
-        StageService.closeCurrentStage(event);
+    public void onAccountButtonClicked(ActionEvent event) {
+        StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Account", "account-form.fxml");
     }
 }

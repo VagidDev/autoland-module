@@ -5,15 +5,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import java.io.IOException;
 
 public class AccountRegisterController {
     @FXML
     private Button confirmButton;
 
-    @FXML
-    public void confirmButtonClicked(ActionEvent event) throws IOException {
-        StageService.closeCurrentStage(event);
+    public void confirmButtonClicked(ActionEvent event) {
+        //TODO: should be another option, that will be activated if this form was called from AccountController
+        StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Registration", "registration-form.fxml");
+    }
+
+    public void cancelButtonClicked(ActionEvent event) {
+        StageService.closeStageAndOpenPrevious();
     }
 }

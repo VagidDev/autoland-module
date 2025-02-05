@@ -85,14 +85,13 @@ public class DealerController {
 
 
     @FXML
-    public void onClickBackButton(ActionEvent event) throws IOException {
-        StageService.closeCurrentStage(event);
-        StageService.buildAndShowStage("Home", "home-form.fxml");
+    public void onClickBackButton(ActionEvent event) {
+        StageService.closeStageAndOpenPrevious();
     }
 
-    public void onConfirmButton(ActionEvent event) throws IOException {
-        StageService.buildAndShowStage("Confirm", "confirmation-form.fxml");
-        StageService.closeCurrentStage(event);
+    public void onConfirmButton(ActionEvent event) {
+        StageService.closeAndSaveStage();
+        StageService.buildAndShowStage("Confirmation", "confirmation-form.fxml");
     }
 
 }

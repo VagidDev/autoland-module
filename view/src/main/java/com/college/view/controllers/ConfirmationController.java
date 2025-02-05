@@ -12,11 +12,7 @@ public class ConfirmationController {
     private Button confirmationButton;
 
     public void onConfirmButtonClicked(ActionEvent actionEvent) {
-        StageService.closeCurrentStage(actionEvent);
-        try {
-            StageService.buildAndShowStage("Home", "home-form.fxml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StageService.closeStageAndClearStack();
+        StageService.buildAndShowStage("Home", "home-form.fxml");
     }
 }

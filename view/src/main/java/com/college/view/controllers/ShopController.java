@@ -65,24 +65,16 @@ public class ShopController {
 
         pane.getChildren().addAll(imageView, labelMark, labelPrice);
 
-        pane.setOnMouseClicked(event -> click(event));
+        pane.setOnMouseClicked(event -> {
+            StageService.closeAndSaveStage();
+            StageService.buildAndShowStage("Car", "auto-form.fxml");
+        });
 
         return pane;
     }
 
-    //TODO: rename method
-    private void click(MouseEvent event) {
-        StageService.closeCurrentStage(event);
-        try {
-            StageService.buildAndShowStage("Car", "auto-form.fxml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void backButtonClicked(ActionEvent actionEvent) throws IOException {
-        StageService.closeCurrentStage(actionEvent);
-        StageService.buildAndShowStage("Home", "home-form.fxml");
+    public void backButtonClicked(ActionEvent actionEvent) {
+        StageService.closeStageAndOpenPrevious();
     }
 
 }

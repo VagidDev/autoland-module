@@ -44,7 +44,12 @@
             <Font size="18.0" />
          </font>
       </PasswordField>
-      <Button fx:id="submitButton" layoutX="55.0" layoutY="437.0" mnemonicParsing="false" onAction="#submitButtonClicked" prefHeight="25.0" prefWidth="390.0" style="-fx-background-color: #000000;" text="Save" textFill="WHITE" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+      <Button fx:id="submitButton" layoutX="55.0" layoutY="416.0" mnemonicParsing="false" onAction="#submitButtonClicked" prefHeight="25.0" prefWidth="390.0" style="-fx-background-color: #000000;" text="Save" textFill="WHITE" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="submitButton1" layoutX="55.0" layoutY="470.0" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="39.0" prefWidth="410.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="Cancel" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

@@ -1,6 +1,7 @@
 package com.college.view;
 
 
+import com.college.view.core.StageService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ public class Application extends javafx.application.Application {
         stage.setTitle("Authorization Form");
         stage.setScene(scene);
         stage.show();
+        StageService.registerStage(stage);
     }
 
     public static void main(String[] args) {

@@ -19,8 +19,8 @@ public class RegistrationController {
     @FXML
     private Button submitButton;
 
-    @FXML
-    public void submitButtonClicked(ActionEvent event) throws IOException {
+
+    public void submitButtonClicked(ActionEvent event) {
         String login = loginField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
@@ -28,10 +28,13 @@ public class RegistrationController {
             FXMLLoader loader = StageService.loadFXML("authorization-form.fxml");
             AuthorizationController controller = loader.getController();
             controller.setLoginAndPasswordFields(login, password);
-            StageService.closeCurrentStage(event);
+
+            StageService.closeStageAndClearStack();
             StageService.buildStage("Authorization", loader).show();
         }
+    }
 
-
+    public void cancelButtonClicked(ActionEvent event) {
+        StageService.closeStageAndOpenPrevious();
     }
 }
