@@ -23,4 +23,21 @@ class UserLoginSyntaxValidatorTest {
         UserValidationResponse res = loginSyntaxValidator.validate(user);
         Assertions.assertEquals(UserValidationResponse.INVALID_LOGIN, res);
     }
+
+    @Test
+    void shouldNotBeValidBecauseOfNull() {
+        User user = new User();
+        user.setLogin(null);
+        UserValidationResponse res = loginSyntaxValidator.validate(user);
+        Assertions.assertEquals(UserValidationResponse.INVALID_LOGIN, res);
+    }
+
+    @Test
+    void shouldNotBeValidBecauseOfTooShort() {
+        User user = new User();
+        user.setLogin("12");
+        UserValidationResponse res = loginSyntaxValidator.validate(user);
+        Assertions.assertEquals(UserValidationResponse.INVALID_LOGIN, res);
+    }
+
 }
