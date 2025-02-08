@@ -1,50 +1,65 @@
 package com.college.controller;
 
 import com.college.model.User;
+import com.college.model.database.interfaces.UserDAO;
 import com.college.model.database.session.SessionManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class UserControllerTest {
+    @Mock
+    private UserDAO userDAO;
+    @InjectMocks
+    private UserController userController;
+
 
     @Test
-    void shouldBeUserWithLoginAndPassword() {
-        UserController userController = new UserController(SessionManager.getSession().getUserRepository());
-        boolean res = userController.login("vaxa", "admin");
-        assertTrue(res);
+    void shouldReturnUser() {
+        Mockito.when(userDAO.save(Mockito.any(User.class))).thenReturn(new User(25, "qwerty123", "qwerty123", "USER",
+                "John", "Doe", new Date(), "john@gmail.com", "+37367292196", "some address"));
+
+        User user = new User();
+        user.setLogin("qwerty123");
+        user.setPassword("qwerty123");
+        user.setName("John");
+        user.setSurname("Doe");
+        user.setEmail("john@gmail.com");
+        user.setBirthday(new Date());
+        user.setAddress("some address");
+        user.setTelephone("+37367292196");
+
+        User responseUser = userController.createUser(user);
+
+        assertNotNull(responseUser);
     }
 
     @Test
-    void shouldNotBeUserWithLoginAndPassword() {
-        UserController userController = new UserController(SessionManager.getSession().getUserRepository());
-        boolean res = userController.login("qwertwiuq", "1231436");
-        assertFalse(res);
-    }
+    void shouldNotReturnUserBecauseOfInvalidLogin() {
+        Mockito.lenient().when(userDAO.save(Mockito.any(User.class))).thenReturn(new User(25, "qwerty123", "qwerty123", "USER",
+                "John", "Doe", new Date(), "john@gmail.com", "+37367292196", "some address"));
 
-    @Test
-    void shouldBeLoggedIn() {
-        UserController userController = new UserController(SessionManager.getSession().getUserRepository());
-        userController.login("vaxa", "admin");
-        User user = userController.getCurrentUser();
-        assertNotNull(user);
-    }
+        User user = new User();
+        user.setLogin("qwer!!!!!+-ty123");
+        user.setPassword("qwerty123");
+        user.setName("John");
+        user.setSurname("Doe");
+        user.setEmail("john@gmail.com");
+        user.setBirthday(new Date());
+        user.setAddress("some address");
+        user.setTelephone("+37367292196");
 
-    @Test
-    void shouldNotBeLoggedIn() {
-        UserController userController = new UserController(SessionManager.getSession().getUserRepository());
-        userController.login("qwertwiuq", "1231436");
-        User user = userController.getCurrentUser();
-        assertNull(user);
-    }
+        User responseUser = userController.createUser(user);
 
-    @Test
-    void shouldBeLoggedOut() {
-        UserController userController = new UserController(SessionManager.getSession().getUserRepository());
-        userController.login("vaxa", "admin");
-        userController.logout();
-        User user = userController.getCurrentUser();
-        assertNull(user);
+        assertNull(responseUser);
     }
-
 }

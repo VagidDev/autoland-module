@@ -12,15 +12,15 @@ class UserLoginSyntaxValidatorTest {
     void shouldBeValid() {
         User user = new User();
         user.setLogin("admin");
-        boolean res = loginSyntaxValidator.validate(user);
-        Assertions.assertTrue(res);
+        UserValidationResponse res = loginSyntaxValidator.validate(user);
+        Assertions.assertEquals(UserValidationResponse.VALID, res);
     }
 
     @Test
     void shouldNotBeValid() {
         User user = new User();
         user.setLogin("admin{mnsd/");
-        boolean res = loginSyntaxValidator.validate(user);
-        Assertions.assertFalse(res);
+        UserValidationResponse res = loginSyntaxValidator.validate(user);
+        Assertions.assertEquals(UserValidationResponse.INVALID_LOGIN, res);
     }
 }
