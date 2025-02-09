@@ -25,17 +25,33 @@ class UserPasswordValidatorTest {
     }
 
     @Test
-    void passwordShouldNotBeValidBecauseOfPlus() {
+    void passwordShouldBeValidWithSharp() {
         User user = new User();
-        user.setPassword("qwe+rty123");
+        user.setPassword("password_with#");
+        UserValidationResponse res = validator.validate(user);
+        assertEquals(UserValidationResponse.VALID, res);
+    }
+    //!@#$%^&*
+    @Test
+    void passwordShouldBeValidWithUnusualSymbols() {
+        User user = new User();
+        user.setPassword("p@s$w%!d&^");
+        UserValidationResponse res = validator.validate(user);
+        assertEquals(UserValidationResponse.VALID, res);
+    }
+
+    @Test
+    void passwordShouldNotBeValidBecauseOfSpace() {
+        User user = new User();
+        user.setPassword("qwe rty123");
         UserValidationResponse res = validator.validate(user);
         assertEquals(UserValidationResponse.INVALID_PASSWORD, res);
     }
 
     @Test
-    void passwordShouldNotBeValidBecauseOfBrackets() {
+    void passwordShouldNotBeValidBecauseOfNull() {
         User user = new User();
-        user.setPassword("qwe[]rty123");
+        user.setPassword(null);
         UserValidationResponse res = validator.validate(user);
         assertEquals(UserValidationResponse.INVALID_PASSWORD, res);
     }
