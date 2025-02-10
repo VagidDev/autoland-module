@@ -122,4 +122,43 @@ class UserControllerTest {
 
         assertNull(responseUser);
     }
+
+    @Test
+    void editUser_shouldEdit_SimpleUser() {
+        Mockito.doNothing().when(userDAO).update(Mockito.any(User.class));
+        boolean result = userController.editUser(user);
+        assertTrue(result);
+    }
+
+    @Test
+    void editUser_shouldNotEdit_InvalidLogin() {
+        Mockito.lenient().doNothing().when(userDAO).update(Mockito.any(User.class));
+        user.setLogin("qwerty!!!+-123");
+        boolean result = userController.editUser(user);
+        assertFalse(result);
+    }
+
+    @Test
+    void editUser_shouldNotEdit_ToShortPassword() {
+        Mockito.lenient().doNothing().when(userDAO).update(Mockito.any(User.class));
+        user.setPassword("qwerty");
+        boolean result = userController.editUser(user);
+        assertFalse(result);
+    }
+
+    @Test
+    void editUser_shouldNotEdit_InvalidEmail() {
+        Mockito.lenient().doNothing().when(userDAO).update(Mockito.any(User.class));
+        user.setEmail("null_email");
+        boolean result = userController.editUser(user);
+        assertFalse(result);
+    }
+
+    @Test
+    void editUser_shouldNotEdit_InvalidBirthday() {
+        Mockito.lenient().doNothing().when(userDAO).update(Mockito.any(User.class));
+        user.setBirthday(new Date());
+        boolean result = userController.editUser(user);
+        assertFalse(result);
+    }
 }

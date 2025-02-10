@@ -50,4 +50,12 @@ public class UserController {
         return userDAO.save(user);
     }
 
+    public boolean editUser(User user) {
+        if (validateUser(user) != UserValidationResponse.VALID) {
+            return false;
+        }
+        userDAO.update(user);
+        return true;
+    }
+
 }
