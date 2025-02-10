@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,14 +26,15 @@ class UserControllerTest {
     private User user;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         user = new User();
         user.setLogin("qwerty123");
         user.setPassword("qwerty123");
         user.setName("John");
         user.setSurname("Doe");
         user.setEmail("john@gmail.com");
-        user.setBirthday(new Date());
+        user.setBirthday(dateFormat.parse("23/05/2005"));
         user.setAddress("some address");
         user.setTelephone("+37367292196");
     }
@@ -93,7 +96,7 @@ class UserControllerTest {
 
     @Test
     void validateUser_shouldNotBeValid_InvalidAddress() {
-        user.setAddress("some address");
+        user.setAddress("      ");
         UserValidationResponse response = userController.validateUser(user);
         assertNotEquals(UserValidationResponse.VALID, response);
     }

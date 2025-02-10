@@ -1,8 +1,6 @@
 package com.college.controller;
 
-import com.college.controller.validators.UserLoginSyntaxValidator;
-import com.college.controller.validators.UserValidationResponse;
-import com.college.controller.validators.UserValidator;
+import com.college.controller.validators.*;
 import com.college.model.User;
 import com.college.model.database.interfaces.UserDAO;
 
@@ -16,7 +14,15 @@ public class UserController {
     public UserController(UserDAO userDAO) {
         this.userDAO = userDAO;
         this.validatorList = new ArrayList<>();
+        /*user validation criteria*/
         validatorList.add(new UserLoginSyntaxValidator());
+        validatorList.add(new UserPasswordValidator());
+        validatorList.add(new UserNameValidator());
+        validatorList.add(new UserSurnameValidator());
+        validatorList.add(new UserBirthdateValidator());
+        validatorList.add(new UserEmailValidator());
+        validatorList.add(new UserPhoneValidator());
+        validatorList.add(new UserAddressValidator());
     }
 
     public List<User> getUsers() {
@@ -27,17 +33,18 @@ public class UserController {
         return userDAO.getById(id);
     }
 
-    private boolean validateUser(User user) {
+    public UserValidationResponse validateUser(User user) {
         for (UserValidator validator : validatorList) {
-            if (validator.validate(user) != UserValidationResponse.VALID) {
-                return false;
+            UserValidationResponse response = validator.validate(user);
+            if (response != UserValidationResponse.VALID) {
+                return response;
             }
         }
-        return true;
+        return UserValidationResponse.VALID;
     }
 
     public User createUser(User user) {
-        if (!validateUser(user)) {
+        if (validateUser(user) != UserValidationResponse.VALID) {
             return null;
         }
         return userDAO.save(user);
