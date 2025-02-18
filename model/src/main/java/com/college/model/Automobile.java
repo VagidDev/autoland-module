@@ -4,17 +4,30 @@
  */
 package com.college.model;
 
+import jakarta.persistence.*;
+
 import java.util.Map;
 
 /**
  * @author Vagid Zibliuc
  */
+@Entity
+@Table(name = "au_automobiles")
 public class Automobile {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "a_id")
     private int id;
+    @Column(name = "a_mark")
     private String mark;
+    @Column(name = "a_model")
     private String model;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "a_body_id")
     private BodyType bodyType;
+    @Column(name = "a_place_count")
     private int placeCount;
+    @Column(name = "a_prod_year")
     private int prodYear;
 
     public Automobile() {

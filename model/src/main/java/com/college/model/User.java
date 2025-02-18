@@ -4,22 +4,39 @@
  */
 package com.college.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
 /**
  * @author Vagid Zibliuc
  */
+@Entity
+@Table(name = "au_users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "u_id")
     private int id;
+    @Column(name = "u_login")
     private String login;
+    @Column(name = "u_password")
     private String password;
+    @Column(name = "u_role")
     private String role;
+    @Column(name = "u_name")
     private String name;
+    @Column(name = "u_surname")
     private String surname;
+    @Column(name = "u_birthday")
     private Date birthday;
+    @Column(name = "u_email")
     private String email;
+    @Column(name = "u_telephone")
     private String telephone;
+    @Column(name = "u_address")
     private String address;
+    @Column(name = "u_avatar")
     private String avatar;
 
     public User() {

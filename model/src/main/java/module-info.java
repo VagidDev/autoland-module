@@ -1,5 +1,5 @@
 module com.college.model {
-    requires java.sql;
+    requires jakarta.persistence;
 
     exports com.college.model;
     exports com.college.model.database.session;

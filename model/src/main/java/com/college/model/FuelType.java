@@ -1,7 +1,15 @@
 package com.college.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "au_fuel_type")
 public class FuelType extends SimpleTable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ft_id")
     private int id;
+    @Column(name = "ft_name")
     private String name;
 
     public FuelType() {

@@ -1,7 +1,15 @@
 package com.college.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "au_suspension_type")
 public class SuspensionType extends SimpleTable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "st_id")
     private int id;
+    @Column(name = "st_name")
     private String name;
 
     public SuspensionType() {}

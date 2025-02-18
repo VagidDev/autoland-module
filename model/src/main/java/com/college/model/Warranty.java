@@ -4,14 +4,24 @@
  */
 package com.college.model;
 
+import jakarta.persistence.*;
+
 /**
  *
  * @author Vagid Zibliuc
  */
+@Entity
+@Table(name = "au_warranties")
 public class Warranty {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "w_id")
     private int id;
+    @Column(name = "w_name")
     private String name;
+    @Column(name = "w_duration")
     private int duration;
+    @Column(name = "w_price")
     private double price;
 
     public Warranty() {}

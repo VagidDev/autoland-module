@@ -1,7 +1,15 @@
 package com.college.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "au_gearbox_type")
 public class GearboxType extends SimpleTable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "gt_id")
     private int id;
+    @Column(name = "gt_name")
     private String name;
 
     public GearboxType() {}

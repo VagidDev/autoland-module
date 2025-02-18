@@ -4,25 +4,29 @@
  */
 package com.college.model.keys;
 
-import com.college.model.Automobile;
+import jakarta.persistence.Embeddable;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Vagid Zibliuc
  */
-public class EquipmentId {
-    private final Automobile automobile;
-    private final int equipmentId;
+@Embeddable
+public class EquipmentId implements Serializable {
+    private int automobileId;
+    private int equipmentId;
 
-    public EquipmentId(Automobile automobile, int equipmentId) {
-        this.automobile = automobile;
+    public EquipmentId() {}
+
+    public EquipmentId(int automobileId, int equipmentId) {
+        this.automobileId = automobileId;
         this.equipmentId = equipmentId;
     }
 
-    public Automobile getAutomobile() {
-        return automobile;
+    public int getAutomobile() {
+        return automobileId;
     }
 
     public int getEquipmentId() {
@@ -34,11 +38,11 @@ public class EquipmentId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EquipmentId that = (EquipmentId) o;
-        return automobile.getId() == that.automobile.getId() && equipmentId == that.equipmentId;
+        return automobileId == that.automobileId && equipmentId == that.equipmentId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(automobile.getId(), equipmentId);
+        return Objects.hash(automobileId, equipmentId);
     }
 }

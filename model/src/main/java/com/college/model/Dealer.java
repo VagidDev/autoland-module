@@ -4,15 +4,26 @@
  */
 package com.college.model;
 
+import jakarta.persistence.*;
+
 /**
  *
  * @author Vagid Zibliuc
  */
+@Entity
+@Table(name = "au_dealers")
 public class Dealer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "d_id")
     private int id;
+    @Column(name = "d_name")
     private String name;
+    @Column(name = "d_address")
     private String address;
+    @Column(name = "d_telephone")
     private String telephone;
+    @Column(name = "d_fax")
     private String fax;
     
     public Dealer(){}

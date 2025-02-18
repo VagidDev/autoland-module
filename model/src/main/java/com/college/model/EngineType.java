@@ -1,7 +1,15 @@
 package com.college.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "au_engine_type")
 public class EngineType extends SimpleTable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "et_id")
     private int id;
+    @Column(name = "et_name")
     private String name;
 
     public EngineType() {
