@@ -1,13 +1,11 @@
 package com.college.controller;
 
 
-import com.college.model.Automobile;
-import com.college.model.BodyType;
-import com.college.model.Equipment;
+import com.college.model.entity.Automobile;
+import com.college.model.entity.BodyType;
+import com.college.model.entity.Equipment;
 import com.college.model.database.interfaces.AutomobileDAO;
-import com.college.model.database.interfaces.BodyTypeDAO;
 import com.college.model.database.interfaces.EquipmentDAO;
-import com.college.model.database.session.SessionManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

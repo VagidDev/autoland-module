@@ -1,6 +1,6 @@
 package com.college.controller.validators;
 
-import com.college.model.User;
+import com.college.model.entity.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

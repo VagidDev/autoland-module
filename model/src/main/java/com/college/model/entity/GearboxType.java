@@ -1,4 +1,4 @@
-package com.college.model.models;
+package com.college.model.entity;
 
 import jakarta.persistence.*;
 

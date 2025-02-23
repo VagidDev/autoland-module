@@ -1,6 +1,6 @@
 package com.college.controller;
 
-import com.college.model.User;
+import com.college.model.entity.User;
 import com.college.model.database.session.SessionManager;
 import org.junit.jupiter.api.Test;
 

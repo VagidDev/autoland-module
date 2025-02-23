@@ -1,15 +1,12 @@
 package com.college.controller.validators;
 
-import com.college.model.User;
+import com.college.model.entity.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
 public class UserBirthdateValidator implements UserValidator {

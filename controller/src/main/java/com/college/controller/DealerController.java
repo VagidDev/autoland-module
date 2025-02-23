@@ -1,6 +1,6 @@
 package com.college.controller;
 
-import com.college.model.Dealer;
+import com.college.model.entity.Dealer;
 import com.college.model.database.interfaces.DealerDAO;
 
 import java.util.List;

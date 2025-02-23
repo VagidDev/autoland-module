@@ -1,7 +1,7 @@
 package com.college.model.database.implementations;
 
-import com.college.model.Automobile;
-import com.college.model.Equipment;
+import com.college.model.entity.Automobile;
+import com.college.model.entity.Equipment;
 import com.college.model.keys.EquipmentId;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ class EquipmentImplTest {
     @Test
     void shouldReturnEquipmentForTesla() {
         Automobile auto = automobileService.getById(3);
-        EquipmentId id = new EquipmentId(auto, 3);
+        EquipmentId id = new EquipmentId(auto.getId(), 3);
         Equipment equipment = service.getById(id);
         assertEquals(id, equipment.getId());
     }
@@ -29,7 +29,7 @@ class EquipmentImplTest {
     @Test
     void shouldReturnEquipmentForTeslaBySimpleId() {
         Equipment equipment = service.getBySimpleId(3,3);
-        assertEquals("Tesla", equipment.getId().getAutomobile().getMark());
+        assertEquals("Tesla", equipment.getAutomobile().getMark());
     }
 
 }

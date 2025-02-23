@@ -1,6 +1,6 @@
 package com.college.controller.validators;
 
-import com.college.model.User;
+import com.college.model.entity.User;
 
 
 public class UserPhoneValidator implements UserValidator {

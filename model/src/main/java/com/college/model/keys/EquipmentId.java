@@ -25,7 +25,7 @@ public class EquipmentId implements Serializable {
         this.equipmentId = equipmentId;
     }
 
-    public int getAutomobile() {
+    public int getAutomobileId() {
         return automobileId;
     }
 

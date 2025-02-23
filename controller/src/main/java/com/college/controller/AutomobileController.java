@@ -1,7 +1,7 @@
 package com.college.controller;
 
-import com.college.model.Automobile;
-import com.college.model.Equipment;
+import com.college.model.entity.Automobile;
+import com.college.model.entity.Equipment;
 import com.college.model.database.interfaces.AutomobileDAO;
 import com.college.model.database.interfaces.EquipmentDAO;
 
