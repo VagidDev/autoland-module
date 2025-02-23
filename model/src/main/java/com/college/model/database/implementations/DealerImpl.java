@@ -1,6 +1,6 @@
 package com.college.model.database.implementations;
 
-import com.college.model.Dealer;
+import com.college.model.entity.Dealer;
 import com.college.model.database.Database;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.exceptions.EntityNotFoundException;

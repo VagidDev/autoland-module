@@ -4,7 +4,7 @@
  */
 package com.college.model.database.interfaces;
 
-import com.college.model.Contract;
+import com.college.model.entity.Contract;
 
 /**
  *

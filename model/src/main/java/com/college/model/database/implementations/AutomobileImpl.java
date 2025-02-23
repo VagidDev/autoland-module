@@ -1,6 +1,6 @@
 package com.college.model.database.implementations;
 
-import com.college.model.Automobile;
+import com.college.model.entity.Automobile;
 import com.college.model.database.Database;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.exceptions.EntityNotFoundException;
@@ -14,9 +14,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Vagid Zibliuc

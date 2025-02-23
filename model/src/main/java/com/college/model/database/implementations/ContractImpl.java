@@ -1,6 +1,6 @@
 package com.college.model.database.implementations;
 
-import com.college.model.Contract;
+import com.college.model.entity.Contract;
 import com.college.model.database.Database;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.exceptions.EntityNotFoundException;
@@ -55,7 +55,7 @@ public class ContractImpl implements ContractDAO {
                 contract.setAutomobile(automobileRepository.getById(result.getInt("c_auto_id")));
                 contract.setEquipment(equipmentRepository.getById(
                         new EquipmentId(
-                                automobileRepository.getById(result.getInt("c_auto_id")),
+                                result.getInt("c_auto_id"),
                                 result.getInt("c_equip_id"))
                         )
                 );
@@ -83,7 +83,7 @@ public class ContractImpl implements ContractDAO {
                 contract.setAutomobile(automobileRepository.getById(result.getInt("c_auto_id")));
                 contract.setEquipment(equipmentRepository.getById(
                         new EquipmentId(
-                                automobileRepository.getById(result.getInt("c_auto_id")),
+                                result.getInt("c_auto_id"),
                                 result.getInt("c_equip_id"))
                         )
                 );

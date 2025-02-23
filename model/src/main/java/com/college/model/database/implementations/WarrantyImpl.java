@@ -1,6 +1,6 @@
 package com.college.model.database.implementations;
 
-import com.college.model.Warranty;
+import com.college.model.entity.Warranty;
 import com.college.model.database.Database;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.exceptions.EntityNotFoundException;

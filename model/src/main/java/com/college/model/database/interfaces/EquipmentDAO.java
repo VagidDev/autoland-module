@@ -4,8 +4,8 @@
  */
 package com.college.model.database.interfaces;
 
-import com.college.model.Automobile;
-import com.college.model.Equipment;
+import com.college.model.entity.Automobile;
+import com.college.model.entity.Equipment;
 import com.college.model.keys.EquipmentId;
 import java.util.List;
 

@@ -4,8 +4,7 @@
  */
 package com.college.model.database.interfaces;
 
-import com.college.model.Automobile;
-import java.util.Map;
+import com.college.model.entity.Automobile;
 
 /**
  *

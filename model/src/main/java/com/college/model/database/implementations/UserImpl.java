@@ -4,19 +4,15 @@
  */
 package com.college.model.database.implementations;
 
-import com.college.model.User;
+import com.college.model.entity.User;
 import com.college.model.database.Database;
+import com.college.model.database.SessionManager;
 import com.college.model.database.exceptions.CascadeDependencyException;
-import com.college.model.database.exceptions.EntityNotFoundException;
 import com.college.model.database.interfaces.UserDAO;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import java.util.List;
 
 /**
@@ -35,180 +31,119 @@ public class UserImpl implements UserDAO {
     private static final String DELETE_QUERY = "DELETE FROM au_users WHERE u_id = ?;";
     private static final String SEARCH_BY_LOGIN_AND_PASSWORD = "SELECT * FROM au_users WHERE u_login = ? AND u_password = ?";
     private static final String USER_EXISTS_QUERY = "SELECT * FROM au_users WHERE u_login = ?";
+    //Hibernate queries
+    private static final String GET_BY_ID_HQL = "FROM User WHERE id = :userid";
+    private static final String GET_ALL_HQL = "FROM User";
+    private static final String SEARCH_BY_LOGIN_AND_PASSWORD_HQL = "FROM User WHERE login = :login AND password = :password";
+    private static final String USER_EXISTS_HQL = "FROM User WHERE login = :login";
     
     @Override
     public User getById(Integer id) {
-        try (Connection conn = Database.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(GET_BY_ID_QUERY);
-            statement.setInt(1, id);
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
-                User user = new User();
-                user.setId(result.getInt("u_id"));
-                user.setLogin(result.getString("u_login"));
-                user.setPassword(result.getString("u_password"));
-                user.setRole(result.getString("u_role"));
-                user.setName(result.getString("u_name"));
-                user.setSurname(result.getString("u_surname"));
-                user.setBirthday(result.getDate("u_birthday"));
-                user.setEmail(result.getString("u_email"));
-                user.setTelephone(result.getString("u_telephone"));
-                user.setAddress(result.getString("u_address"));
-                user.setAvatar(result.getString("u_avatar"));
-                return user;
-            }
-            return null;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Query<User> getQuery = session.createQuery(GET_BY_ID_HQL, User.class);
+            getQuery.setParameter("userid", id);
+            User user = getQuery.stream().findFirst().orElse(null);
+            transaction.commit();
+            return user;
         }
     }
 
     @Override
     public List<User> getAll() {
-        try (Connection conn = Database.getConnection()) {
-            List<User> users = new ArrayList<>();
-            Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery(GET_ALL_QUERY);
-            while (result.next()) {
-                User user = new User();
-                user.setId(result.getInt("u_id"));
-                user.setLogin(result.getString("u_login"));
-                user.setPassword(result.getString("u_password"));
-                user.setRole(result.getString("u_role"));
-                user.setName(result.getString("u_name"));
-                user.setSurname(result.getString("u_surname"));
-                user.setBirthday(result.getDate("u_birthday"));
-                user.setEmail(result.getString("u_email"));
-                user.setTelephone(result.getString("u_telephone"));
-                user.setAddress(result.getString("u_address"));
-                user.setAvatar(result.getString("u_avatar"));
-                users.add(user);
-            }
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Query<User> getAllQuery = session.createQuery(GET_ALL_HQL, User.class);
+            List<User> users = getAllQuery.getResultList();
+            transaction.commit();
             return users;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
         }
     }
 
     @Override
     public User save(User t) {
-        try (Connection conn = Database.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
-            
-            statement.setString(1, t.getLogin());
-            statement.setString(2, t.getPassword());
-            statement.setString(3, t.getName());
-            statement.setString(4, t.getSurname());
-            statement.setDate(5, new Date((t.getBirthday().getTime())));
-            statement.setString(6, t.getEmail());
-            statement.setString(7, t.getTelephone());
-            statement.setString(8, t.getAddress());
-
-            statement.execute();
-
-            ResultSet keys = statement.getGeneratedKeys();
-            if (keys.next()) {
-                t.setId(keys.getInt(1));
-                t.setRole("user");
-                return t;
+        Session session = SessionManager.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.persist(t);
+            transaction.commit();
+            return t;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
             return null;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void update(User t) {
-        try (Connection conn = Database.getConnection()) {
-            
-            PreparedStatement statement = conn.prepareStatement(UPDATE_QUERY);
-
-            statement.setString(1, t.getLogin());
-            statement.setString(2, t.getPassword());
-            statement.setString(3, t.getName());
-            statement.setString(4, t.getSurname());
-            statement.setDate(5, new Date((t.getBirthday().getTime())));
-            statement.setString(6, t.getEmail());
-            statement.setString(7, t.getTelephone());
-            statement.setString(8, t.getAddress());
-            statement.setString(9, t.getAvatar());
-            statement.setInt(10, t.getId());
-
-            int result = statement.executeUpdate();
-
-            if (result == 0) {
-                throw new EntityNotFoundException("User with id=" + t.getId() + " did not update, because he does not exists!");
+        Session session = SessionManager.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.merge(t);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void delete(User t) throws CascadeDependencyException {
-        try (Connection conn = Database.getConnection()) {
-            
-            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
-            statement.setInt(1, t.getId());
-            statement.execute();
-        } catch (SQLIntegrityConstraintViolationException ex) {
-            throw new CascadeDependencyException("User with id " + t.getId() + " is using in other tables!");
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        Session session = SessionManager.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.remove(t);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new CascadeDependencyException("Cannot delete user with id=" + t.getId() + ", because it is using in other table");
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void deleteByID(Integer id) throws CascadeDependencyException {
-        try (Connection conn = Database.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(DELETE_QUERY);
-            statement.setInt(1, id);
-            statement.execute();
-        } catch (SQLIntegrityConstraintViolationException ex) {
-            throw new CascadeDependencyException("User with id " + id + " is using in other tables!");
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
+        User userToDelete = getById(id);
+        delete(userToDelete);
     }
 
     @Override
     public User getByLoginAndPassword(String login, String password) {
-        try (Connection conn = Database.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(SEARCH_BY_LOGIN_AND_PASSWORD);
-            statement.setString(1, login);
-            statement.setString(2, password);
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
-                User user = new User();
-                user.setId(result.getInt("u_id"));
-                user.setLogin(result.getString("u_login"));
-                user.setPassword(result.getString("u_password"));
-                user.setRole(result.getString("u_role"));
-                user.setName(result.getString("u_name"));
-                user.setSurname(result.getString("u_surname"));
-                user.setBirthday(result.getDate("u_birthday"));
-                user.setEmail(result.getString("u_email"));
-                user.setTelephone(result.getString("u_telephone"));
-                user.setAddress(result.getString("u_address"));
-                user.setAvatar(result.getString("u_avatar"));
-                return user;
-            }
-            return null;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Query<User> getByCredentials = session.createQuery(SEARCH_BY_LOGIN_AND_PASSWORD_HQL, User.class);
+            getByCredentials.setParameter("login", login);
+            getByCredentials.setParameter("password", password);
+            User user = getByCredentials.stream().findFirst().orElse(null);
+            transaction.commit();
+            return user;
         }
     }
 
     @Override
     public boolean ifUserExists(String login) {
-        try (Connection conn = Database.getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(USER_EXISTS_QUERY);
-            statement.setString(1, login);
-            ResultSet result = statement.executeQuery();
-            return result.next();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            boolean result = session
+                    .createQuery(USER_EXISTS_HQL, User.class)
+                    .setParameter("login", login)
+                    .getResultList()
+                    .isEmpty();
+            transaction.commit();
+            return !result;
         }
     }
 }
