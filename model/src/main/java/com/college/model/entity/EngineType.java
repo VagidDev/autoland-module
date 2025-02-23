@@ -1,23 +1,25 @@
-package com.college.model;
+package com.college.model.models;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "au_suspension_type")
-public class SuspensionType extends SimpleTable {
+@Table(name = "au_engine_type")
+public class EngineType extends SimpleTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_id")
+    @Column(name = "et_id")
     private int id;
-    @Column(name = "st_name")
+    @Column(name = "et_name")
     private String name;
 
-    public SuspensionType() {}
+    public EngineType() {
+    }
 
-    public SuspensionType(int id, String name) {
+    public EngineType(int id, String name) {
         this.id = id;
         this.name = name;
     }
+
     @Override
     public int getId() {
         return id;
@@ -40,7 +42,7 @@ public class SuspensionType extends SimpleTable {
 
     @Override
     public String toString() {
-        return "SuspensionType{" +
+        return "EngineType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

@@ -1,25 +1,23 @@
-package com.college.model;
+package com.college.model.models;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "au_body_type")
-public class BodyType extends SimpleTable {
+@Table(name = "au_suspension_type")
+public class SuspensionType extends SimpleTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bt_id")
+    @Column(name = "st_id")
     private int id;
-    @Column(name = "bt_name")
+    @Column(name = "st_name")
     private String name;
 
-    public BodyType() {
-    }
+    public SuspensionType() {}
 
-    public BodyType(int id, String name) {
+    public SuspensionType(int id, String name) {
         this.id = id;
         this.name = name;
     }
-
     @Override
     public int getId() {
         return id;
@@ -42,10 +40,9 @@ public class BodyType extends SimpleTable {
 
     @Override
     public String toString() {
-        return "BodyType{" +
+        return "SuspensionType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
 }
-

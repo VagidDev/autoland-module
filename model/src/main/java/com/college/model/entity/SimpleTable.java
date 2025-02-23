@@ -1,4 +1,4 @@
-package com.college.model;
+package com.college.model.models;
 
 public abstract class SimpleTable {
 

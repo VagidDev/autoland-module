@@ -1,21 +1,21 @@
-package com.college.model;
+package com.college.model.models;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "au_engine_type")
-public class EngineType extends SimpleTable {
+@Table(name = "au_fuel_type")
+public class FuelType extends SimpleTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "et_id")
+    @Column(name = "ft_id")
     private int id;
-    @Column(name = "et_name")
+    @Column(name = "ft_name")
     private String name;
 
-    public EngineType() {
+    public FuelType() {
     }
 
-    public EngineType(int id, String name) {
+    public FuelType(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -42,7 +42,7 @@ public class EngineType extends SimpleTable {
 
     @Override
     public String toString() {
-        return "EngineType{" +
+        return "FuelType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

@@ -1,20 +1,20 @@
-package com.college.model;
+package com.college.model.models;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "au_drive_type")
-public class DriveType extends SimpleTable{
+@Table(name = "au_gearbox_type")
+public class GearboxType extends SimpleTable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "dt_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "gt_id")
     private int id;
-    @Column(name = "dt_name")
+    @Column(name = "gt_name")
     private String name;
 
-    public DriveType() {}
+    public GearboxType() {}
 
-    public DriveType(int id, String name) {
+    public GearboxType(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -41,7 +41,7 @@ public class DriveType extends SimpleTable{
 
     @Override
     public String toString() {
-        return "DriveType{" +
+        return "GearboxType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.college.model;
+package com.college.model.models;
 
 import com.college.model.keys.EquipmentId;
 import jakarta.persistence.*;
@@ -237,7 +237,7 @@ public class Equipment {
     @Override
     public String toString() {
         return "Equipment{" +
-                "automobile=" + id.getAutomobile() +
+                "automobile=" + id.getAutomobileId() +
                 ", id=" + id.getEquipmentId() +
                 ", name='" + name + '\'' +
                 ", engineName='" + engineName + '\'' +
