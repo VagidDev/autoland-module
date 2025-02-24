@@ -1,23 +1,7 @@
 package com.college.model.database.implementations;
 
-import com.college.model.database.SessionManager;
 import com.college.model.entity.Dealer;
-import com.college.model.database.Database;
-import com.college.model.database.exceptions.CascadeDependencyException;
-import com.college.model.database.exceptions.EntityNotFoundException;
 import com.college.model.database.interfaces.DealerDAO;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Vagid Zibliuc
