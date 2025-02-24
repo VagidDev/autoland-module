@@ -35,55 +35,33 @@ public abstract class AbstractCRUDRepository<ID,T> implements CRUDRepository<ID,
 
     @Override
     public T save(T t) {
-        Session session = SessionManager.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
             session.persist(t);
-            transaction.commit();
+            session.getTransaction().commit();
             return t;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             return null;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public void update(T t) {
-        Session session = SessionManager.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
             session.merge(t);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
+            session.getTransaction().commit();
         }
     }
 
     @Override
     public void delete(T t) throws CascadeDependencyException {
-        Session session = SessionManager.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
             session.remove(t);
-            transaction.commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throw new CascadeDependencyException("Cannot delete this row, because it is using in other table");
-        } finally {
-            session.close();
         }
     }
 
