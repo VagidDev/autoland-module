@@ -1,5 +1,6 @@
 package com.college.model.database;
 
+import com.college.model.entity.Dealer;
 import com.college.model.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -9,7 +10,9 @@ public final class SessionManager {
 
     private static SessionFactory configuredSessionFactory() {
         return new Configuration()
+                //add package didn't works, so i add classes manually
                 .addAnnotatedClass(User.class)
+                .addAnnotatedClass(Dealer.class)
                 .buildSessionFactory();
     }
 
