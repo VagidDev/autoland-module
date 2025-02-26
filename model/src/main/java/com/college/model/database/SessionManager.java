@@ -1,9 +1,9 @@
 package com.college.model.database;
 
-import com.college.model.entity.Dealer;
-import com.college.model.entity.User;
+import com.college.model.entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
 
 public final class SessionManager {
     private static SessionFactory sessionFactory;
@@ -13,6 +13,10 @@ public final class SessionManager {
                 //add package didn't works, so i add classes manually
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Dealer.class)
+                .addAnnotatedClass(BodyType.class)
+                .addAnnotatedClass(DriveType.class)
+                .addAnnotatedClass(EngineType.class)
+                .addAnnotatedClass(FuelType.class)
                 .buildSessionFactory();
     }
 
