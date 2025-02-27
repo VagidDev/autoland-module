@@ -10,13 +10,15 @@ public final class SessionManager {
 
     private static SessionFactory configuredSessionFactory() {
         return new Configuration()
-                //add package didn't works, so i add classes manually
+                //method add_package doesn't works, so i add classes manually
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Dealer.class)
                 .addAnnotatedClass(BodyType.class)
                 .addAnnotatedClass(DriveType.class)
                 .addAnnotatedClass(EngineType.class)
                 .addAnnotatedClass(FuelType.class)
+                .addAnnotatedClass(GearboxType.class)
+                .addAnnotatedClass(SuspensionType.class)
                 .buildSessionFactory();
     }
 
