@@ -13,6 +13,7 @@ public final class SessionManager {
                 //method add_package doesn't works, so i add classes manually
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Dealer.class)
+                .addAnnotatedClass(Warranty.class)
                 .addAnnotatedClass(BodyType.class)
                 .addAnnotatedClass(DriveType.class)
                 .addAnnotatedClass(EngineType.class)
