@@ -4,7 +4,7 @@
  */
 package com.college.model.entity;
 
-import com.college.model.keys.EquipmentId;
+import com.college.model.entity.keys.EquipmentId;
 import jakarta.persistence.*;
 
 /**

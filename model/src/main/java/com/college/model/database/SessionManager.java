@@ -21,6 +21,7 @@ public final class SessionManager {
                 .addAnnotatedClass(GearboxType.class)
                 .addAnnotatedClass(SuspensionType.class)
                 .addAnnotatedClass(Automobile.class)
+                .addAnnotatedClass(Equipment.class)
                 .buildSessionFactory();
     }
 

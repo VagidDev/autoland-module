@@ -5,7 +5,7 @@ import com.college.model.database.Database;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.exceptions.EntityNotFoundException;
 import com.college.model.database.interfaces.*;
-import com.college.model.keys.EquipmentId;
+import com.college.model.entity.keys.EquipmentId;
 
 import java.sql.*;
 import java.util.ArrayList;

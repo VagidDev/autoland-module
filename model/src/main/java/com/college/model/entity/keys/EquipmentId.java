@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.college.model.keys;
+package com.college.model.entity.keys;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,6 +19,9 @@ import java.util.Objects;
 @Embeddable
 public class EquipmentId implements Serializable {
     private int automobileId;
+    //GeneratedValue - maybe change
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "e_id")
     private int equipmentId;
 
     public EquipmentId() {}

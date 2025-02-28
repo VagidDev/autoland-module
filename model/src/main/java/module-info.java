@@ -7,9 +7,10 @@ module com.college.model {
     exports com.college.model.database.session;
     exports com.college.model.database.interfaces;
     exports com.college.model.database.exceptions;
-    exports com.college.model.keys;
+    exports com.college.model.entity.keys;
 
     uses java.sql.Driver;
 
     opens com.college.model.entity to org.hibernate.orm.core;
+    opens com.college.model.entity.keys to org.hibernate.orm.core;
 }
