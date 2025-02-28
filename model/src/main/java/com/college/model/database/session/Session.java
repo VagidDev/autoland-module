@@ -28,7 +28,7 @@ public class Session {
         this.dealerRepository = new DealerImpl();
         this.warrantyRepository = new WarrantyImpl();
         this.bodyTypeRepository = new BodyTypeImpl();
-        this.automobileRepository = new AutomobileImpl(bodyTypeRepository);
+        this.automobileRepository = new AutomobileImpl(); //bodyTypeRepository
         this.driveTypeRepository = new DriveTypeImpl();
         this.fuelTypeRepository = new FuelTypeImpl();
         this.engineTypeRepository = new EngineTypeImpl();

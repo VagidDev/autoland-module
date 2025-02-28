@@ -20,6 +20,7 @@ public final class SessionManager {
                 .addAnnotatedClass(FuelType.class)
                 .addAnnotatedClass(GearboxType.class)
                 .addAnnotatedClass(SuspensionType.class)
+                .addAnnotatedClass(Automobile.class)
                 .buildSessionFactory();
     }
 
