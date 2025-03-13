@@ -28,15 +28,14 @@ public class Session {
         this.dealerRepository = new DealerImpl();
         this.warrantyRepository = new WarrantyImpl();
         this.bodyTypeRepository = new BodyTypeImpl();
-        this.automobileRepository = new AutomobileImpl(); //bodyTypeRepository
+        this.automobileRepository = new AutomobileImpl();
         this.driveTypeRepository = new DriveTypeImpl();
         this.fuelTypeRepository = new FuelTypeImpl();
         this.engineTypeRepository = new EngineTypeImpl();
         this.gearboxTypeRepository = new GearboxTypeImpl();
         this.suspensionTypeRepository = new SuspensionTypeImpl();
-        //this.equipmentRepository = new EquipmentImpl(automobileRepository, engineTypeRepository, suspensionTypeRepository, driveTypeRepository, gearboxTypeRepository, fuelTypeRepository);
         this.equipmentRepository = new EquipmentImpl();
-        this.contractRepository = new ContractImpl(userRepository, dealerRepository, warrantyRepository, automobileRepository, equipmentRepository);
+        this.contractRepository = new ContractImpl();
     }
 
     public UserDAO getUserRepository() {

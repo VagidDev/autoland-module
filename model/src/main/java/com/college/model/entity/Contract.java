@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 /**
- *
  * @author Vagid Zibliuc
  */
 @Entity
@@ -26,12 +25,9 @@ public class Contract {
     @JoinColumn(name = "c_dealer_id")
     private Dealer dealer;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "c_auto_id")
-    private Automobile automobile;
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(name = "c_auto_id", referencedColumnName = "automobileId"),
-            @JoinColumn(name = "c_equip_id", referencedColumnName = "equipmentId")
+            @JoinColumn(name = "c_auto_id"),
+            @JoinColumn(name = "c_equip_id")
     })
     private Equipment equipment;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,11 +39,10 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int id, User user, Dealer dealer, Automobile automobile, Equipment equipment, Warranty warranty, Date conclusionDate) {
+    public Contract(int id, User user, Dealer dealer, Equipment equipment, Warranty warranty, Date conclusionDate) {
         this.id = id;
         this.user = user;
         this.dealer = dealer;
-        this.automobile = automobile;
         this.equipment = equipment;
         this.warranty = warranty;
         this.conclusionDate = conclusionDate;
@@ -75,14 +70,6 @@ public class Contract {
 
     public void setDealer(Dealer dealer) {
         this.dealer = dealer;
-    }
-
-    public Automobile getAutomobile() {
-        return automobile;
-    }
-
-    public void setAutomobile(Automobile automobile) {
-        this.automobile = automobile;
     }
 
     public Warranty getWarranty() {
@@ -113,6 +100,6 @@ public class Contract {
     public String toString() {
         return "Contract{" + "id=" + id + ", user=" + user + ", dealer=" + dealer + ", equipment=" + equipment + ", warranty=" + warranty + ", conclusionDate=" + conclusionDate + '}';
     }
-    
-    
+
+
 }

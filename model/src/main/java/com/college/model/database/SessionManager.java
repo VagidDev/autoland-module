@@ -22,6 +22,7 @@ public final class SessionManager {
                 .addAnnotatedClass(SuspensionType.class)
                 .addAnnotatedClass(Automobile.class)
                 .addAnnotatedClass(Equipment.class)
+                .addAnnotatedClass(Contract.class)
                 .buildSessionFactory();
     }
 
