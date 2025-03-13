@@ -36,9 +36,7 @@ class AutomobileImplTest {
     }
 
     private BodyType createTestBodyType() {
-        BodyType bodyType = new BodyType(0, "Sedan");
-        bodyTypeImpl.save(bodyType);
-        return bodyType;
+        return bodyTypeImpl.getById(1);
     }
 
     private Automobile createTestAutomobile() {

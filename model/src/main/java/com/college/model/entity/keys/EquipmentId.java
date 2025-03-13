@@ -19,8 +19,6 @@ import java.util.Objects;
 @Embeddable
 public class EquipmentId implements Serializable {
     private int automobileId;
-    //GeneratedValue - maybe change
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "e_id")
     private int equipmentId;
 
@@ -38,7 +36,7 @@ public class EquipmentId implements Serializable {
     public int getEquipmentId() {
         return equipmentId;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

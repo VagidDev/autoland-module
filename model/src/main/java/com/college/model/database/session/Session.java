@@ -34,7 +34,8 @@ public class Session {
         this.engineTypeRepository = new EngineTypeImpl();
         this.gearboxTypeRepository = new GearboxTypeImpl();
         this.suspensionTypeRepository = new SuspensionTypeImpl();
-        this.equipmentRepository = new EquipmentImpl(automobileRepository, engineTypeRepository, suspensionTypeRepository, driveTypeRepository, gearboxTypeRepository, fuelTypeRepository);
+        //this.equipmentRepository = new EquipmentImpl(automobileRepository, engineTypeRepository, suspensionTypeRepository, driveTypeRepository, gearboxTypeRepository, fuelTypeRepository);
+        this.equipmentRepository = new EquipmentImpl();
         this.contractRepository = new ContractImpl(userRepository, dealerRepository, warrantyRepository, automobileRepository, equipmentRepository);
     }
 

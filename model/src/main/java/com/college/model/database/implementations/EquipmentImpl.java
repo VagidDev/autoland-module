@@ -1,16 +1,13 @@
 package com.college.model.database.implementations;
 
+import com.college.model.database.SessionManager;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.Equipment;
-import com.college.model.database.Database;
 import com.college.model.database.interfaces.*;
 import com.college.model.entity.keys.EquipmentId;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,87 +20,51 @@ public class EquipmentImpl extends AbstractCRUDRepository<EquipmentId, Equipment
     private static final String GET_ALL_HQL = "FROM Equipment";
 
 
-    private static final String GET_BY_AUTO_QUERY = "SELECT * FROM au_equipments WHERE e_auto_id = ?";
-    private static final String GET_FREE_ID = "SELECT MAX(e_id) FROM au_equipments WHERE e_auto_id = ?";
-
-    private AutomobileDAO automobileRepository;
-    private EngineTypeDAO engineTypeDAO;
-    private SuspensionTypeDAO suspensionTypeDAO;
-    private DriveTypeDAO driveTypeDAO;
-    private GearboxTypeDAO gearboxTypeDAO;
-    private FuelTypeDAO fuelTypeDAO;
-
-    public EquipmentImpl(AutomobileDAO automobileRepository, EngineTypeDAO engineTypeDAO, SuspensionTypeDAO suspensionTypeDAO,
-                         DriveTypeDAO driveTypeDAO, GearboxTypeDAO gearboxTypeDAO, FuelTypeDAO fuelTypeDAO) {
-        this.automobileRepository = automobileRepository;
-        this.engineTypeDAO = engineTypeDAO;
-        this.suspensionTypeDAO = suspensionTypeDAO;
-        this.driveTypeDAO = driveTypeDAO;
-        this.gearboxTypeDAO = gearboxTypeDAO;
-        this.fuelTypeDAO = fuelTypeDAO;
-    }
+    private static final String GET_BY_AUTO_HQL = "FROM Equipment e WHERE e.id.automobileId = :autoId";
+    private static final String GET_FREE_ID_HQL = "SELECT max(e.id.equipmentId) FROM Equipment e WHERE e.id.automobileId = :autoId";
 
     public EquipmentImpl() {}
 
-    public Equipment getBySimpleId(int autoId, int equipId) {
-        EquipmentId id = new EquipmentId(autoId, equipId);
-        return getById(id);
-    }
-
-
     //better this method create as a stored procedure in database
     private EquipmentId getActualId(int autoId) {
-        try (Connection connection = Database.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(GET_FREE_ID);
-            statement.setInt(1, autoId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                int newId = resultSet.getInt(1) + 1;
-                return new EquipmentId(autoId, newId);
-            }
-            return null;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            Query<Integer> query = session.createQuery(GET_FREE_ID_HQL, Integer.class);
+            query.setParameter("autoId", autoId);
+            session.getTransaction().commit();
+            int equipmentId = query.uniqueResult() + 1;
+            return new EquipmentId(autoId, equipmentId);
         }
     }
 
     @Override
     public List<Equipment> getByAuto(Automobile automobile) {
-        try (Connection conn = Database.getConnection()) {
-            List<Equipment> equipments = new ArrayList<>();
-            PreparedStatement statement = conn.prepareStatement(GET_BY_AUTO_QUERY);
-            statement.setInt(1, automobile.getId());
-            ResultSet result = statement.executeQuery();
-            while (result.next()) {
-                Equipment equipment = new Equipment();
-                equipment.setId(new EquipmentId(
-                        automobile.getId(),
-                        result.getInt("e_id")
-                ));
-                equipment.setName(result.getString("e_name"));
-                equipment.setEngineName(result.getString("e_engine_name"));
-                equipment.setEngineType(engineTypeDAO.getById(result.getInt("e_engine_id")));
-                equipment.setEngineVolume(result.getFloat("e_engine_volume"));
-                equipment.setHorsepower(result.getInt("e_horse_power"));
-                equipment.setSuspensionType(suspensionTypeDAO.getById(result.getInt("e_susp_id")));
-                equipment.setDriveType(driveTypeDAO.getById(result.getInt("e_drive_id")));
-                equipment.setGearboxType(gearboxTypeDAO.getById(result.getInt("e_gearbox_id")));
-                equipment.setSpeedCount(result.getInt("e_speed_count"));
-                equipment.setFuelType(fuelTypeDAO.getById(result.getInt("e_fuel_id")));
-                equipment.setInterior(result.getString("e_interior"));
-                equipment.setBodyKit(result.getString("e_body_kit"));
-                equipment.setWeight(result.getInt("e_weigth"));
-                equipment.setPrice(result.getDouble("e_price"));
-                equipment.setImagePath(result.getString("e_image"));
-
-                equipments.add(equipment);
-            }
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            Query<Equipment> query = session.createQuery(GET_BY_AUTO_HQL, Equipment.class);
+            query.setParameter("autoId", automobile.getId());
+            List<Equipment> equipments = query.list();
+            session.getTransaction().commit();
             return equipments;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
         }
     }
 
+    //пусть это немного не про SOLID, но это мой косяк в БД
+    @Override
+    public Equipment save(Equipment equipment) {
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            Automobile automobile = session.get(Automobile.class, equipment.getAutomobile().getId());
+            equipment.setAutomobile(automobile);
+
+            EquipmentId id = getActualId(automobile.getId());
+            equipment.setId(id);
+
+            session.persist(equipment);
+            session.getTransaction().commit();
+            return equipment;
+        }
+    }
 
     @Override
     protected Class<Equipment> getEntityClass() {
