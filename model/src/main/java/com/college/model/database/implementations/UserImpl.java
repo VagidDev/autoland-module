@@ -5,15 +5,12 @@
 package com.college.model.database.implementations;
 
 import com.college.model.entity.User;
-import com.college.model.database.Database;
 import com.college.model.database.SessionManager;
-import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.interfaces.UserDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.List;
 
 /**
  *
