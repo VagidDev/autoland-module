@@ -1,4 +1,4 @@
-package com.college.controller.validators;
+package com.college.controller.validators.user;
 
 import com.college.model.entity.User;
 import org.junit.jupiter.api.Test;

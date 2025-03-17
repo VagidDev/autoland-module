@@ -1,4 +1,4 @@
-package com.college.controller.validators;
+package com.college.controller.validators.user;
 
 public enum UserValidationResponse {
     INVALID_LOGIN,

@@ -1,6 +1,6 @@
 package com.college.controller;
 
-import com.college.controller.validators.UserValidationResponse;
+import com.college.controller.validators.user.UserValidationResponse;
 import com.college.model.entity.User;
 import com.college.model.database.interfaces.UserDAO;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,42 +1,44 @@
-package com.college.controller.validators;
+package com.college.controller.validators.user;
 
 import com.college.model.entity.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserSurnameValidatorTest {
-    private final UserSurnameValidator validator = new UserSurnameValidator();
+class UserEmailValidatorTest {
+
+    private final UserEmailValidator validator = new UserEmailValidator();
 
     @Test
     void shouldBeValid() {
         User user = new User();
-        user.setSurname("Surname");
+        user.setEmail("test@gmail.com");
         UserValidationResponse response = validator.validate(user);
         assertEquals(UserValidationResponse.VALID, response);
     }
 
     @Test
-    void shouldNotBeValid_NullSurname() {
+    void shouldNotBeValidBecauseEmailIsNull() {
         User user = new User();
-        user.setSurname(null);
+        user.setEmail(null);
         UserValidationResponse response = validator.validate(user);
-        assertEquals(UserValidationResponse.INVALID_SURNAME, response);
+        assertEquals(UserValidationResponse.INVALID_EMAIL, response);
     }
 
     @Test
-    void shouldNotBeValid_EmptySurname() {
+    void shouldNotBeValidBecauseEmailEndsWithDot() {
         User user = new User();
-        user.setSurname("");
+        user.setEmail("test@gmail.com.");
         UserValidationResponse response = validator.validate(user);
-        assertEquals(UserValidationResponse.INVALID_SURNAME, response);
+        assertEquals(UserValidationResponse.INVALID_EMAIL, response);
     }
 
     @Test
-    void shouldNotBeValid_SpaceSurname() {
+    void shouldNotBeValidBecauseEmailDoNotEndsWithGmail() {
         User user = new User();
-        user.setSurname("           ");
+        user.setEmail("test@email.com.");
         UserValidationResponse response = validator.validate(user);
-        assertEquals(UserValidationResponse.INVALID_SURNAME, response);
+        assertEquals(UserValidationResponse.INVALID_EMAIL, response);
     }
+
 }

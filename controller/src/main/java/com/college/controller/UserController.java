@@ -1,6 +1,6 @@
 package com.college.controller;
 
-import com.college.controller.validators.*;
+import com.college.controller.validators.user.*;
 import com.college.model.entity.User;
 import com.college.model.database.interfaces.UserDAO;
 
