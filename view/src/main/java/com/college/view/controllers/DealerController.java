@@ -1,5 +1,7 @@
 package com.college.view.controllers;
 
+import com.college.model.entity.Dealer;
+import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -13,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
-import java.io.IOException;
 
 public class DealerController {
     @FXML
@@ -32,33 +33,32 @@ public class DealerController {
 
         dealerList.prefWidthProperty().bind(Bindings.createDoubleBinding(() -> (double) (dealerList.getChildren().size() * 300), dealerList.getChildren()));
 
-        dealerList.getChildren().add(createDealerPane("name", "address", "+3736582"));
-        dealerList.getChildren().add(createDealerPane("name", "address", "+3736582"));
-        dealerList.getChildren().add(createDealerPane("name", "address", "+3736582"));
-        dealerList.getChildren().add(createDealerPane("name", "address", "+3736582"));
+        for (Dealer dealer : ControllerManager.getDealerController().getAllDealers()) {
+            dealerList.getChildren().add(createDealerPane(dealer));
+        }
 
     }
 
-    private Pane createDealerPane(String name, String address, String phoneNumber) {
+    private Pane createDealerPane(Dealer dealer) {
         Pane pane = new Pane();
         pane.setPrefSize(290, 180);
         pane.getStyleClass().add("dealer-pane");
 
-        Label nameLabel = new Label(name);
+        Label nameLabel = new Label(dealer.getName());
         nameLabel.setLayoutX(14);
         nameLabel.setLayoutY(14);
         nameLabel.setPrefSize(165, 34);
         nameLabel.setFont(Font.font("Lucida Bright Demibold", 18));
         nameLabel.getStyleClass().add("main-text");
 
-        Label addressLabel = new Label(address);
+        Label addressLabel = new Label(dealer.getAddress());
         addressLabel.setLayoutX(14);
         addressLabel.setLayoutY(56);
         addressLabel.setPrefSize(165, 34);
         addressLabel.setFont(Font.font("Lucida Bright Demibold", 16));
         addressLabel.getStyleClass().add("main-text");
 
-        Label phoneLabel = new Label(phoneNumber);
+        Label phoneLabel = new Label(dealer.getTelephone());
         phoneLabel.setLayoutX(14);
         phoneLabel.setLayoutY(101);
         phoneLabel.setPrefSize(165, 34);
