@@ -56,4 +56,20 @@ class EquipmentControllerTest {
         assertEquals(3, equipments.size());
     }
 
+    @Test
+    void getCheapestEquipment_shouldReturnCheapestEquipments() {
+        Equipment equipment1 = new Equipment();
+        Equipment equipment2 = new Equipment();
+        Equipment equipment3 = new Equipment();
+        equipment1.setId(new EquipmentId(1, 1));
+        equipment2.setId(new EquipmentId(1, 2));
+        equipment3.setId(new EquipmentId(2, 1));
+
+        Mockito.when(equipmentDAO.getAll()).thenReturn(List.of(equipment1, equipment2, equipment3));
+
+        List<Equipment> equipment = equipmentController.getCheapestEquipmentForAutomobile();
+        assertEquals(2, equipment.size());
+
+    }
+
 }

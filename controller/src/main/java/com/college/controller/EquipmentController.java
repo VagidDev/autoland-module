@@ -6,6 +6,7 @@ import com.college.model.entity.Equipment;
 import com.college.model.entity.keys.EquipmentId;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EquipmentController {
     private final EquipmentDAO equipmentDAO;
@@ -24,6 +25,13 @@ public class EquipmentController {
 
     public List<Equipment> getAllEquipments() {
         return equipmentDAO.getAll();
+    }
+
+    public List<Equipment> getCheapestEquipmentForAutomobile() {
+        return getAllEquipments()
+                .stream()
+                .filter(equipment -> equipment.getId().getEquipmentId() == 1)
+                .collect(Collectors.toList());
     }
 
 }
