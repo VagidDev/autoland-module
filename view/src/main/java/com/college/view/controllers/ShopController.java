@@ -1,12 +1,14 @@
 package com.college.view.controllers;
 
+import com.college.controller.EquipmentController;
+import com.college.model.entity.Equipment;
+import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,18 +17,21 @@ import javafx.scene.text.Font;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class ShopController {
     @FXML
     private FlowPane flowPane;
+    private EquipmentController equipmentController;
 
     public void initialize() {
-        flowPane.getChildren().add(createCarButton("mark", 190000, "view/src/main/resources/images/test.jpg"));
-        flowPane.getChildren().add(createCarButton("mark", 190000, "view/src/main/resources/images/test.jpg"));
-        flowPane.getChildren().add(createCarButton("mark", 190000, "view/src/main/resources/images/test.jpg"));
-        flowPane.getChildren().add(createCarButton("mark", 190000, "view/src/main/resources/images/test.jpg"));
-        flowPane.getChildren().add(createCarButton("mark", 190000, "view/src/main/resources/images/test.jpg"));
-        flowPane.getChildren().add(createCarButton("mark", 190000, "view/src/main/resources/images/test.jpg"));
+        this.equipmentController = ControllerManager.getEquipmentController();
+        List<Equipment> equipments = equipmentController.getAllEquipments();
+
+        equipments.forEach(equipment -> {
+            flowPane.getChildren().add(createCarButton(equipment.getAutomobile().getMark() + " " + equipment.getName(),
+                    equipment.getPrice(), equipment.getImagePath()));
+        });
     }
 
     public Pane createCarButton(String mark, double price, String imagePath) {

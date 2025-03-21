@@ -7,8 +7,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
@@ -27,65 +25,6 @@
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="35.0" layoutY="50.0" prefHeight="600.0" prefWidth="630.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                <content>
                   <FlowPane fx:id="flowPane" hgap="30.0" prefHeight="300.0" prefWidth="620.0" vgap="30.0">
-                     <children>
-                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="automobile-pane">
-                           <children>
-                              <ImageView fitHeight="124.0" fitWidth="220.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../../images/test.jpg" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="25.0" layoutY="146.0" text="Mark" textFill="#a4a4a4">
-                                 <font>
-                                    <Font name="Lucida Bright Demibold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="25.0" layoutY="175.0" text="Price $" textFill="#a4a4a4">
-                                 <font>
-                                    <Font name="Lucida Bright Demibold" size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="automobile-pane">
-                           <children>
-                              <ImageView fitHeight="124.0" fitWidth="220.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../../images/test.jpg" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="25.0" layoutY="146.0" text="Mark" textFill="#a4a4a4">
-                                 <font>
-                                    <Font name="Lucida Bright Demibold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="25.0" layoutY="175.0" text="Price $" textFill="#a4a4a4">
-                                 <font>
-                                    <Font name="Lucida Bright Demibold" size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="220.0" prefWidth="270.0" styleClass="automobile-pane">
-                           <children>
-                              <ImageView fitHeight="124.0" fitWidth="220.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../../../images/test.jpg" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="25.0" layoutY="146.0" text="Mark" textFill="#a4a4a4">
-                                 <font>
-                                    <Font name="Lucida Bright Demibold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="25.0" layoutY="175.0" text="Price $" textFill="#a4a4a4">
-                                 <font>
-                                    <Font name="Lucida Bright Demibold" size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                     </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
