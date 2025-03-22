@@ -20,7 +20,7 @@ public class Automobile {
     private String mark;
     @Column(name = "a_model")
     private String model;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "a_body_id")
     private BodyType bodyType;
     @Column(name = "a_place_count")

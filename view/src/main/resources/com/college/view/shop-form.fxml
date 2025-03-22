@@ -43,19 +43,19 @@
                         <Font name="Lucida Bright Demibold" size="18.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="32.0" layoutY="108.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
+                  <VBox fx:id="bodyBox" layoutX="32.0" layoutY="108.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="Sedan" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="SUV" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="Coupe" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
@@ -73,19 +73,19 @@
                         <Font name="Lucida Bright Demibold" size="18.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="33.0" layoutY="283.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
+                  <VBox fx:id="engineBox" layoutX="33.0" layoutY="283.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="V6" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="V8" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="Electric" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
@@ -103,19 +103,19 @@
                         <Font name="Lucida Bright Demibold" size="18.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="33.0" layoutY="466.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
+                  <VBox fx:id="gearboxBox" layoutX="33.0" layoutY="466.0" prefHeight="130.0" prefWidth="236.0" spacing="15.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="Manual" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="Automatic" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" text="CheckBox" textFill="#a4a4a4">
+                        <CheckBox mnemonicParsing="false" onAction="#onCheckBoxChanged" selected="true" text="CVT" textFill="#a4a4a4">
                            <font>
                               <Font name="Lucida Bright Demibold" size="16.0" />
                            </font>
@@ -134,17 +134,17 @@
                <children>
                   <FlowPane alignment="CENTER" hgap="50.0" layoutX="569.0" prefHeight="100.0" prefWidth="570.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="ToggleButton">
+                        <ToggleButton fx:id="toggleAscending" mnemonicParsing="false" onAction="#onSortToggleButton" prefHeight="40.0" prefWidth="130.0" text="Ascending">
                            <font>
                               <Font name="Lucida Bright Demibold" size="14.0" />
                            </font>
                         </ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="ToggleButton">
+                        <ToggleButton fx:id="toggleDescending" mnemonicParsing="false" onAction="#onSortToggleButton" prefHeight="40.0" prefWidth="130.0" text="Descending">
                            <font>
                               <Font name="Lucida Bright Demibold" size="14.0" />
                            </font>
                         </ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="ToggleButton">
+                        <ToggleButton fx:id="toggleAlphabetic" mnemonicParsing="false" onAction="#onSortToggleButton" prefHeight="40.0" prefWidth="130.0" text="Alphabetic">
                            <font>
                               <Font name="Lucida Bright Demibold" size="14.0" />
                            </font>
