@@ -2,6 +2,8 @@ package com.college.view.controllers;
 
 import com.college.controller.EquipmentController;
 import com.college.model.entity.Equipment;
+import com.college.model.entity.keys.EquipmentId;
+import com.college.view.core.ContractBuilder;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
@@ -55,7 +57,8 @@ public class ShopController {
 
     private void loadEquipments(List<Equipment> equipments) {
         equipments.forEach(equipment -> {
-            flowPane.getChildren().add(createCarButton(equipment.getAutomobile().getMark() + " " + equipment.getName(),
+            flowPane.getChildren().add(createCarButton(equipment.getAutomobile().getId(),
+                    equipment.getAutomobile().getMark() + " " + equipment.getName(),
                     equipment.getPrice(), equipment.getImagePath()));
         });
     }
@@ -63,10 +66,12 @@ public class ShopController {
 //    temporary make it static, maybe make dynamic loading
 //    private void loadFilters() {}
 
-    public Pane createCarButton(String mark, double price, String imagePath) {
+    public Pane createCarButton(int autoId, String mark, double price, String imagePath) {
         Pane pane = new Pane();
         pane.setPrefSize(270, 220);
         pane.getStyleClass().add("automobile-pane");
+
+        pane.setId(String.valueOf(autoId));
 
         var path = Path.of(imagePath).toAbsolutePath();
 
@@ -100,6 +105,11 @@ public class ShopController {
         pane.getChildren().addAll(imageView, labelMark, labelPrice);
 
         pane.setOnMouseClicked(event -> {
+            if (event.getSource() instanceof Pane clickedPane) {
+                ContractBuilder.setAutomobileById(Integer.parseInt(clickedPane.getId()));
+            } else {
+                System.err.println("Automobile was not wrote!");
+            }
             StageService.closeAndSaveStage();
             StageService.buildAndShowStage("Car", "auto-form.fxml");
         });

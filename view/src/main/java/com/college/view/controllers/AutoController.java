@@ -1,5 +1,11 @@
 package com.college.view.controllers;
 
+import com.college.controller.AutomobileController;
+import com.college.controller.EquipmentController;
+import com.college.model.entity.Automobile;
+import com.college.model.entity.Equipment;
+import com.college.view.core.ContractBuilder;
+import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,29 +19,43 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class AutoController {
     @FXML
     private FlowPane flowPane;
+    @FXML
+    private Label modelLabel;
+
+    private AutomobileController automobileController;
+    private int selectedId = 0;
 
     @FXML
     public void initialize() {
-        flowPane.getChildren().add(createEquipmentPane("Equip", 900000, Arrays.asList("Value 1", "Value 2", "Value 3", "Value 4")));
-        flowPane.getChildren().add(createEquipmentPane("Equip", 900000, Arrays.asList("Value 1", "Value 2", "Value 3", "Value 4")));
-        flowPane.getChildren().add(createEquipmentPane("Equip", 900000, Arrays.asList("Value 1", "Value 2", "Value 3", "Value 4")));
-        flowPane.getChildren().add(createEquipmentPane("Equip", 900000, Arrays.asList("Value 1", "Value 2", "Value 3", "Value 4")));
-        flowPane.getChildren().add(createEquipmentPane("Equip", 900000, Arrays.asList("Value 1", "Value 2", "Value 3", "Value 4")));
-        flowPane.getChildren().add(createEquipmentPane("Equip", 900000, Arrays.asList("Value 1", "Value 2", "Value 3", "Value 4")));
-        flowPane.getChildren().add(createEquipmentPane("Equip", 900000, Arrays.asList("Value 1", "Value 2", "Value 3", "Value 4")));
+        automobileController = ControllerManager.getAutomobileController();
+        Automobile automobileForSell = ContractBuilder.getAutomobile();
+        if (automobileForSell != null) {
+            modelLabel.setText(automobileForSell.getMark() + " " + automobileForSell.getModel());
+            List<Equipment> equipmentsForAuto = automobileController.getEquipmentsByAutomobile(automobileForSell);
+
+            equipmentsForAuto.forEach(equipment -> {
+                flowPane.getChildren().add(createEquipmentPane(
+                        equipment.getId().getEquipmentId(), equipment.getName(), equipment.getPrice(),
+                        Arrays.asList(equipment.getShortEquipment())
+                ));
+            });
+
+        }
+
     }
 
-    private Pane createEquipmentPane(String equipmentName, double price, List<String> values) {
+    private Pane createEquipmentPane(int equipmentId, String equipmentName, double price, List<String> values) {
         Pane pane = new Pane();
         pane.setPrefSize(260, 375);
         pane.getStyleClass().add("equipment-pane");
+
+        pane.setId(String.valueOf(equipmentId));
 
         Label equipmentLabel = new Label(equipmentName);
         equipmentLabel.setLayoutY(20);
@@ -78,11 +98,13 @@ public class AutoController {
                     .filter(node -> node.getStyleClass().getLast().equals("clicked-equipment-pane"))
                     .forEach(node -> node.getStyleClass().remove("clicked-equipment-pane"));
 
+            selectedId = Integer.parseInt(clikedPane.getId());
             clikedPane.getStyleClass().add("clicked-equipment-pane");
         }
     }
 
     public void buyButtonClicked(ActionEvent event) {
+        ContractBuilder.setEquipmentById(selectedId);
         StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Warranty", "warranty-form.fxml");
     }
