@@ -11,5 +11,12 @@ public final class SessionManager {
         return session;
     }
 
+    public static boolean connect() {
+        org.hibernate.Session tempSession = com.college.model.database.SessionManager.getSessionFactory().openSession();
+        boolean result = tempSession.isConnected();
+        tempSession.close();
+        return result;
+    }
+
     private SessionManager() {}
 }

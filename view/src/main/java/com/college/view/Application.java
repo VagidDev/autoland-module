@@ -1,6 +1,7 @@
 package com.college.view;
 
 
+import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,7 +20,10 @@ public class Application extends javafx.application.Application {
         StageService.registerStage(stage);
     }
 
+//    private static void loadApplication() {}
+
     public static void main(String[] args) {
+        ControllerManager.loadAllControllers();
         launch();
     }
 }
