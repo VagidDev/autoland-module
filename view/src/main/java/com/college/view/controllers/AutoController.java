@@ -94,11 +94,12 @@ public class AutoController {
         Button button = (Button) clickedObject;
         Parent parent = button.getParent();
         if (parent instanceof Pane clikedPane) {
+            selectedId = Integer.parseInt(clikedPane.getId());
+
             flowPane.getChildren().stream()
                     .filter(node -> node.getStyleClass().getLast().equals("clicked-equipment-pane"))
                     .forEach(node -> node.getStyleClass().remove("clicked-equipment-pane"));
 
-            selectedId = Integer.parseInt(clikedPane.getId());
             clikedPane.getStyleClass().add("clicked-equipment-pane");
         }
     }

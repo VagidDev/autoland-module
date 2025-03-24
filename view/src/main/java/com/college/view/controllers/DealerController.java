@@ -1,6 +1,7 @@
 package com.college.view.controllers;
 
 import com.college.model.entity.Dealer;
+import com.college.view.core.ContractBuilder;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.beans.binding.Bindings;
@@ -15,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
+import java.util.List;
+
 
 public class DealerController {
     @FXML
@@ -26,39 +29,46 @@ public class DealerController {
     @FXML
     private Button backButton;
 
+    private com.college.controller.DealerController dealerController;
+    private int selectedDealerId;
+
     @FXML
     public void initialize() {
+        this.dealerController = ControllerManager.getDealerController();
+        List<Dealer> dealers = dealerController.getAllDealers();
+
         headerImage.fitWidthProperty().bind(rootPane.widthProperty());
         headerImage.fitHeightProperty().bind(rootPane.heightProperty());
 
         dealerList.prefWidthProperty().bind(Bindings.createDoubleBinding(() -> (double) (dealerList.getChildren().size() * 300), dealerList.getChildren()));
 
-        for (Dealer dealer : ControllerManager.getDealerController().getAllDealers()) {
-            dealerList.getChildren().add(createDealerPane(dealer));
+        for (Dealer dealer : dealers) {
+            dealerList.getChildren().add(createDealerPane(dealer.getId(), dealer.getName(), dealer.getAddress(), dealer.getTelephone()));
         }
 
     }
 
-    private Pane createDealerPane(Dealer dealer) {
+    private Pane createDealerPane(int id, String dealerName, String address, String phone) {
         Pane pane = new Pane();
         pane.setPrefSize(290, 180);
         pane.getStyleClass().add("dealer-pane");
+        pane.setId(String.valueOf(id));
 
-        Label nameLabel = new Label(dealer.getName());
+        Label nameLabel = new Label(dealerName);
         nameLabel.setLayoutX(14);
         nameLabel.setLayoutY(14);
         nameLabel.setPrefSize(165, 34);
         nameLabel.setFont(Font.font("Lucida Bright Demibold", 18));
         nameLabel.getStyleClass().add("main-text");
 
-        Label addressLabel = new Label(dealer.getAddress());
+        Label addressLabel = new Label(address);
         addressLabel.setLayoutX(14);
         addressLabel.setLayoutY(56);
         addressLabel.setPrefSize(165, 34);
         addressLabel.setFont(Font.font("Lucida Bright Demibold", 16));
         addressLabel.getStyleClass().add("main-text");
 
-        Label phoneLabel = new Label(dealer.getTelephone());
+        Label phoneLabel = new Label(phone);
         phoneLabel.setLayoutX(14);
         phoneLabel.setLayoutY(101);
         phoneLabel.setPrefSize(165, 34);
@@ -75,6 +85,8 @@ public class DealerController {
     private void onDealerPaneClicked(MouseEvent mouseEvent) {
         Object clickedObject = mouseEvent.getSource();
         if (clickedObject instanceof Pane clikedPane) {
+            this.selectedDealerId = Integer.parseInt(clikedPane.getId());
+
             dealerList.getChildren().stream()
                     .filter(node -> node.getStyleClass().getLast().equals("clicked-dealer-pane"))
                     .forEach(node -> node.getStyleClass().remove("clicked-dealer-pane"));
@@ -90,6 +102,7 @@ public class DealerController {
     }
 
     public void onConfirmButton(ActionEvent event) {
+        ContractBuilder.setDealerById(selectedDealerId);
         StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Confirmation", "confirmation-form.fxml");
     }
