@@ -19,4 +19,9 @@ public class ContractController {
     public List<Contract> getAllContracts() {
         return contractDAO.getAll();
     }
+
+    public boolean saveContract(Contract contract) {
+        Contract savedContract = contractDAO.save(contract);
+        return savedContract != null;
+    }
 }

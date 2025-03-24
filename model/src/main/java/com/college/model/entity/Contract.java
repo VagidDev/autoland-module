@@ -5,6 +5,7 @@
 package com.college.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -34,6 +35,7 @@ public class Contract {
     @JoinColumn(name = "c_warranty_id")
     private Warranty warranty;
     @Column(name = "c_data")
+    @CreationTimestamp
     private Date conclusionDate;
 
     public Contract() {

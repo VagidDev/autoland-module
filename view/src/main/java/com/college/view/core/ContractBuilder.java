@@ -1,9 +1,6 @@
 package com.college.view.core;
 
-import com.college.model.entity.Automobile;
-import com.college.model.entity.Dealer;
-import com.college.model.entity.Equipment;
-import com.college.model.entity.Warranty;
+import com.college.model.entity.*;
 import com.college.model.entity.keys.EquipmentId;
 
 public class ContractBuilder {
@@ -41,4 +38,20 @@ public class ContractBuilder {
     public static Equipment getEquipment() {
         return equipment;
     }
+
+    public static Contract buildContract() {
+        if (dealer == null || warranty == null || automobile == null || equipment == null) {
+            return null;
+        }
+
+        Contract contract = new Contract();
+
+        contract.setUser(ControllerManager.getAuthorizationController().getCurrentUser());
+        contract.setDealer(dealer);
+        contract.setWarranty(warranty);
+        contract.setEquipment(equipment);
+
+        return contract;
+    }
+
 }
