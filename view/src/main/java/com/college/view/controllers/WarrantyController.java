@@ -1,6 +1,7 @@
 package com.college.view.controllers;
 
 import com.college.model.entity.Warranty;
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ContractBuilder;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
@@ -19,7 +20,7 @@ public class WarrantyController {
     private FlowPane flowPane;
 
     private com.college.controller.WarrantyController warrantyController;
-    private int selectedWarrantyId;
+    private int selectedWarrantyId = 0;
 
     public void initialize() {
         warrantyController = ControllerManager.getWarrantyController();
@@ -75,6 +76,11 @@ public class WarrantyController {
     }
 
     public void clickBuyButton(ActionEvent actionEvent) {
+        if (selectedWarrantyId == 0) {
+            AlertHelper.emptySelectionAlert();
+            return;
+        }
+
         ContractBuilder.setWarrantyById(selectedWarrantyId);
         StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Dealer", "dealer-form.fxml");

@@ -1,9 +1,9 @@
 package com.college.view.controllers;
 
 import com.college.controller.AutomobileController;
-import com.college.controller.EquipmentController;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.Equipment;
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ContractBuilder;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
@@ -29,7 +29,7 @@ public class AutoController {
     private Label modelLabel;
 
     private AutomobileController automobileController;
-    private int selectedId = 0;
+    private int selectedEquipmentId = 0;
 
     @FXML
     public void initialize() {
@@ -94,7 +94,7 @@ public class AutoController {
         Button button = (Button) clickedObject;
         Parent parent = button.getParent();
         if (parent instanceof Pane clikedPane) {
-            selectedId = Integer.parseInt(clikedPane.getId());
+            selectedEquipmentId = Integer.parseInt(clikedPane.getId());
 
             flowPane.getChildren().stream()
                     .filter(node -> node.getStyleClass().getLast().equals("clicked-equipment-pane"))
@@ -105,7 +105,11 @@ public class AutoController {
     }
 
     public void buyButtonClicked(ActionEvent event) {
-        ContractBuilder.setEquipmentById(selectedId);
+        if (selectedEquipmentId == 0) {
+            AlertHelper.emptySelectionAlert();
+            return;
+        }
+        ContractBuilder.setEquipmentById(selectedEquipmentId);
         StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Warranty", "warranty-form.fxml");
     }

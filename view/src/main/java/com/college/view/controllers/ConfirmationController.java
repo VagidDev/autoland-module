@@ -2,6 +2,7 @@ package com.college.view.controllers;
 
 import com.college.controller.ContractController;
 import com.college.model.entity.*;
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ContractBuilder;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
@@ -66,33 +67,10 @@ public class ConfirmationController {
         totalPrice.setText("Total: " + (equipment.getPrice() + warranty.getPrice()) + "$");
     }
 
-    private boolean showConfirmationDialog(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Подтверждение");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
 
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.setAlwaysOnTop(true);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.isPresent() && result.get() == ButtonType.OK;
-    }
-
-    private void showSaveAlert(String title, String message, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.setAlwaysOnTop(true);
-
-        alert.showAndWait();
-    }
 
     public void onConfirmButtonClicked(ActionEvent actionEvent) {
-        boolean confirmed = showConfirmationDialog("Вы уверенны, что хотите совершить покупку?");
+        boolean confirmed = AlertHelper.showConfirmationDialog("Are you sure that you want buy this automobile?");
         if (!confirmed) {
             return;
         }
@@ -100,11 +78,11 @@ public class ConfirmationController {
         Contract contract = ContractBuilder.buildContract();
         boolean saved = contractController.saveContract(contract);
         if (saved) {
-            showSaveAlert("Сохранение", "Покупка прошла успешно! Ваш автомобиль уже вас ждет!", Alert.AlertType.INFORMATION);
+            AlertHelper.showSaveAlert("Saving success", "Your transaction is confirmed! Congratulations, you bought an automobile! ", Alert.AlertType.INFORMATION);
             StageService.closeStageAndClearStack();
             StageService.buildAndShowStage("Home", "home-form.fxml");
         } else {
-            showSaveAlert("Ошибка", "Ошибка покупки!!!!", Alert.AlertType.ERROR);
+            AlertHelper.showSaveAlert("Error", "Opssssss, something went wrong!", Alert.AlertType.ERROR);
         }
     }
 

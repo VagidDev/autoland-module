@@ -1,6 +1,7 @@
 package com.college.view.controllers;
 
 import com.college.model.entity.Dealer;
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ContractBuilder;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
@@ -30,7 +31,7 @@ public class DealerController {
     private Button backButton;
 
     private com.college.controller.DealerController dealerController;
-    private int selectedDealerId;
+    private int selectedDealerId = 0;
 
     @FXML
     public void initialize() {
@@ -102,6 +103,10 @@ public class DealerController {
     }
 
     public void onConfirmButton(ActionEvent event) {
+        if (selectedDealerId == 0) {
+            AlertHelper.emptySelectionAlert();
+            return;
+        }
         ContractBuilder.setDealerById(selectedDealerId);
         StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Confirmation", "confirmation-form.fxml");

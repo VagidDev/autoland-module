@@ -1,13 +1,12 @@
 package com.college.view.controllers;
 
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class AuthorizationController {
     @FXML
@@ -26,18 +25,6 @@ public class AuthorizationController {
         this.authorizationController = ControllerManager.getAuthorizationController();
     }
 
-    private void showInvalidLoginAlert() {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Authorization Error");
-        alert.setHeaderText(null);
-        alert.setContentText("Incorrect login or password. Please try again.");
-
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.setAlwaysOnTop(true);
-
-        alert.showAndWait();
-    }
-
     public void openRegisterForm(ActionEvent event) {
         StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Account Information", "account-register-form.fxml");
@@ -48,7 +35,7 @@ public class AuthorizationController {
         boolean isAuthorized = authorizationController.login(loginTextField.getText(), passwordTextField.getText());
 
         if (!isAuthorized) {
-            showInvalidLoginAlert();
+            AlertHelper.showInvalidLoginAlert();
             return;
         }
         StageService.closeStage();
