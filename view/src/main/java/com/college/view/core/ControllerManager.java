@@ -3,9 +3,9 @@ package com.college.view.core;
 import com.college.controller.*;
 import com.college.model.database.session.Session;
 import com.college.model.database.session.SessionManager;
-import com.college.model.entity.Warranty;
 
 public class ControllerManager {
+    private static UserController userController;
     private static AuthorizationController authorizationController;
     private static DealerController dealerController;
     private static EquipmentController equipmentController;
@@ -16,6 +16,7 @@ public class ControllerManager {
     public static void loadAllControllers() {
         if (SessionManager.connect()) {
             Session session = SessionManager.getSession();
+            userController = new UserController(session.getUserRepository());
             authorizationController = new AuthorizationController(session.getUserRepository());
             dealerController = new DealerController(session.getDealerRepository());
             warrantyController = new WarrantyController(session.getWarrantyRepository());
@@ -23,6 +24,13 @@ public class ControllerManager {
             equipmentController = new EquipmentController(SessionManager.getSession().getEquipmentRepository());
             contractController = new ContractController(session.getContractRepository());
         }
+    }
+
+    public static UserController getUserController() {
+        if (userController == null) {
+            userController = new UserController(SessionManager.getSession().getUserRepository());
+        }
+        return userController;
     }
 
     public static DealerController getDealerController() {

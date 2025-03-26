@@ -4,4 +4,5 @@ module com.college.controller {
     requires java.xml;
 
     exports com.college.controller;
+    exports com.college.controller.validators.user;
 }

@@ -13,6 +13,7 @@ module com.college.view {
     requires java.desktop;
     requires com.college.controller;
     requires com.college.model;
+    requires jakarta.persistence;
 
     opens com.college.view to javafx.fxml;
     opens com.college.view.controllers to javafx.fxml;
