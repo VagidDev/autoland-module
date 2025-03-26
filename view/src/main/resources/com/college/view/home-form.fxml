@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.HomeController">
+<AnchorPane prefHeight="786.0" prefWidth="1080.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.HomeController">
    <children>
       <BorderPane layoutY="-148.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <center>
@@ -20,14 +20,14 @@
             </ImageView>
          </center>
       </BorderPane>
-      <AnchorPane layoutY="401.0" prefHeight="320.0" prefWidth="1080.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
+      <AnchorPane layoutY="359.0" prefHeight="383.0" prefWidth="1080.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="176.0" layoutY="14.0" prefHeight="77.0" prefWidth="859.0" text="Welcome To AutoLand" textAlignment="CENTER" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font name="Lucida Bright Demibold" size="64.0" />
                </font>
             </Label>
-            <FlowPane alignment="CENTER" hgap="70.0" layoutY="153.0" prefHeight="308.0" prefWidth="1080.0" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <FlowPane alignment="CENTER" hgap="70.0" layoutY="153.0" prefHeight="209.0" prefWidth="1080.0" vgap="15.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Button fx:id="dealersButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDealersButtonClicked" prefHeight="180.0" prefWidth="280.0" text="Dealers">
                      <font>
@@ -46,6 +46,11 @@
                   </Button>
                </children>
             </FlowPane>
+            <Button fx:id="reportsButton" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" onAction="#onReportsButtonClicked" prefWidth="651.0" text="Reports" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="214.0">
+               <font>
+                  <Font name="Lucida Bright" size="36.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

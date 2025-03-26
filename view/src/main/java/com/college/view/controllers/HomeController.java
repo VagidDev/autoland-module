@@ -1,5 +1,7 @@
 package com.college.view.controllers;
 
+import com.college.model.database.utils.ReportUtil;
+import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,15 @@ public class HomeController {
     private Button shoppingButton;
     @FXML
     private Button accountButton;
+    @FXML
+    private Button reportsButton;
+
+    @FXML
+    private void initialize() {
+        if (!ControllerManager.getAuthorizationController().getCurrentUser().getRole().equals("admin")) {
+            reportsButton.setVisible(false);
+        }
+    }
 
     @FXML
     public void onDealersButtonClicked(ActionEvent event) {
@@ -31,5 +42,12 @@ public class HomeController {
     public void onAccountButtonClicked(ActionEvent event) {
         StageService.closeAndSaveStage();
         StageService.buildAndShowStage("Account", "account-form.fxml");
+    }
+
+    public void onReportsButtonClicked(ActionEvent event) {
+
+
+        ReportUtil.generateReport();
+//        System.out.println("you");
     }
 }
