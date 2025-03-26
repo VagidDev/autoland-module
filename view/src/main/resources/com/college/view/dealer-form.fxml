@@ -51,7 +51,7 @@
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="backButton1" mnemonicParsing="false" onAction="#onConfirmButton" prefHeight="60.0" prefWidth="170.0" text="Confirm">
+                  <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#onConfirmButton" prefHeight="60.0" prefWidth="170.0" text="Confirm">
                      <font>
                         <Font name="Lucida Bright Demibold" size="24.0" />
                      </font>

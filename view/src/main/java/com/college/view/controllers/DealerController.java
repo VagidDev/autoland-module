@@ -29,12 +29,18 @@ public class DealerController {
     private HBox dealerList;
     @FXML
     private Button backButton;
+    @FXML
+    private Button confirmButton;
 
     private com.college.controller.DealerController dealerController;
     private int selectedDealerId = 0;
 
     @FXML
     public void initialize() {
+        if (StageService.getPreviousStage().getTitle().equals("Home")) {
+            confirmButton.setDisable(true);
+        }
+
         this.dealerController = ControllerManager.getDealerController();
         List<Dealer> dealers = dealerController.getAllDealers();
 

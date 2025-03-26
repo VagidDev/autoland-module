@@ -52,6 +52,14 @@ public class StageService {
         return stages.getLast();
     }
 
+    public static Stage getPreviousStage() {
+        int countElements = stages.size();
+        if (countElements < 2) {
+            return stages.getLast();
+        }
+        return stages.get(countElements - 2);
+    }
+
     public static void closeStage() {
         stages.removeLast().close();
     }
@@ -74,14 +82,4 @@ public class StageService {
         stages.remove(stage);
     }
 
-    @Deprecated
-    public static Stage getCurrentStageByEvent(Event event) {
-        return (Stage) ((Node) event.getSource()).getScene().getWindow();
-    }
-
-    @Deprecated
-    public static void closeCurrentStageByEvent(Event event) {
-        Stage stage = getCurrentStageByEvent(event);
-        stage.close();
-    }
 }
