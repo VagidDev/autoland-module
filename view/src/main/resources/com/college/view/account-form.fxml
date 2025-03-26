@@ -119,7 +119,7 @@
       </VBox>
       <AnchorPane layoutX="380.0" layoutY="6.0" prefHeight="800.0" prefWidth="700.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView layoutX="40.0" layoutY="44.0" prefHeight="540.0" prefWidth="620.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+            <TableView fx:id="contractTable" layoutX="40.0" layoutY="44.0" prefHeight="540.0" prefWidth="620.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
