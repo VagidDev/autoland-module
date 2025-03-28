@@ -1,7 +1,6 @@
 package com.college.model.database.utils;
 
 import com.college.model.database.SessionManager;
-//import net.sf.jasperreports.engine.JRDataSource;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -31,22 +30,18 @@ public class ReportUtil {
 
             List<Object[]> contracts = session.createNativeQuery(query).list();
 
-            // Передача данных в отчет
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("ReportTitle", "Contracts Report");
 
-            // Загрузка шаблона
-            InputStream reportStream = ReportUtil.class.getResourceAsStream("/reports/contract_report.jasper");
+            InputStream reportStream = ReportUtil.class.getResourceAsStream("/reports/contract_report.jrxml");
             System.out.println(reportStream != null);
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportStream);
 
 
-            // Создание источника данных для отчета
             JRDataSource dataSource = new JRBeanCollectionDataSource(contracts);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
-            // Показ отчета
             JasperViewer.viewReport(jasperPrint, false);
 
             try {
