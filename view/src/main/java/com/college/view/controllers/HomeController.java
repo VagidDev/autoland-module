@@ -1,13 +1,10 @@
 package com.college.view.controllers;
 
-import com.college.model.database.utils.ReportUtil;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
-import java.io.IOException;
 
 public class HomeController {
     @FXML
@@ -45,9 +42,6 @@ public class HomeController {
     }
 
     public void onReportsButtonClicked(ActionEvent event) {
-
-
-        ReportUtil.generateReport();
 //        System.out.println("you");
     }
 }
