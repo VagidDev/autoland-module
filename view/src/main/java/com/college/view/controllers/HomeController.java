@@ -1,6 +1,8 @@
 package com.college.view.controllers;
 
+import com.college.view.core.AnimationType;
 import com.college.view.core.ControllerManager;
+import com.college.view.core.SceneRouterService;
 import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,20 +27,17 @@ public class HomeController {
 
     @FXML
     public void onDealersButtonClicked(ActionEvent event) {
-        StageService.closeAndSaveStage();
-        StageService.buildAndShowStage("Dealers", "dealer-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("dealer-form.fxml", AnimationType.ZOOM);
     }
 
     @FXML
     public void onShoppingButtonClicked(ActionEvent event) {
-        StageService.closeAndSaveStage();
-        StageService.buildAndShowStage("Shop", "shop-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("shop-form.fxml", AnimationType.SLIDE);
     }
 
     @FXML
     public void onAccountButtonClicked(ActionEvent event) {
-        StageService.closeAndSaveStage();
-        StageService.buildAndShowStage("Account", "account-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("account-form.fxml", AnimationType.SLIDE);
     }
 
     public void onReportsButtonClicked(ActionEvent event) {

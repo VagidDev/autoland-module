@@ -5,6 +5,7 @@ import com.college.controller.ContractController;
 import com.college.model.entity.Contract;
 import com.college.model.entity.User;
 import com.college.view.core.ControllerManager;
+import com.college.view.core.SceneRouterService;
 import com.college.view.core.StageService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -94,7 +95,7 @@ public class AccountController {
 
         Platform.runLater(() -> {
             Stage stage = (Stage) avatar.getScene().getWindow();
-            stage.setOnCloseRequest(event -> StageService.buildAndShowStage("Home", "home-form.fxml"));
+            //stage.setOnCloseRequest(event -> StageService.buildAndShowStage("Home", "home-form.fxml"));
         });
 
     }
@@ -119,6 +120,6 @@ public class AccountController {
     }
 
     public void cancelButtonClicked(ActionEvent actionEvent) {
-        StageService.closeStageAndOpenPrevious();
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 }

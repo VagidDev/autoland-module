@@ -1,10 +1,7 @@
 package com.college.view.controllers;
 
 import com.college.model.entity.Warranty;
-import com.college.view.core.AlertHelper;
-import com.college.view.core.ContractBuilder;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.StageService;
+import com.college.view.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -72,7 +69,7 @@ public class WarrantyController {
     }
 
     public void clickCancelButton(ActionEvent actionEvent) {
-        StageService.closeStageAndOpenPrevious();
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 
     public void clickBuyButton(ActionEvent actionEvent) {
@@ -82,7 +79,6 @@ public class WarrantyController {
         }
 
         ContractBuilder.setWarrantyById(selectedWarrantyId);
-        StageService.closeAndSaveStage();
-        StageService.buildAndShowStage("Dealer", "dealer-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("dealer-form.fxml", AnimationType.ZOOM);
     }
 }

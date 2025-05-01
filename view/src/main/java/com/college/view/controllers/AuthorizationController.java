@@ -1,8 +1,6 @@
 package com.college.view.controllers;
 
-import com.college.view.core.AlertHelper;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.StageService;
+import com.college.view.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,8 +36,9 @@ public class AuthorizationController {
             AlertHelper.showInvalidLoginAlert();
             return;
         }
-        StageService.closeStage();
-        StageService.buildAndShowStage("Home", "home-form.fxml");
+//        StageService.closeStage();
+//        StageService.buildAndShowStage("Home", "home-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("home-form.fxml", AnimationType.ZOOM);
     }
 
     public void setLoginAndPasswordFields(String login, String password) {

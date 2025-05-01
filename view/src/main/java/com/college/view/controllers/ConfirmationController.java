@@ -2,10 +2,7 @@ package com.college.view.controllers;
 
 import com.college.controller.ContractController;
 import com.college.model.entity.*;
-import com.college.view.core.AlertHelper;
-import com.college.view.core.ContractBuilder;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.StageService;
+import com.college.view.core.*;
 import javafx.scene.control.ButtonType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,14 +76,13 @@ public class ConfirmationController {
         boolean saved = contractController.saveContract(contract);
         if (saved) {
             AlertHelper.showSaveAlert("Saving success", "Your transaction is confirmed! Congratulations, you bought an automobile! ", Alert.AlertType.INFORMATION);
-            StageService.closeStageAndClearStack();
-            StageService.buildAndShowStage("Home", "home-form.fxml");
+            SceneRouterService.getSceneRouter().switchTo("home-form.fxml", AnimationType.ZOOM);
         } else {
             AlertHelper.showSaveAlert("Error", "Opssssss, something went wrong!", Alert.AlertType.ERROR);
         }
     }
 
     public void onCancelButtonClicked(ActionEvent actionEvent) {
-        StageService.closeStageAndOpenPrevious();
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 }

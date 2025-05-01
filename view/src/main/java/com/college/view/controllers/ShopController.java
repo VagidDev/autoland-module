@@ -3,9 +3,7 @@ package com.college.view.controllers;
 import com.college.controller.EquipmentController;
 import com.college.model.entity.Equipment;
 import com.college.model.entity.keys.EquipmentId;
-import com.college.view.core.ContractBuilder;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.StageService;
+import com.college.view.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -107,13 +105,11 @@ public class ShopController {
         pane.setOnMouseClicked(event -> {
             if (event.getSource() instanceof Pane clickedPane) {
                 ContractBuilder.setAutomobileById(Integer.parseInt(clickedPane.getId()));
+                SceneRouterService.getSceneRouter().switchTo("auto-form.fxml", AnimationType.ZOOM);
             } else {
                 System.err.println("Automobile was not wrote!");
             }
-            StageService.closeAndSaveStage();
-            StageService.buildAndShowStage("Car", "auto-form.fxml");
         });
-
         return pane;
     }
 
@@ -176,7 +172,7 @@ public class ShopController {
     }
 
     public void backButtonClicked(ActionEvent actionEvent) {
-        StageService.closeStageAndOpenPrevious();
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 
 }

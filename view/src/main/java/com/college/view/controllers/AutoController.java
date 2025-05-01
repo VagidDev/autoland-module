@@ -3,10 +3,7 @@ package com.college.view.controllers;
 import com.college.controller.AutomobileController;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.Equipment;
-import com.college.view.core.AlertHelper;
-import com.college.view.core.ContractBuilder;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.StageService;
+import com.college.view.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -45,9 +42,7 @@ public class AutoController {
                         Arrays.asList(equipment.getShortEquipment())
                 ));
             });
-
         }
-
     }
 
     private Pane createEquipmentPane(int equipmentId, String equipmentName, double price, List<String> values) {
@@ -110,11 +105,10 @@ public class AutoController {
             return;
         }
         ContractBuilder.setEquipmentById(selectedEquipmentId);
-        StageService.closeAndSaveStage();
-        StageService.buildAndShowStage("Warranty", "warranty-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("warranty-form.fxml", AnimationType.ZOOM);
     }
 
     public void cancelButtonClicked(ActionEvent event) {
-        StageService.closeStageAndOpenPrevious();
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 }
