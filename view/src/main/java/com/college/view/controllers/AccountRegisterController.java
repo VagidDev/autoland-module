@@ -1,5 +1,6 @@
 package com.college.view.controllers;
 
+import com.college.view.core.SceneRouterService;
 import com.college.view.core.StageService;
 import com.college.view.core.UserBuilder;
 import javafx.event.ActionEvent;
@@ -42,6 +43,6 @@ public class AccountRegisterController {
     }
 
     public void cancelButtonClicked(ActionEvent event) {
-        StageService.closeStageAndOpenPrevious();
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 }

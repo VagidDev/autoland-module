@@ -15,15 +15,33 @@ import java.util.LinkedHashMap;
 public class SceneRouter {
 
     private final Stage stage;
-    private final double defaultWidth;
-    private final double defaultHeight;
+    private double currentWidth;
+    private double currentHeight;
     private final LinkedHashMap<String, AnimationType> scenes;
 
-    public SceneRouter(Stage stage, double defaultWidth, double defaultHeight) {
+    public SceneRouter(Stage stage) {
         this.stage = stage;
-        this.defaultWidth = defaultWidth;
-        this.defaultHeight = defaultHeight;
         this.scenes = new LinkedHashMap<>();
+    }
+
+    public void createFirstScene(String fxmlPath, String title, AnimationType animationType) {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxmlPath));
+        try {
+            Parent root = fxmlLoader.load();
+
+            root.applyCss();
+            root.layout();
+            double width = root.prefWidth(-1);
+            double height = root.prefHeight(-1);
+
+            Scene scene = new Scene(root, width, height);
+            stage.setTitle(title);
+            stage.setScene(scene);
+            stage.show();
+            scenes.put(fxmlPath, animationType);
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot load FXML: " + fxmlPath, e);
+        }
     }
 
     public void switchTo(String fxmlPath, AnimationType animationType) {
@@ -32,7 +50,13 @@ public class SceneRouter {
         try {
             FXMLLoader loader = new FXMLLoader(Application.class.getResource(fxmlPath));
             Parent newRoot = loader.load();
-            Scene newScene = new Scene(newRoot, defaultWidth, defaultHeight);
+
+            newRoot.applyCss();
+            newRoot.layout();
+            double width = newRoot.prefWidth(-1);
+            double height = newRoot.prefHeight(-1);
+
+            Scene newScene = new Scene(newRoot, width, height);
 
 
             Animation enterAnimation = createEnterAnimation(newRoot, animationType);
@@ -113,28 +137,28 @@ public class SceneRouter {
             }
             case SLIDE -> {
                 root.setOpacity(0);
-                root.setTranslateX(defaultWidth);
+                root.setTranslateX(currentWidth);
 
                 FadeTransition ft = new FadeTransition(duration, root);
                 ft.setFromValue(0);
                 ft.setToValue(1);
 
                 TranslateTransition tt = new TranslateTransition(duration, root);
-                tt.setFromX(defaultWidth);
+                tt.setFromX(currentWidth);
                 tt.setToX(0);
 
                 return new ParallelTransition(ft, tt);
             }
             case SLIDE_REVERSE -> {
                 root.setOpacity(0);
-                root.setTranslateX(-defaultWidth);
+                root.setTranslateX(-currentWidth);
 
                 FadeTransition ft = new FadeTransition(duration, root);
                 ft.setFromValue(0);
                 ft.setToValue(1);
 
                 TranslateTransition tt = new TranslateTransition(duration, root);
-                tt.setFromX(-defaultWidth);
+                tt.setFromX(-currentWidth);
                 tt.setToX(0);
 
                 return new ParallelTransition(ft, tt);
@@ -188,7 +212,7 @@ public class SceneRouter {
 
                 TranslateTransition tt = new TranslateTransition(duration, root);
                 tt.setFromX(0);
-                tt.setToX(-defaultWidth);
+                tt.setToX(-currentWidth);
 
                 return new ParallelTransition(ft, tt);
             }
@@ -199,7 +223,7 @@ public class SceneRouter {
 
                 TranslateTransition tt = new TranslateTransition(duration, root);
                 tt.setFromX(0);
-                tt.setToX(defaultWidth);
+                tt.setToX(currentWidth);
 
                 return new ParallelTransition(ft, tt);
             }

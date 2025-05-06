@@ -24,8 +24,7 @@ public class AuthorizationController {
     }
 
     public void openRegisterForm(ActionEvent event) {
-        StageService.closeAndSaveStage();
-        StageService.buildAndShowStage("Account Information", "account-register-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("account-register-form.fxml", AnimationType.FADE);
     }
 
 
@@ -36,8 +35,6 @@ public class AuthorizationController {
             AlertHelper.showInvalidLoginAlert();
             return;
         }
-//        StageService.closeStage();
-//        StageService.buildAndShowStage("Home", "home-form.fxml");
         SceneRouterService.getSceneRouter().switchTo("home-form.fxml", AnimationType.ZOOM);
     }
 
