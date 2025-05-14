@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="810.0" maxWidth="1080.0" minHeight="810.0" minWidth="1080.0" prefHeight="810.0" prefWidth="1080.0" style="-fx-max-height: 720px; -fx-max-width: 1080px" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.DealerController">
+<AnchorPane fx:id="rootPane" prefHeight="800.0" prefWidth="1600.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.DealerController">
    <children>
       <StackPane layoutY="-34.0" styleClass="dealer-photo-container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-34.0">
          <children>
@@ -21,6 +22,9 @@
                <image>
                   <Image url="@../../../images/fx1.jpg" />
                </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
             </ImageView>
          </children>
       </StackPane>

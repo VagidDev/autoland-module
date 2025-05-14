@@ -66,7 +66,7 @@ public class ShopController {
 
     public Pane createCarButton(int autoId, String mark, double price, String imagePath) {
         Pane pane = new Pane();
-        pane.setPrefSize(270, 220);
+        pane.setPrefSize(340, 270);
         pane.getStyleClass().add("automobile-pane");
 
         pane.setId(String.valueOf(autoId));
@@ -76,11 +76,13 @@ public class ShopController {
         ImageView imageView = null;
         try {
             imageView = new ImageView(new Image(Files.newInputStream(path)));
-            imageView.setFitWidth(220);
-            imageView.setFitHeight(124);
+            imageView.setFitWidth(290);
+            imageView.setFitHeight(163);
             imageView.setLayoutX(25);
-            imageView.setLayoutY(14);
+            imageView.setLayoutY(25);
             imageView.setPickOnBounds(true);
+            imageView.setCache(true);
+            imageView.setSmooth(true);
         } catch (IOException e) {
             //TODO: create case, that will exclude NullPointerException
             throw new RuntimeException(e);
@@ -89,14 +91,14 @@ public class ShopController {
 
         Label labelMark = new Label(mark);
         labelMark.setLayoutX(25);
-        labelMark.setLayoutY(146);
+        labelMark.setLayoutY(199);//29
         labelMark.setTextFill(Color.web("#a4a4a4"));
         labelMark.setFont(Font.font("Lucida Bright Demibold", 16));
 
 
         Label labelPrice = new Label(price + " $");
         labelPrice.setLayoutX(25);
-        labelPrice.setLayoutY(175);
+        labelPrice.setLayoutY(228);
         labelPrice.setTextFill(Color.web("#a4a4a4"));
         labelPrice.setFont(Font.font("Lucida Bright Demibold", 16));
 

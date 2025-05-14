@@ -4,15 +4,19 @@ import com.college.controller.AutomobileController;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.Equipment;
 import com.college.view.core.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -24,6 +28,8 @@ public class AutoController {
     private FlowPane flowPane;
     @FXML
     private Label modelLabel;
+    @FXML
+    private ScrollPane scrollPane;
 
     private AutomobileController automobileController;
     private int selectedEquipmentId = 0;
@@ -46,35 +52,33 @@ public class AutoController {
     }
 
     private Pane createEquipmentPane(int equipmentId, String equipmentName, double price, List<String> values) {
-        Pane pane = new Pane();
-        pane.setPrefSize(260, 375);
+        VBox pane = new VBox();
+        pane.setAlignment(Pos.CENTER);
+        pane.setPadding(new Insets(0, 15, 10, 15));
+        pane.setSpacing(10);
+        pane.prefHeightProperty().bind(scrollPane.heightProperty().subtract(34));
         pane.getStyleClass().add("equipment-pane");
 
         pane.setId(String.valueOf(equipmentId));
 
         Label equipmentLabel = new Label(equipmentName);
-        equipmentLabel.setLayoutY(20);
-        equipmentLabel.setPrefWidth(260);
+        equipmentLabel.setPrefWidth(220);
         equipmentLabel.setTextAlignment(TextAlignment.CENTER);
         equipmentLabel.setAlignment(Pos.CENTER);
         equipmentLabel.setFont(Font.font("Lucida Bright Demibold", 28));
 
         Label priceLabel = new Label(price + " $");
-        priceLabel.setLayoutY(70);
-        priceLabel.setPrefWidth(260);
+        priceLabel.setPrefWidth(220);
         priceLabel.setTextAlignment(TextAlignment.CENTER);
         priceLabel.setAlignment(Pos.CENTER);
         priceLabel.setFont(Font.font("Lucida Bright Demibold", 20));
 
         ListView<String> listView = new ListView<>();
-        listView.setLayoutX(20);
-        listView.setLayoutY(106);
-        listView.setPrefSize(220, 206);
+        listView.setPrefWidth(220);
+        listView.prefHeightProperty().bind(pane.heightProperty().subtract(150));
         listView.getItems().addAll(values);
 
         Button selectButton = new Button("Select");
-        selectButton.setLayoutX(68);
-        selectButton.setLayoutY(321);
         selectButton.setPrefSize(125, 40);
         selectButton.setFont(Font.font("Lucida Bright Demibold", 18));
         selectButton.setOnAction(this::onSelectClicked);

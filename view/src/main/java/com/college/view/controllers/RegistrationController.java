@@ -3,10 +3,7 @@ package com.college.view.controllers;
 import com.college.controller.UserController;
 import com.college.controller.validators.user.UserValidationResponse;
 import com.college.model.entity.User;
-import com.college.view.core.AlertHelper;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.StageService;
-import com.college.view.core.UserBuilder;
+import com.college.view.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,13 +35,15 @@ public class RegistrationController {
             UserValidationResponse response = userController.validateUser(user);
             if (response == UserValidationResponse.VALID) {
                 userController.createUser(user);
+                //TODO: add logic for transferring data about user account
+                SceneRouterService.getSceneRouter().switchTo("authorization-form.fxml", AnimationType.FADE);
 
-                FXMLLoader loader = StageService.loadFXML("authorization-form.fxml");
+                /*FXMLLoader loader = StageService.loadFXML("authorization-form.fxml");
                 AuthorizationController controller = loader.getController();
                 controller.setLoginAndPasswordFields(login, password);
 
                 StageService.closeStageAndClearStack();
-                StageService.buildStage("Authorization", loader).show();
+                StageService.buildStage("Authorization", loader).show();*/
             } else {
                 AlertHelper.invalidUserDataAlert(response);
             }
@@ -54,6 +53,6 @@ public class RegistrationController {
     }
 
     public void cancelButtonClicked(ActionEvent event) {
-        StageService.closeStageAndOpenPrevious();
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 }

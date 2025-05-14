@@ -32,7 +32,7 @@ public class HomeController {
 
     @FXML
     public void onShoppingButtonClicked(ActionEvent event) {
-        SceneRouterService.getSceneRouter().switchTo("shop-form.fxml", AnimationType.SLIDE);
+        SceneRouterService.getSceneRouter().switchTo("shop-form.fxml", AnimationType.ZOOM); //temporary, after test turn animation to slide
     }
 
     @FXML

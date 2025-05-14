@@ -1,5 +1,6 @@
 package com.college.view.controllers;
 
+import com.college.view.core.AnimationType;
 import com.college.view.core.SceneRouterService;
 import com.college.view.core.StageService;
 import com.college.view.core.UserBuilder;
@@ -38,8 +39,7 @@ public class AccountRegisterController {
         String address = addressField.getText();
         UserBuilder.setBasicInformation(name, surname, birthday, email, phone, address);
         //TODO: should be another option, that will be activated if this form was called from AccountController
-        StageService.closeAndSaveStage();
-        StageService.buildAndShowStage("Registration", "registration-form.fxml");
+        SceneRouterService.getSceneRouter().switchTo("registration-form.fxml", AnimationType.FADE);
     }
 
     public void cancelButtonClicked(ActionEvent event) {

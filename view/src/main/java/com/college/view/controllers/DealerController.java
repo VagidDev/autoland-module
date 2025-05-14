@@ -40,7 +40,7 @@ public class DealerController {
 
         this.dealerController = ControllerManager.getDealerController();
         List<Dealer> dealers = dealerController.getAllDealers();
-
+        //TODO: make this image more agile in fxml, not in code
         headerImage.fitWidthProperty().bind(rootPane.widthProperty());
         headerImage.fitHeightProperty().bind(rootPane.heightProperty());
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="960.0" prefWidth="500.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.WarrantyController">
+<AnchorPane prefHeight="800.0" prefWidth="1600.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.WarrantyController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="720.0" text="Warranty" textFill="#a4a4a4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>

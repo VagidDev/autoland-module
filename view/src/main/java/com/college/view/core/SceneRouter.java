@@ -31,10 +31,10 @@ public class SceneRouter {
 
             root.applyCss();
             root.layout();
-            double width = root.prefWidth(-1);
-            double height = root.prefHeight(-1);
+            currentWidth = root.prefWidth(-1);
+            currentHeight = root.prefHeight(-1);
 
-            Scene scene = new Scene(root, width, height);
+            Scene scene = new Scene(root, currentWidth, currentHeight);
             stage.setTitle(title);
             stage.setScene(scene);
             stage.show();

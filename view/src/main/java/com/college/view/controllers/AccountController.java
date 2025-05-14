@@ -4,6 +4,7 @@ import com.college.controller.AuthorizationController;
 import com.college.controller.ContractController;
 import com.college.model.entity.Contract;
 import com.college.model.entity.User;
+import com.college.view.core.AnimationType;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.SceneRouterService;
 import com.college.view.core.StageService;
@@ -110,13 +111,15 @@ public class AccountController {
     }
 
     public void editButtonClicked(ActionEvent actionEvent) {
-        Stage currentStage = StageService.getCurrentStage();
+        //TODO: add logic for transferring data about user account
+        SceneRouterService.getSceneRouter().switchTo("account-register-form.fxml", AnimationType.FADE);
+        /*Stage currentStage = StageService.getCurrentStage();
         FXMLLoader loader = StageService.loadFXML("account-register-form.fxml");
         Stage tmpStage = StageService.buildStage("Edit Account", loader);
         currentStage.hide();
         tmpStage.showAndWait();
         StageService.unregisterStage(tmpStage);
-        currentStage.show();
+        currentStage.show();*/
     }
 
     public void cancelButtonClicked(ActionEvent actionEvent) {
