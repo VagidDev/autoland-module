@@ -20,6 +20,15 @@ public class AuthorizationController {
         return this.currentUser;
     }
 
+    public void editCurrentUserInfo(User user) {
+        currentUser.setName(user.getName());
+        currentUser.setSurname(user.getSurname());
+        currentUser.setBirthday(user.getBirthday());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setTelephone(user.getTelephone());
+        currentUser.setAddress(user.getAddress());
+    }
+
     public void logout() {
         this.currentUser = null;
     }

@@ -50,6 +50,12 @@ public class DealerController {
             dealerList.getChildren().add(createDealerPane(dealer.getId(), dealer.getName(), dealer.getAddress(), dealer.getTelephone()));
         }
 
+
+        String previousScene = SceneRouterService.getSceneRouter().getPreviousScene();
+        if (previousScene.contains("home")) {
+            confirmButton.setDisable(true);
+        }
+
     }
 
     private Pane createDealerPane(int id, String dealerName, String address, String phone) {

@@ -37,7 +37,7 @@ public class HomeController {
 
     @FXML
     public void onAccountButtonClicked(ActionEvent event) {
-        SceneRouterService.getSceneRouter().switchTo("account-form.fxml", AnimationType.SLIDE);
+        SceneRouterService.getSceneRouter().switchTo("account-form.fxml", AnimationType.ZOOM);
     }
 
     public void onReportsButtonClicked(ActionEvent event) {

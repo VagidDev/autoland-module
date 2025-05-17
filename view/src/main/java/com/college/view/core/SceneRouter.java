@@ -24,6 +24,15 @@ public class SceneRouter {
         this.scenes = new LinkedHashMap<>();
     }
 
+    public void clearStack() {
+        scenes.clear();
+    }
+
+    public String getPreviousScene() {
+        int index = scenes.size() - 1;
+        return scenes.keySet().toArray()[index].toString();
+    }
+
     public void createFirstScene(String fxmlPath, String title, AnimationType animationType) {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxmlPath));
         try {
@@ -57,7 +66,6 @@ public class SceneRouter {
             double height = newRoot.prefHeight(-1);
 
             Scene newScene = new Scene(newRoot, width, height);
-
 
             Animation enterAnimation = createEnterAnimation(newRoot, animationType);
             Animation exitAnimation = createExitAnimation(oldRoot, animationType);

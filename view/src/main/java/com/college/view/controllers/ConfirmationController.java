@@ -76,6 +76,7 @@ public class ConfirmationController {
         boolean saved = contractController.saveContract(contract);
         if (saved) {
             AlertHelper.showSaveAlert("Saving success", "Your transaction is confirmed! Congratulations, you bought an automobile! ", Alert.AlertType.INFORMATION);
+            SceneRouterService.getSceneRouter().clearStack();
             SceneRouterService.getSceneRouter().switchTo("home-form.fxml", AnimationType.ZOOM);
         } else {
             AlertHelper.showSaveAlert("Error", "Opssssss, something went wrong!", Alert.AlertType.ERROR);
