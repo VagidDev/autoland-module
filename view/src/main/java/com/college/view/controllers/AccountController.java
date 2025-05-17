@@ -110,16 +110,12 @@ public class AccountController {
         address.setText(user.getAddress());
     }
 
+    public void changePasswordButtonClicked(ActionEvent actionEvent) {
+        SceneRouterService.getSceneRouter().switchTo("registration-form.fxml", AnimationType.ZOOM);
+    }
+
     public void editButtonClicked(ActionEvent actionEvent) {
-        //TODO: add logic for transferring data about user account
         SceneRouterService.getSceneRouter().switchTo("account-register-form.fxml", AnimationType.FADE);
-        /*Stage currentStage = StageService.getCurrentStage();
-        FXMLLoader loader = StageService.loadFXML("account-register-form.fxml");
-        Stage tmpStage = StageService.buildStage("Edit Account", loader);
-        currentStage.hide();
-        tmpStage.showAndWait();
-        StageService.unregisterStage(tmpStage);
-        currentStage.show();*/
     }
 
     public void cancelButtonClicked(ActionEvent actionEvent) {

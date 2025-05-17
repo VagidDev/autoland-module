@@ -34,10 +34,10 @@ public class DealerController {
 
     @FXML
     public void initialize() {
-        if (StageService.getPreviousStage().getTitle().equals("Home")) {
+        String previousScene = SceneRouterService.getSceneRouter().getPreviousScene();
+        if (previousScene.equals("home-form.fxml")) {
             confirmButton.setDisable(true);
         }
-
         this.dealerController = ControllerManager.getDealerController();
         List<Dealer> dealers = dealerController.getAllDealers();
         //TODO: make this image more agile in fxml, not in code
@@ -49,13 +49,6 @@ public class DealerController {
         for (Dealer dealer : dealers) {
             dealerList.getChildren().add(createDealerPane(dealer.getId(), dealer.getName(), dealer.getAddress(), dealer.getTelephone()));
         }
-
-
-        String previousScene = SceneRouterService.getSceneRouter().getPreviousScene();
-        if (previousScene.contains("home")) {
-            confirmButton.setDisable(true);
-        }
-
     }
 
     private Pane createDealerPane(int id, String dealerName, String address, String phone) {

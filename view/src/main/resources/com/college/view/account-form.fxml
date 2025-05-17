@@ -18,7 +18,16 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1600.0" style="-fx-background-color: #000000;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AccountController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="780.0" prefWidth="400.0" spacing="30.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="0.0">
+      <FlowPane alignment="CENTER" layoutX="440.0" layoutY="807.0" prefHeight="100.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="60.0" prefWidth="150.0" text="Back">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </FlowPane>
+      <VBox alignment="TOP_CENTER" prefHeight="737.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="User" textFill="#a3a3a3">
                <font>
@@ -104,7 +113,12 @@
                   </Label>
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" onAction="#editButtonClicked" prefHeight="50.0" prefWidth="140.0" text="Edit">
+            <Button mnemonicParsing="false" onAction="#changePasswordButtonClicked" prefHeight="51.0" prefWidth="280.0" text="Change Password">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#editButtonClicked" prefHeight="50.0" prefWidth="150.0" text="Edit">
                <font>
                   <Font name="Lucida Bright Demibold" size="24.0" />
                </font>
@@ -114,10 +128,10 @@
             </Button>
          </children>
          <padding>
-            <Insets top="15.0" />
+            <Insets top="10.0" />
          </padding>
       </VBox>
-      <AnchorPane layoutX="380.0" layoutY="6.0" prefHeight="800.0" prefWidth="700.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="380.0" layoutY="6.0" prefHeight="800.0" prefWidth="700.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TableView fx:id="contractTable" layoutX="40.0" layoutY="44.0" prefHeight="540.0" prefWidth="620.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
               <columns>
@@ -130,14 +144,5 @@
             </TableView>
          </children>
       </AnchorPane>
-      <FlowPane alignment="CENTER" layoutX="440.0" layoutY="807.0" prefHeight="120.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="60.0" prefWidth="150.0" text="Back">
-               <font>
-                  <Font name="Lucida Bright Demibold" size="24.0" />
-               </font>
-            </Button>
-         </children>
-      </FlowPane>
    </children>
 </AnchorPane>

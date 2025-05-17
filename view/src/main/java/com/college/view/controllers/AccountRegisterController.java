@@ -36,7 +36,7 @@ public class AccountRegisterController {
 
     @FXML
     public void initialize() {
-        if (SceneRouterService.getSceneRouter().getPreviousScene().contains("account")) {
+        if (SceneRouterService.getSceneRouter().getPreviousScene().equals("account-form.fxml")) {
             User user = ControllerManager.getAuthorizationController().getCurrentUser();
             nameField.setText(user.getName());
             surnameField.setText(user.getSurname());
