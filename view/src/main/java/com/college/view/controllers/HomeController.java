@@ -40,6 +40,12 @@ public class HomeController {
         SceneRouterService.getSceneRouter().switchTo("account-form.fxml", AnimationType.ZOOM);
     }
 
+    public void onLogoutButtonClicked(ActionEvent event) {
+        SceneRouterService.getSceneRouter().clearStack();
+        ControllerManager.getAuthorizationController().logout();
+        SceneRouterService.getSceneRouter().switchTo("authorization-form.fxml", AnimationType.ZOOM);
+    }
+
     public void onReportsButtonClicked(ActionEvent event) {
 //        System.out.println("you");
     }
