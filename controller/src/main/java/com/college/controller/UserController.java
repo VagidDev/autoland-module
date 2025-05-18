@@ -10,10 +10,15 @@ import java.util.List;
 public class UserController {
     private final UserDAO userDAO;
     private final List<UserValidator> validatorList;
+    private final List<UserValidator> userInfoValidatorList;
+    private final List<UserValidator> userCredentialsValidatorList;
 
     public UserController(UserDAO userDAO) {
         this.userDAO = userDAO;
         this.validatorList = new ArrayList<>();
+        this.userInfoValidatorList = new ArrayList<>();
+        this.userCredentialsValidatorList = new ArrayList<>();
+
         /*user validation criteria*/
         validatorList.add(new UserLoginSyntaxValidator());
         validatorList.add(new UserPasswordValidator());
@@ -23,6 +28,18 @@ public class UserController {
         validatorList.add(new UserEmailValidator());
         validatorList.add(new UserPhoneValidator());
         validatorList.add(new UserAddressValidator());
+
+        /*user info validator list*/
+        userInfoValidatorList.add(new UserNameValidator());
+        userInfoValidatorList.add(new UserSurnameValidator());
+        userInfoValidatorList.add(new UserBirthdateValidator());
+        userInfoValidatorList.add(new UserEmailValidator());
+        userInfoValidatorList.add(new UserPhoneValidator());
+        userInfoValidatorList.add(new UserAddressValidator());
+
+        /*user credential validator list*/
+        userCredentialsValidatorList.add(new UserLoginSyntaxValidator());
+        userCredentialsValidatorList.add(new UserPasswordValidator());
     }
 
     public List<User> getUsers() {
@@ -35,6 +52,26 @@ public class UserController {
 
     public UserValidationResponse validateUser(User user) {
         for (UserValidator validator : validatorList) {
+            UserValidationResponse response = validator.validate(user);
+            if (response != UserValidationResponse.VALID) {
+                return response;
+            }
+        }
+        return UserValidationResponse.VALID;
+    }
+
+    public UserValidationResponse validateUserInfo(User user) {
+        for (UserValidator validator : userInfoValidatorList) {
+            UserValidationResponse response = validator.validate(user);
+            if (response != UserValidationResponse.VALID) {
+                return response;
+            }
+        }
+        return UserValidationResponse.VALID;
+    }
+
+    public UserValidationResponse validateUserCredential(User user) {
+        for (UserValidator validator : userCredentialsValidatorList) {
             UserValidationResponse response = validator.validate(user);
             if (response != UserValidationResponse.VALID) {
                 return response;

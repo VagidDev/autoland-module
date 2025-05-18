@@ -3,15 +3,11 @@ package com.college.view.controllers;
 import com.college.controller.ContractController;
 import com.college.model.entity.*;
 import com.college.view.core.*;
-import javafx.scene.control.ButtonType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-import java.util.Optional;
 
 public class ConfirmationController {
     @FXML
@@ -75,11 +71,11 @@ public class ConfirmationController {
         Contract contract = ContractBuilder.buildContract();
         boolean saved = contractController.saveContract(contract);
         if (saved) {
-            AlertHelper.showSaveAlert("Saving success", "Your transaction is confirmed! Congratulations, you bought an automobile! ", Alert.AlertType.INFORMATION);
+            AlertHelper.showSimpleAlertDialog("Saving success", "Your transaction is confirmed! Congratulations, you bought an automobile! ", Alert.AlertType.INFORMATION);
             SceneRouterService.getSceneRouter().clearStack();
             SceneRouterService.getSceneRouter().switchTo("home-form.fxml", AnimationType.ZOOM);
         } else {
-            AlertHelper.showSaveAlert("Error", "Opssssss, something went wrong!", Alert.AlertType.ERROR);
+            AlertHelper.showSimpleAlertDialog("Error", "Opssssss, something went wrong!", Alert.AlertType.ERROR);
         }
     }
 

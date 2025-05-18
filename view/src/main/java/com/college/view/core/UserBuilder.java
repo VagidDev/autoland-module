@@ -50,4 +50,17 @@ public abstract class UserBuilder {
         return user;
     }
 
+    public static void clearAllData() {
+        login = null;
+        password = null;
+        role = null;
+        name = null;
+        surname = null;
+        birthday = null;
+        email = null;
+        telephone = null;
+        address = null;
+        avatar = null;
+    }
+
 }

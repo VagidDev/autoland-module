@@ -1,6 +1,5 @@
 package com.college.view.controllers;
 
-import com.almasb.fxgl.cutscene.CutsceneService;
 import com.college.controller.UserController;
 import com.college.controller.validators.user.UserValidationResponse;
 import com.college.model.entity.User;
@@ -11,8 +10,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 
@@ -36,6 +39,8 @@ public class AccountRegisterController {
 
     @FXML
     public void initialize() {
+        setCustomDateConverter();
+
         if (SceneRouterService.getSceneRouter().getPreviousScene().equals("account-form.fxml")) {
             User user = ControllerManager.getAuthorizationController().getCurrentUser();
             nameField.setText(user.getName());
@@ -49,45 +54,80 @@ public class AccountRegisterController {
 
             isEditForm = true;
         }
+
+    }
+
+    private void setCustomDateConverter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        birthdayField.setConverter(new StringConverter<>(){
+
+            @Override
+            public String toString(LocalDate localDate) {
+                if (localDate != null) {
+                    return formatter.format(localDate);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string == null || string.trim().isEmpty()) {
+                    return null;
+                }
+                try {
+                    return LocalDate.parse(string, formatter);
+                } catch (DateTimeParseException e) {
+                    AlertHelper.showSimpleAlertDialog("Incorrect Date Format!", "You wrote your birthdate in incorrect date format\nPlease use 'DD.MM.YYYY'", Alert.AlertType.ERROR);
+                    birthdayField.getEditor().setText("");
+                    return null;
+                }
+            }
+        });
     }
 
     public void confirmButtonClicked(ActionEvent event) {
+        UserController controller = ControllerManager.getUserController();
+
         String name = nameField.getText();
         String surname = surnameField.getText();
-        Date birthday = Date.from(birthdayField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date birthday = birthdayField.getValue() != null ? Date.from(birthdayField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
         String email = emailField.getText();
         String phone = phoneField.getText();
         String address = addressField.getText();
+
         UserBuilder.setBasicInformation(name, surname, birthday, email, phone, address);
+        User user = UserBuilder.buildUser();
+        UserValidationResponse response = controller.validateUserInfo(user);
+
+        if (response != UserValidationResponse.VALID) {
+            AlertHelper.invalidUserDataAlert(response);
+            return;
+        }
 
         if (isEditForm) {
             User currentUser = ControllerManager.getAuthorizationController().getCurrentUser();
-            UserBuilder.setCredentials(currentUser.getLogin(), currentUser.getPassword());
-            UserController controller = ControllerManager.getUserController();
+            user.setId(currentUser.getId());
+            user.setLogin(currentUser.getLogin());
+            user.setPassword(currentUser.getPassword());
+            user.setRole(currentUser.getRole());
+            user.setAvatar(currentUser.getAvatar());
 
-            User editedUser = UserBuilder.buildUser();
+            controller.editUser(user);
+            ControllerManager.getAuthorizationController().editCurrentUserInfo(user);
 
-            UserValidationResponse response = controller.validateUser(editedUser);
+            AlertHelper.showSimpleAlertDialog("User Edited", "Your data has been updated!", Alert.AlertType.INFORMATION);
 
-            if (response == UserValidationResponse.VALID) {
-                editedUser.setId(currentUser.getId());
-                editedUser.setAvatar(currentUser.getAvatar());
-                controller.editUser(editedUser);
-
-                ControllerManager.getAuthorizationController().editCurrentUserInfo(editedUser);
-
-                AlertHelper.showSaveAlert("User Edited", "Your data has been updated!", Alert.AlertType.INFORMATION);
-                SceneRouterService.getSceneRouter().switchToPreviousScene();
-            } else {
-                AlertHelper.invalidUserDataAlert(response);
-            }
-
+            UserBuilder.clearAllData();
+            SceneRouterService.getSceneRouter().switchToPreviousScene();
         } else {
             SceneRouterService.getSceneRouter().switchTo("registration-form.fxml", AnimationType.FADE);
         }
     }
 
     public void cancelButtonClicked(ActionEvent event) {
+        UserBuilder.clearAllData();
         SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 }

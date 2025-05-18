@@ -82,7 +82,7 @@ public abstract class AlertHelper {
         return result.isPresent() && result.get() == ButtonType.OK;
     }
 
-    public static void showSaveAlert(String title, String message, Alert.AlertType alertType) {
+    public static void showSimpleAlertDialog(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

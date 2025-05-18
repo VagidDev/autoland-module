@@ -46,9 +46,28 @@ class UserControllerTest {
     }
 
     @Test
+    void validateUserInfo_shouldBeValid() {
+        UserValidationResponse response = userController.validateUserInfo(user);
+        assertEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
+    void validateUserCredential_shouldBeValid() {
+        UserValidationResponse response = userController.validateUserCredential(user);
+        assertEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
     void validateUser_shouldNotBeValid_InvalidLogin() {
         user.setLogin("qwerty()grg");
         UserValidationResponse response = userController.validateUser(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
+    void validateUserCredential_shouldNotBeValid_InvalidLogin() {
+        user.setLogin("qwerty()grg");
+        UserValidationResponse response = userController.validateUserCredential(user);
         assertNotEquals(UserValidationResponse.VALID, response);
     }
 
@@ -60,9 +79,23 @@ class UserControllerTest {
     }
 
     @Test
+    void validateUserCredential_shouldNotBeValid_InvalidPassword() {
+        user.setPassword("******");
+        UserValidationResponse response = userController.validateUserCredential(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
     void validateUser_shouldNotBeValid_InvalidName() {
         user.setName(null);
         UserValidationResponse response = userController.validateUser(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
+    void validateUserInfo_shouldNotBeValid_InvalidName() {
+        user.setName(null);
+        UserValidationResponse response = userController.validateUserInfo(user);
         assertNotEquals(UserValidationResponse.VALID, response);
     }
 
@@ -74,9 +107,23 @@ class UserControllerTest {
     }
 
     @Test
+    void validateUserInfo_shouldNotBeValid_InvalidSurname() {
+        user.setSurname("          ");
+        UserValidationResponse response = userController.validateUserInfo(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
     void validateUser_shouldNotBeValid_InvalidBirthday() {
         user.setBirthday(new Date());
         UserValidationResponse response = userController.validateUser(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
+    void validateUserInfo_shouldNotBeValid_InvalidBirthday() {
+        user.setBirthday(new Date());
+        UserValidationResponse response = userController.validateUserInfo(user);
         assertNotEquals(UserValidationResponse.VALID, response);
     }
 
@@ -88,6 +135,13 @@ class UserControllerTest {
     }
 
     @Test
+    void validateUserInfo_shouldNotBeValid_InvalidEmail() {
+        user.setEmail("null_email");
+        UserValidationResponse response = userController.validateUserInfo(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
     void validateUser_shouldNotBeValid_InvalidTelephone() {
         user.setTelephone("695216484513");
         UserValidationResponse response = userController.validateUser(user);
@@ -95,9 +149,23 @@ class UserControllerTest {
     }
 
     @Test
+    void validateUserInfo_shouldNotBeValid_InvalidTelephone() {
+        user.setTelephone("695216484513");
+        UserValidationResponse response = userController.validateUserInfo(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
     void validateUser_shouldNotBeValid_InvalidAddress() {
         user.setAddress("      ");
         UserValidationResponse response = userController.validateUser(user);
+        assertNotEquals(UserValidationResponse.VALID, response);
+    }
+
+    @Test
+    void validateUserInfo_shouldNotBeValid_InvalidAddress() {
+        user.setAddress("      ");
+        UserValidationResponse response = userController.validateUserInfo(user);
         assertNotEquals(UserValidationResponse.VALID, response);
     }
 
