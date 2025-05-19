@@ -157,12 +157,12 @@
                   </FlowPane>
                   <FlowPane alignment="CENTER" layoutX="14.0" layoutY="-61.0" prefHeight="200.0" prefWidth="365.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField promptText="Search" styleClass="search-field">
+                        <TextField fx:id="searchBox" promptText="Search" styleClass="search-field">
                            <font>
                               <Font name="Lucida Bright Demibold" size="18.0" />
                            </font>
                         </TextField>
-                        <Button mnemonicParsing="false" styleClass="search-button" text="Q">
+                        <Button mnemonicParsing="false" onAction="#searchButtonClicked" styleClass="search-button" text="Q">
                            <font>
                               <Font name="Lucida Bright Demibold" size="18.0" />
                            </font>

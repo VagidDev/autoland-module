@@ -112,4 +112,12 @@ class EquipmentImplTest {
         Equipment deletedEquipment = equipmentImpl.getById(testEquipment.getId());
         assertNull(deletedEquipment);
     }
+
+    @Test
+    @Order(7)
+    void searchByModelAndMark_shouldReturnEquipmentsSimilarToFord() {
+        String serachString = "ford";
+        List<Equipment> fordEquipment = equipmentImpl.searchByModelAndMark(serachString);
+        assertFalse(fordEquipment.isEmpty());
+    }
 }

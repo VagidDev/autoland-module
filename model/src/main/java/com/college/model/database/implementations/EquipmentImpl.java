@@ -19,9 +19,9 @@ public class EquipmentImpl extends AbstractCRUDRepository<EquipmentId, Equipment
     private static final String GET_BY_ID_HQL = "FROM Equipment WHERE id = :id";
     private static final String GET_ALL_HQL = "FROM Equipment";
 
-
     private static final String GET_BY_AUTO_HQL = "FROM Equipment e WHERE e.id.automobileId = :autoId";
     private static final String GET_FREE_ID_HQL = "SELECT max(e.id.equipmentId) FROM Equipment e WHERE e.id.automobileId = :autoId";
+    private static final String SEARCH_AUTO_BY_MODEL_AND_MARK_HQL = "FROM Equipment e WHERE CONCAT(e.automobile.mark, ' ', e.automobile.model) LIKE :search";
 
     public EquipmentImpl() {}
 
@@ -43,6 +43,18 @@ public class EquipmentImpl extends AbstractCRUDRepository<EquipmentId, Equipment
             session.beginTransaction();
             Query<Equipment> query = session.createQuery(GET_BY_AUTO_HQL, Equipment.class);
             query.setParameter("autoId", automobile.getId());
+            List<Equipment> equipments = query.list();
+            session.getTransaction().commit();
+            return equipments;
+        }
+    }
+
+    @Override
+    public List<Equipment> searchByModelAndMark(String s) {
+        try (Session session = SessionManager.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            Query<Equipment> query = session.createQuery(SEARCH_AUTO_BY_MODEL_AND_MARK_HQL, Equipment.class);
+            query.setParameter("search", "%" + s + "%");
             List<Equipment> equipments = query.list();
             session.getTransaction().commit();
             return equipments;

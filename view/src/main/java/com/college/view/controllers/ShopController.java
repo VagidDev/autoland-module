@@ -37,6 +37,8 @@ public class ShopController {
     private ToggleButton toggleDescending;
     @FXML
     private ToggleButton toggleAlphabetic;
+    @FXML
+    private TextField searchBox;
 
     private ToggleGroup toggleGroup;
     private EquipmentController equipmentController;
@@ -56,13 +58,10 @@ public class ShopController {
     private void loadEquipments(List<Equipment> equipments) {
         equipments.forEach(equipment -> {
             flowPane.getChildren().add(createCarButton(equipment.getAutomobile().getId(),
-                    equipment.getAutomobile().getMark() + " " + equipment.getName(),
+                    equipment.getAutomobile().getMark() + " " + equipment.getAutomobile().getModel(),
                     equipment.getPrice(), equipment.getImagePath()));
         });
     }
-
-//    temporary make it static, maybe make dynamic loading
-//    private void loadFilters() {}
 
     public Pane createCarButton(int autoId, String mark, double price, String imagePath) {
         Pane pane = new Pane();
@@ -175,6 +174,13 @@ public class ShopController {
 
     public void backButtonClicked(ActionEvent actionEvent) {
         SceneRouterService.getSceneRouter().switchToPreviousScene();
+    }
+
+    public void searchButtonClicked(ActionEvent actionEvent) {
+        flowPane.getChildren().clear();
+        String searchText = searchBox.getText();
+        List<Equipment> searchedEquipments = equipmentController.searchAutomobile(searchText);
+        loadEquipments(searchedEquipments);
     }
 
 }

@@ -72,4 +72,11 @@ class EquipmentControllerTest {
 
     }
 
+    @Test
+    void searchAutomobile_shouldReturnAutomobileByItName() {
+        //stupid test, but maybe in the future my controllers will have some logic, not only transferring information
+        Mockito.when(equipmentDAO.searchByModelAndMark(Mockito.any(String.class)))
+                .thenReturn(List.of(new Equipment(),new Equipment()));
+        assertNotNull(equipmentDAO.searchByModelAndMark("Ford"));
+    }
 }

@@ -34,4 +34,9 @@ public class EquipmentController {
                 .collect(Collectors.toList());
     }
 
+    public List<Equipment> searchAutomobile(String keyword) {
+        String keywordLower = keyword.trim().toLowerCase();
+        return equipmentDAO.searchByModelAndMark(keywordLower);
+    }
+
 }

@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface EquipmentDAO extends CRUDRepository<EquipmentId, Equipment> {
     List<Equipment> getByAuto(Automobile automobile);
+    List<Equipment> searchByModelAndMark(String s);
 }
