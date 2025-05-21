@@ -47,7 +47,7 @@
                   </Button>
                </children>
             </FlowPane>
-            <Button fx:id="reportsButton" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" onAction="#onReportsButtonClicked" prefWidth="651.0" text="Reports" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="214.0">
+            <Button fx:id="adminButton" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" onAction="#onAdminPanelButtonClicked" prefWidth="651.0" text="Admin Panel" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="214.0">
                <font>
                   <Font name="Lucida Bright" size="36.0" />
                </font>

@@ -3,7 +3,6 @@ package com.college.view.controllers;
 import com.college.view.core.AnimationType;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.SceneRouterService;
-import com.college.view.core.StageService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,12 +15,12 @@ public class HomeController {
     @FXML
     private Button accountButton;
     @FXML
-    private Button reportsButton;
+    private Button adminButton;
 
     @FXML
     private void initialize() {
         if (!ControllerManager.getAuthorizationController().getCurrentUser().getRole().equals("admin")) {
-            reportsButton.setVisible(false);
+            adminButton.setVisible(false);
         }
     }
 
@@ -46,7 +45,7 @@ public class HomeController {
         SceneRouterService.getSceneRouter().switchTo("authorization-form.fxml", AnimationType.ZOOM);
     }
 
-    public void onReportsButtonClicked(ActionEvent event) {
-//        System.out.println("you");
+    public void onAdminPanelButtonClicked(ActionEvent event) {
+        SceneRouterService.getSceneRouter().switchTo("admin-form.fxml", AnimationType.ZOOM);
     }
 }
