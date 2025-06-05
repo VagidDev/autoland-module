@@ -1,14 +1,12 @@
 package com.college.view.controllers;
 
-import com.college.controller.AutomobileController;
-import com.college.controller.UserController;
+import com.college.controller.*;
 import com.college.controller.DealerController;
 import com.college.controller.WarrantyController;
-import com.college.model.entity.Automobile;
-import com.college.model.entity.Dealer;
-import com.college.model.entity.User;
-import com.college.model.entity.Warranty;
+import com.college.model.entity.*;
 import com.college.view.core.ControllerManager;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,11 +30,14 @@ public class AdminController {
     private TableView<Warranty> warrantyTableView;
     @FXML
     private TableView<Automobile> automobileTableView;
+    @FXML
+    private TableView<Equipment> equipmentTableView;
 
     private UserController userController;
     private DealerController dealerController;
     private WarrantyController warrantyController;
     private AutomobileController automobileController;
+    private EquipmentController equipmentController;
 
     public void initialize() {
         //initialize objects
@@ -44,6 +45,7 @@ public class AdminController {
         dealerController = ControllerManager.getDealerController();
         warrantyController = ControllerManager.getWarrantyController();
         automobileController = ControllerManager.getAutomobileController();
+        equipmentController = ControllerManager.getEquipmentController();
 
         //TODO: add logic for loading data from database and inserting it into tableView
         loadUsers(userController.getUsers());
@@ -62,6 +64,7 @@ public class AdminController {
             case "dealers" -> loadDealers(dealerController.getAllDealers());
             case "warranties" -> loadWarranties(warrantyController.getAllWarranty());
             case "automobiles" -> loadAutomobiles(automobileController.getAllAutomobiles());
+            case "equipments" -> loadEquipments(equipmentController.getAllEquipments());
         }
     }
 
@@ -137,11 +140,11 @@ public class AdminController {
         TableColumn<Warranty, String> nameColumn = new TableColumn<>("Warranty Name");
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
 
-        TableColumn<Warranty, String> durationColumn = new TableColumn<>("Duration");
-        durationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getDuration())));
+        TableColumn<Warranty, Number> durationColumn = new TableColumn<>("Duration");
+        durationColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getDuration()));
 
-        TableColumn<Warranty, String> priceColumn = new TableColumn<>("Price");
-        priceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPrice())));
+        TableColumn<Warranty, Number> priceColumn = new TableColumn<>("Price");
+        priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()));
 
         this.warrantyTableView.getColumns().addAll(idColumn, nameColumn, durationColumn, priceColumn);
         ObservableList<Warranty> warrantyList = FXCollections.observableArrayList(warranties);
@@ -164,15 +167,58 @@ public class AdminController {
         TableColumn<Automobile, String> bodyTypeColumn = new TableColumn<>("Body Type");
         bodyTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBodyType().getName()));
 
-        TableColumn<Automobile, String> placeCountColumn = new TableColumn<>("Place count");
-        placeCountColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPlaceCount())));
+        TableColumn<Automobile, Number> placeCountColumn = new TableColumn<>("Place count");
+        placeCountColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPlaceCount()));
 
-        TableColumn<Automobile, String> prodYearColumn = new TableColumn<>("Production Year");
-        prodYearColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getProdYear())));
+        TableColumn<Automobile, Number> prodYearColumn = new TableColumn<>("Production Year");
+        prodYearColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getProdYear()));
 
         this.automobileTableView.getColumns().addAll(idColumn, markColumn, modelColumn, bodyTypeColumn, placeCountColumn, prodYearColumn);
         ObservableList<Automobile> automobileList = FXCollections.observableArrayList(automobiles);
         this.automobileTableView.setItems(automobileList);
         this.automobileTableView.refresh();
+    }
+
+    private void loadEquipments(List<Equipment> equipments) {
+        this.equipmentTableView.getColumns().clear();
+
+        TableColumn<Equipment, String> automobileColumn = new TableColumn<>("Automobile");
+        automobileColumn.setCellValueFactory( cellData -> new SimpleStringProperty(cellData.getValue().getAutomobile().getModel() + " " + cellData.getValue().getAutomobile().getMark()));
+
+        TableColumn<Equipment, Number> idColumn = new TableColumn<>("Equipment ID");
+        idColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId().getEquipmentId()));
+
+        TableColumn<Equipment, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+
+        TableColumn<Equipment, String> engineTypeColumn = new TableColumn<>("Engine");
+        engineTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEngineType().getName()));
+
+        TableColumn<Equipment, Number> horsepowerColumn = new TableColumn<>("Horsepower");
+        horsepowerColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getHorsepower()));
+
+        TableColumn<Equipment, String> suspensionColumn = new TableColumn<>("Suspension");
+        suspensionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSuspensionType().getName()));
+
+        TableColumn<Equipment, String> driveColumn = new TableColumn<>("Drive");
+        driveColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDriveType().getName()));
+
+        TableColumn<Equipment, String> gearboxColumn = new TableColumn<>("Gearbox");
+        gearboxColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGearboxType().getName()));
+
+        TableColumn<Equipment, String> fuelColumn = new TableColumn<>("Fuel");
+        fuelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFuelType().getName()));
+
+        TableColumn<Equipment, String> bodyKitColumn = new TableColumn<>("Body Kit");
+        bodyKitColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBodyKit()));
+
+        TableColumn<Equipment, Number> priceColumn = new TableColumn<>("Price");
+        priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()));
+
+
+        this.equipmentTableView.getColumns().addAll(automobileColumn, idColumn, nameColumn, engineTypeColumn, horsepowerColumn, suspensionColumn, driveColumn, gearboxColumn, fuelColumn, bodyKitColumn, priceColumn);
+        ObservableList<Equipment> equipmentList = FXCollections.observableArrayList(equipments);
+        this.equipmentTableView.setItems(equipmentList);
+        this.equipmentTableView.refresh();
     }
 }

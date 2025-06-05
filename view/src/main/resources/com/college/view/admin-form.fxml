@@ -162,6 +162,49 @@
                   </AnchorPane>
                </content>
             </Tab>
+            <Tab closable="false" text="Equipments">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="40.0" text="Menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                              <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                                 <children>
+                                    <Button alignment="CENTER" mnemonicParsing="false" text="Add Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" text="Update Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" text="Delete Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" text="Shpw more info" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <TableView fx:id="equipmentTableView" prefHeight="605.0" prefWidth="697.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn prefWidth="145.0" text="Automobile" />
+                              <TableColumn prefWidth="143.0" text="EquipmentID" />
+                              <TableColumn prefWidth="102.0" text="Name" />
+                              <TableColumn prefWidth="143.0" text="Engine" />
+                              <TableColumn prefWidth="147.0" text="Horsepower" />
+                              <TableColumn prefWidth="147.0" text="Suspension" />
+                              <TableColumn prefWidth="147.0" text="Drive" />
+                              <TableColumn prefWidth="147.0" text="Gearbox" />
+                              <TableColumn prefWidth="147.0" text="Fuel" />
+                              <TableColumn prefWidth="147.0" text="Body Kit" />
+                              <TableColumn prefWidth="147.0" text="Price" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
