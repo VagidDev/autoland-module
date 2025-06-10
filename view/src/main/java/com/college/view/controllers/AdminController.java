@@ -5,10 +5,12 @@ import com.college.controller.DealerController;
 import com.college.controller.WarrantyController;
 import com.college.model.entity.*;
 import com.college.view.core.ControllerManager;
+import com.college.view.core.SceneRouterService;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -17,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.Date;
 import java.util.List;
 
 public class AdminController {
@@ -32,12 +35,15 @@ public class AdminController {
     private TableView<Automobile> automobileTableView;
     @FXML
     private TableView<Equipment> equipmentTableView;
+    @FXML
+    private TableView<Contract> contractTableView;
 
     private UserController userController;
     private DealerController dealerController;
     private WarrantyController warrantyController;
     private AutomobileController automobileController;
     private EquipmentController equipmentController;
+    private ContractController contractController;
 
     public void initialize() {
         //initialize objects
@@ -46,6 +52,7 @@ public class AdminController {
         warrantyController = ControllerManager.getWarrantyController();
         automobileController = ControllerManager.getAutomobileController();
         equipmentController = ControllerManager.getEquipmentController();
+        contractController = ControllerManager.getContractController();
 
         //TODO: add logic for loading data from database and inserting it into tableView
         loadUsers(userController.getUsers());
@@ -65,6 +72,7 @@ public class AdminController {
             case "warranties" -> loadWarranties(warrantyController.getAllWarranty());
             case "automobiles" -> loadAutomobiles(automobileController.getAllAutomobiles());
             case "equipments" -> loadEquipments(equipmentController.getAllEquipments());
+            case "contracts" -> loadContracts(contractController.getAllContracts());
         }
     }
 
@@ -220,5 +228,54 @@ public class AdminController {
         ObservableList<Equipment> equipmentList = FXCollections.observableArrayList(equipments);
         this.equipmentTableView.setItems(equipmentList);
         this.equipmentTableView.refresh();
+    }
+
+    private void loadContracts(List<Contract> contracts) {
+        this.contractTableView.getColumns().clear();
+
+        TableColumn<Contract, Integer> idColumn = new TableColumn<>("ID");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        TableColumn<Contract, String> userColumn = new TableColumn<>("User");
+        userColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getUser().getName() + " " + cellData.getValue().getUser().getSurname()));
+
+        TableColumn<Contract, String> dealerColumn = new TableColumn<>("Dealer");
+        dealerColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDealer().getName()));
+
+        TableColumn<Contract, String> automobileColumn = new TableColumn<>("Automobile");
+        automobileColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getEquipment().getAutomobile().getMark() + " " + cellData.getValue().getEquipment().getAutomobile().getModel()));
+
+        TableColumn<Contract, String> equipmentColumn = new TableColumn<>("Equipment");
+        equipmentColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getEquipment().getName()));
+
+        TableColumn<Contract, String> warrantyColumn = new TableColumn<>("Warranty");
+        warrantyColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getWarranty().getName()));
+
+        TableColumn<Contract, String> dateColumn = new TableColumn<>("Data");
+        dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getConclusionDate().toString()));
+
+        TableColumn<Contract, Number> priceColumn = new TableColumn<>("Price");
+        priceColumn.setCellValueFactory(cellData -> {
+            var contract = cellData.getValue();
+            double price = contract.getEquipment().getPrice() + contract.getWarranty().getPrice();
+            return new SimpleDoubleProperty(price);
+        });
+
+        this.contractTableView.getColumns().addAll(idColumn, userColumn, dealerColumn, automobileColumn, equipmentColumn, warrantyColumn, dateColumn, priceColumn);
+        ObservableList<Contract> contractList = FXCollections.observableArrayList(contracts);
+        this.contractTableView.setItems(contractList);
+        this.contractTableView.refresh();
+    }
+
+    public void addUserAction(ActionEvent actionEvent) {
+        try {
+            SceneRouterService.getSceneRouter().showDialogForm("add-update-user-form.fxml", "Add User");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -6,6 +6,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -26,6 +28,10 @@ public class SceneRouter {
 
     public void clearStack() {
         scenes.clear();
+    }
+
+    public Stage getCurrentStage() {
+        return stage;
     }
 
     public String getPreviousScene() {
@@ -97,6 +103,25 @@ public class SceneRouter {
     public void switchToPreviousScene() {
         scenes.remove(scenes.lastEntry().getKey());
         switchTo(scenes.lastEntry().getKey(), scenes.lastEntry().getValue());
+    }
+
+    public void showDialogForm(String fxmlPath, String title) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource(fxmlPath));
+        Parent root = loader.load();
+
+        Stage dialog = new Stage();
+        dialog.setTitle(title);
+        dialog.setScene(new Scene(root));
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setResizable(false);
+
+        dialog.setOnShown(e -> {
+            double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+            double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+            dialog.setX((screenWidth - dialog.getWidth()) / 2);
+            dialog.setY((screenHeight - dialog.getHeight()) / 2);
+        });
+        dialog.showAndWait();
     }
 
     private Animation createEnterAnimation(Parent root, AnimationType type) {
