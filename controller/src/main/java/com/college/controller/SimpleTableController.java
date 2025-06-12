@@ -1,7 +1,10 @@
 package com.college.controller;
 
 import com.college.model.database.interfaces.*;
+import com.college.model.entity.BodyType;
 import com.college.model.entity.SimpleTable;
+
+import java.util.List;
 
 public class SimpleTableController {
     private BodyTypeDAO bodyTypeDAO;
@@ -18,6 +21,10 @@ public class SimpleTableController {
         this.fuelTypeDAO = fuelTypeDAO;
         this.gearboxTypeDAO = gearboxTypeDAO;
         this.suspensionTypeDAO = suspensionTypeDAO;
+    }
+
+    public List<BodyType> getBodyTypes() {
+        return bodyTypeDAO.getAll();
     }
 
     //maybe can make it without implement

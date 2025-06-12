@@ -12,6 +12,7 @@ public class ControllerManager {
     private static AutomobileController automobileController;
     private static WarrantyController warrantyController;
     private static ContractController contractController;
+    private static SimpleTableController simpleTableController;
 
     public static void loadAllControllers() {
         if (SessionManager.connect()) {
@@ -21,8 +22,10 @@ public class ControllerManager {
             dealerController = new DealerController(session.getDealerRepository());
             warrantyController = new WarrantyController(session.getWarrantyRepository());
             automobileController = new AutomobileController(session.getAutomobileRepository(), session.getEquipmentRepository());
-            equipmentController = new EquipmentController(SessionManager.getSession().getEquipmentRepository());
+            equipmentController = new EquipmentController(session.getEquipmentRepository());
             contractController = new ContractController(session.getContractRepository());
+            simpleTableController = new SimpleTableController(session.getBodyTypeRepository(), session.getDriveTypeRepository(), session.getEngineTypeRepository(),
+                    session.getFuelTypeRepository(), session.getGearboxTypeRepository(), session.getSuspensionTypeRepository());
         }
     }
 
@@ -75,4 +78,12 @@ public class ControllerManager {
         return contractController;
     }
 
+    public static SimpleTableController getSimpleTableController() {
+        if (simpleTableController == null) {
+            Session session = SessionManager.getSession();
+            simpleTableController = new SimpleTableController(session.getBodyTypeRepository(), session.getDriveTypeRepository(), session.getEngineTypeRepository(),
+                    session.getFuelTypeRepository(), session.getGearboxTypeRepository(), session.getSuspensionTypeRepository());
+        }
+        return simpleTableController;
+    }
 }

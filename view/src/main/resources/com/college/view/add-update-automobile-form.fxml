@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AddUpdateAutomobileController">
+    <children>
+        <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+            <padding><Insets left="70.0" right="70.0" top="10.0" /></padding>
+            <children>
+                <VBox>
+                    <children>
+                        <Label text="Mark"><font><Font size="24.0" /></font></Label>
+                        <TextField fx:id="markField" promptText="Input mark"><font><Font size="18.0" /></font></TextField>
+                    </children>
+                </VBox>
+                <VBox>
+                    <children>
+                        <Label text="Model"><font><Font size="24.0" /></font></Label>
+                        <TextField fx:id="modelField" promptText="Input model"><font><Font size="18.0" /></font></TextField>
+                    </children>
+                </VBox>
+                <VBox>
+                    <children>
+                        <Label text="Body Type"><font><Font size="24.0" /></font></Label>
+                        <ComboBox fx:id="bodyTypeComboBox" prefHeight="37.0" prefWidth="461.0" promptText="Select body type" style="-fx-font-size: 18;" />
+                    </children>
+                </VBox>
+                <VBox>
+                    <children>
+                        <Label text="Place Count"><font><Font size="24.0" /></font></Label>
+                        <TextField fx:id="placeCountField" promptText="Input number of seats"><font><Font size="18.0" /></font></TextField>
+                    </children>
+                </VBox>
+                <VBox>
+                    <children>
+                        <Label text="Production Year"><font><Font size="24.0" /></font></Label>
+                        <TextField fx:id="prodYearField" promptText="Input production year"><font><Font size="18.0" /></font></TextField>
+                    </children>
+                </VBox>
+                <HBox alignment="CENTER" spacing="50.0">
+                    <children>
+                        <Button fx:id="saveButton" prefHeight="51.0" prefWidth="130.0" text="Save"><font><Font size="24.0" /></font></Button>
+                        <Button fx:id="cancelButton" prefHeight="51.0" prefWidth="130.0" text="Cancel"><font><Font size="24.0" /></font></Button>
+                    </children>
+               <padding>
+                  <Insets bottom="25.0" top="25.0" />
+               </padding>
+                </HBox>
+            </children>
+        </VBox>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutY="5.0" text="Add Automobile" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font><Font name="System Bold" size="36.0" /></font>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
+        </Label>
+    </children>
+</AnchorPane>

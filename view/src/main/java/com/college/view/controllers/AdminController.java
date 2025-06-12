@@ -278,4 +278,36 @@ public class AdminController {
             throw new RuntimeException(e);
         }
     }
+
+    public void addDealerAction(ActionEvent actionEvent) {
+        try {
+            SceneRouterService.getSceneRouter().showDialogForm("add-update-dealer-form.fxml", "Add Dealer");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addWarrantyAction(ActionEvent actionEvent) {
+        try {
+            SceneRouterService.getSceneRouter().showDialogForm("add-update-warranty-form.fxml", "Add Warranty");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addAutomobileAction(ActionEvent actionEvent) {
+        try {
+            SceneRouterService.getSceneRouter().showDialogForm("add-update-automobile-form.fxml", "Add Automobile");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addEquipmentAction(ActionEvent actionEvent) {
+        try {
+            SceneRouterService.getSceneRouter().showDialogForm("add-update-equipment-form.fxml", "Add Equipment");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

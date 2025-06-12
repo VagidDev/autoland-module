@@ -2,12 +2,11 @@ package com.college.view.controllers;
 
 import com.college.view.core.SceneRouterService;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 
-public class AddUpdateFormController {
+public class AddUpdateUserController {
     public void chooseAvatar(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Выберите файл");
