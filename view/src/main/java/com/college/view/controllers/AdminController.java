@@ -310,4 +310,13 @@ public class AdminController {
             throw new RuntimeException(e);
         }
     }
+
+    public void addContractAction(ActionEvent actionEvent) {
+        try {
+            SceneRouterService.getSceneRouter().showDialogForm("add-update-contract-form.fxml", "Add Contract");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

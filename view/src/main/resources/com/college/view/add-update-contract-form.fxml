@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AddUpdateContractController">
+   <children>
+      <VBox spacing="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <VBox>
+               <Label text="User">
+                  <font><Font size="24.0" /></font>
+               </Label>
+               <ComboBox fx:id="userComboBox" editable="true" prefHeight="37.0" prefWidth="460.0" promptText="Select User" style="-fx-font-size: 18;" />
+            </VBox>
+            <VBox>
+               <Label text="Dealer">
+                  <font><Font size="24.0" /></font>
+               </Label>
+               <ComboBox fx:id="dealerComboBox" prefHeight="37.0" prefWidth="462.0" promptText="Select Dealer" style="-fx-font-size: 18;" />
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Automobile">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="automobileComboBox" prefHeight="37.0" prefWidth="474.0" promptText="Select Automobile" style="-fx-font-size: 18;" />
+               </children>
+            </VBox>
+            <VBox>
+               <Label text="Equipment">
+                  <font><Font size="24.0" /></font>
+               </Label>
+               <ComboBox fx:id="equipmentComboBox" prefHeight="37.0" prefWidth="474.0" promptText="Select Equipment" style="-fx-font-size: 18;" />
+            </VBox>
+            <VBox>
+               <Label text="Warranty">
+                  <font><Font size="24.0" /></font>
+               </Label>
+               <ComboBox fx:id="warrantyComboBox" prefHeight="37.0" prefWidth="492.0" promptText="Select Warranty" style="-fx-font-size: 18;" />
+            </VBox>
+            <VBox>
+               <Label text="Conclusion Date">
+                  <font><Font size="24.0" /></font>
+               </Label>
+               <DatePicker fx:id="conclusionDatePicker" prefHeight="37.0" prefWidth="482.0" promptText="Select Date" style="-fx-font-size: 18;" />
+            </VBox>
+            <HBox alignment="CENTER" spacing="40.0">
+               <Button prefHeight="51.0" prefWidth="130.0" text="Save">
+                  <font><Font size="24.0" /></font>
+               </Button>
+               <Button prefHeight="51.0" prefWidth="130.0" text="Cancel">
+                  <font><Font size="24.0" /></font>
+               </Button>
+            </HBox>
+         </children>
+         <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
+      </VBox>
+      <Label layoutX="200.0" layoutY="10.0" text="Add Contract">
+         <font><Font size="30.0" /></font>
+      </Label>
+   </children>
+</AnchorPane>
