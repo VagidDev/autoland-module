@@ -1,8 +1,7 @@
 package com.college.controller;
 
 import com.college.model.database.interfaces.*;
-import com.college.model.entity.BodyType;
-import com.college.model.entity.SimpleTable;
+import com.college.model.entity.*;
 
 import java.util.List;
 
@@ -25,6 +24,26 @@ public class SimpleTableController {
 
     public List<BodyType> getBodyTypes() {
         return bodyTypeDAO.getAll();
+    }
+
+    public List<EngineType> getEngineTypes() {
+        return engineTypeDAO.getAll();
+    }
+
+    public List<DriveType> getDriveTypes() {
+        return driveTypeDAO.getAll();
+    }
+
+    public List<SuspensionType> getSuspensionTypes() {
+        return suspensionTypeDAO.getAll();
+    }
+
+    public List<FuelType> getFuelTypes() {
+        return fuelTypeDAO.getAll();
+    }
+
+    public List<GearboxType> getGearboxTypes() {
+        return gearboxTypeDAO.getAll();
     }
 
     //maybe can make it without implement
