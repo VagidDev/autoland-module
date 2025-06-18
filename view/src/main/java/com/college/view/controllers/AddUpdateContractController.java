@@ -33,11 +33,11 @@ public class AddUpdateContractController {
         automobileController = ControllerManager.getAutomobileController();
         equipmentController = ControllerManager.getEquipmentController();
         warrantyController = ControllerManager.getWarrantyController();
-        //TODO: fix loading users
-        //loadUserComboBox();
+        loadUserComboBox();
         loadDealerComboBox();
         loadAutomobileComboBox();
         loadWarrantyComboBox();
+
     }
 
     private void loadUserComboBox() {
@@ -45,7 +45,7 @@ public class AddUpdateContractController {
         userComboBox.setConverter(new StringConverter<User>() {
             @Override
             public String toString(User user) {
-                return user.getLogin();
+                return user == null ? "" : user.getLogin();
             }
 
             @Override
@@ -95,6 +95,11 @@ public class AddUpdateContractController {
                             String searchString = automobile.getMark() + " " + automobile.getModel();
                             return searchString.equals(s);
                         }).findFirst().orElse(null);
+            }
+        });
+        automobileComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null) {
+                loadEquipmentComboBox(newValue);
             }
         });
     }
