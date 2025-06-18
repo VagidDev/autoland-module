@@ -4,6 +4,8 @@ import com.college.controller.*;
 import com.college.controller.DealerController;
 import com.college.controller.WarrantyController;
 import com.college.model.entity.*;
+import com.college.view.core.AdminPanelContext;
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.SceneRouterService;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -12,10 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -276,6 +275,31 @@ public class AdminController {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-user-form.fxml", "Add User");
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void updateUserAction(ActionEvent actionEvent) {
+        try {
+            if (userTableView.getSelectionModel().getSelectedItem() != null) {
+                AdminPanelContext.setID(userTableView.getSelectionModel().getSelectedItem().getId());
+                SceneRouterService.getSceneRouter().showDialogForm("add-update-user-form.fxml", "Update User");
+            } else {
+                AlertHelper.showSimpleAlertDialog("Warning", "Please select user for editing", Alert.AlertType.WARNING);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //TODO: complete logic for removing users
+    public void deleteUserAction(ActionEvent actionEvent) {
+        User selectedUser = userTableView.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want no delete user with login '" + selectedUser.getLogin() +"'?");
+            if (confirmDeleting) {
+                //userController.
+            }
+        } else {
+            AlertHelper.showSimpleAlertDialog("Warning", "Please select user for deleting", Alert.AlertType.WARNING);
         }
     }
 

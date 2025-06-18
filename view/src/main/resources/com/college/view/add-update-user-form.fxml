@@ -22,7 +22,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Input login">
+                  <TextField fx:id="loginTextField" promptText="Input login">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <PasswordField promptText="Input Password">
+                  <PasswordField fx:id="passwordTextField" promptText="Input Password">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -50,7 +50,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Input Name">
+                  <TextField fx:id="nameTextField" promptText="Input Name">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -64,7 +64,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Input Surname">
+                  <TextField fx:id="surnameTextField" promptText="Input Surname">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -78,7 +78,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <DatePicker prefHeight="37.0" prefWidth="461.0" promptText="Input Birthdate" style="-fx-font-size: 18;" />
+                  <DatePicker fx:id="birthdayDatePicker" prefHeight="37.0" prefWidth="461.0" promptText="Input Birthdate" style="-fx-font-size: 18;" />
                </children>
             </VBox>
             <VBox prefHeight="70.0" prefWidth="600.0">
@@ -88,7 +88,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Input Email">
+                  <TextField fx:id="emailTextField" promptText="Input Email">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -102,7 +102,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField promptText="+373________">
+                  <TextField fx:id="phoneTextField" promptText="+373________">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -116,7 +116,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Input Address">
+                  <TextField fx:id="addressTextField" promptText="Input Address">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -132,7 +132,7 @@
                   </Label>
                   <HBox>
                      <children>
-                        <TextField disable="true" prefHeight="37.0" prefWidth="360.0" promptText="Image Path">
+                        <TextField fx:id="imageTextField" disable="true" prefHeight="37.0" prefWidth="360.0" promptText="Image Path">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -148,12 +148,12 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="93.0" prefWidth="600.0" spacing="50.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="130.0" text="Save">
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefHeight="51.0" prefWidth="130.0" text="Save">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="130.0" text="Cancel">
+                  <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancel" prefHeight="51.0" prefWidth="130.0" text="Cancel">
                      <font>
                         <Font size="24.0" />
                      </font>
