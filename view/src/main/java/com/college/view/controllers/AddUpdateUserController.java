@@ -84,6 +84,7 @@ public class AddUpdateUserController {
                 userController.editUser(user);
                 AlertHelper.showSimpleAlertDialog("Success", "New user was updated!", Alert.AlertType.INFORMATION);
             }
+            AdminPanelContext.setID(-1);
             ((Stage) saveButton.getScene().getWindow()).close();
         } else {
             AlertHelper.invalidUserDataAlert(response);

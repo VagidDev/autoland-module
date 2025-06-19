@@ -3,6 +3,7 @@ package com.college.view.controllers;
 import com.college.controller.*;
 import com.college.controller.DealerController;
 import com.college.controller.WarrantyController;
+import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.entity.*;
 import com.college.view.core.AdminPanelContext;
 import com.college.view.core.AlertHelper;
@@ -290,13 +291,18 @@ public class AdminController {
             throw new RuntimeException(e);
         }
     }
-    //TODO: complete logic for removing users
+
     public void deleteUserAction(ActionEvent actionEvent) {
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want no delete user with login '" + selectedUser.getLogin() +"'?");
             if (confirmDeleting) {
-                //userController.
+                try {
+                    userController.deleteUser(selectedUser);
+                    AlertHelper.showSimpleAlertDialog("Success", "User deleted!", Alert.AlertType.INFORMATION);
+                } catch (CascadeDependencyException e) {
+                    AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this user, he is used in contracts!", Alert.AlertType.ERROR);
+                }
             }
         } else {
             AlertHelper.showSimpleAlertDialog("Warning", "Please select user for deleting", Alert.AlertType.WARNING);
