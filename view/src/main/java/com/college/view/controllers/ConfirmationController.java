@@ -8,30 +8,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ConfirmationController {
-    @FXML
-    private Button confirmationButton;
-    @FXML
-    private Label fullUserName;
-    @FXML
-    private Label email;
-    @FXML
-    private Label dealerName;
-    @FXML
-    private Label dealerAddress;
-    @FXML
-    private Label automobileMark;
-    @FXML
-    private Label equipmentName;
-    @FXML
-    private Label equipmentPrice;
-    @FXML
-    private Label warrantyName;
-    @FXML
-    private Label warrantyPrice;
-    @FXML
-    private Label totalPrice;
+    @FXML private Button confirmationButton;
+    @FXML private Label fullUserName;
+    @FXML private Label email;
+    @FXML private Label dealerName;
+    @FXML private Label dealerAddress;
+    @FXML private Label automobileMark;
+    @FXML private Label equipmentName;
+    @FXML private Label equipmentPrice;
+    @FXML private Label warrantyName;
+    @FXML private Label warrantyPrice;
+    @FXML private Label totalPrice;
+    @FXML private ImageView carImageView;
 
     private ContractController contractController;
 
@@ -43,6 +35,12 @@ public class ConfirmationController {
         Dealer dealer = ContractBuilder.getDealer();
         Warranty warranty = ContractBuilder.getWarranty();
         Equipment equipment = ContractBuilder.getEquipment();
+
+        try {
+            carImageView.setImage(new Image(equipment.getImagePath()));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
 
         fullUserName.setText(user.getName() + " " + user.getSurname());
         email.setText(user.getEmail());

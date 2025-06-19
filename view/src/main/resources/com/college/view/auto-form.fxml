@@ -16,9 +16,9 @@
    <children>
       <StackPane prefHeight="360.0" prefWidth="640.0" styleClass="image-container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="360.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="carImageView" fitHeight="360.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/testauto.jpg" />
+                  <Image url="@../../../images/test.jpg" />
                </image>
             </ImageView>
          </children>

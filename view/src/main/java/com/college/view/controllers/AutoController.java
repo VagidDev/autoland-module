@@ -14,24 +14,28 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
 public class AutoController {
-    @FXML
-    private FlowPane flowPane;
-    @FXML
-    private Label modelLabel;
-    @FXML
-    private ScrollPane scrollPane;
+    @FXML private FlowPane flowPane;
+    @FXML private Label modelLabel;
+    @FXML private ScrollPane scrollPane;
+    @FXML private ImageView carImageView;
 
     private AutomobileController automobileController;
+    private List<Equipment> equipmentsForAuto;
     private int selectedEquipmentId = 0;
 
     @FXML
@@ -40,7 +44,7 @@ public class AutoController {
         Automobile automobileForSell = ContractBuilder.getAutomobile();
         if (automobileForSell != null) {
             modelLabel.setText(automobileForSell.getMark() + " " + automobileForSell.getModel());
-            List<Equipment> equipmentsForAuto = automobileController.getEquipmentsByAutomobile(automobileForSell);
+            equipmentsForAuto = automobileController.getEquipmentsByAutomobile(automobileForSell);
 
             equipmentsForAuto.forEach(equipment -> {
                 flowPane.getChildren().add(createEquipmentPane(
@@ -48,6 +52,19 @@ public class AutoController {
                         Arrays.asList(equipment.getShortEquipment())
                 ));
             });
+        }
+    }
+
+    private void loadCarImage(String imagePath) {
+        if (imagePath != null) {
+            carImageView.setImage(new Image(imagePath));
+        } else {
+            try {
+                var path = Path.of("view/src/main/resources/images/test.jpg").toAbsolutePath();
+                carImageView.setImage(new Image(Files.newInputStream(path)));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -94,6 +111,10 @@ public class AutoController {
         Parent parent = button.getParent();
         if (parent instanceof Pane clikedPane) {
             selectedEquipmentId = Integer.parseInt(clikedPane.getId());
+
+            equipmentsForAuto.stream()
+                    .filter(equipment -> equipment.getId().getEquipmentId() == selectedEquipmentId)
+                    .findFirst().ifPresent(selectedEquipment -> loadCarImage(selectedEquipment.getImagePath()));
 
             flowPane.getChildren().stream()
                     .filter(node -> node.getStyleClass().getLast().equals("clicked-equipment-pane"))

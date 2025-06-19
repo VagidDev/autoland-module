@@ -72,6 +72,14 @@ public class AddUpdateEquipmentController {
             driveTypeComboBox.getSelectionModel().select(equipment.getDriveType());
             gearboxTypeComboBox.getSelectionModel().select(equipment.getGearboxType());
             fuelTypeComboBox.getSelectionModel().select(equipment.getFuelType());
+            //image loading
+            if (equipment.getImagePath() != null) {
+                try {
+                    carImageView.setImage(new Image(equipment.getImagePath()));
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
         }
 
         loadAutomobileComboBox();
@@ -239,6 +247,7 @@ public class AddUpdateEquipmentController {
         equipment.setGearboxType(gearboxTypeComboBox.getSelectionModel().getSelectedItem());
         equipment.setEngineType(engineTypeComboBox.getSelectionModel().getSelectedItem());
         equipment.setDriveType(driveTypeComboBox.getSelectionModel().getSelectedItem());
+        equipment.setImagePath(carImageView.getImage().getUrl());
 
         if (AdminPanelContext.getEquipmentID() == null) {
             equipmentController.createEquipment(equipment);

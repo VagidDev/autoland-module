@@ -70,22 +70,27 @@ public class ShopController {
 
         pane.setId(String.valueOf(autoId));
 
-        var path = Path.of(imagePath).toAbsolutePath();
 
         ImageView imageView = null;
         try {
-            imageView = new ImageView(new Image(Files.newInputStream(path)));
-            imageView.setFitWidth(290);
-            imageView.setFitHeight(163);
-            imageView.setLayoutX(25);
-            imageView.setLayoutY(25);
-            imageView.setPickOnBounds(true);
-            imageView.setCache(true);
-            imageView.setSmooth(true);
-        } catch (IOException e) {
+            imageView = new ImageView(new Image(imagePath));
+        } catch (Exception e) {
             //TODO: create case, that will exclude NullPointerException
-            throw new RuntimeException(e);
+            try {
+                var path = Path.of("view/src/main/resources/images/test.jpg").toAbsolutePath();
+                imageView = new ImageView(new Image(Files.newInputStream(path)));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
+
+        imageView.setFitWidth(290);
+        imageView.setFitHeight(163);
+        imageView.setLayoutX(25);
+        imageView.setLayoutY(25);
+        imageView.setPickOnBounds(true);
+        imageView.setCache(true);
+        imageView.setSmooth(true);
 
 
         Label labelMark = new Label(mark);
