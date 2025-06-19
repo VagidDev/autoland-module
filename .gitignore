@@ -4,7 +4,7 @@
 /car_images/
 
 /view/target/
-/view/src/resources/
+/view/src/main/resources/avatars/
 /model/target/
 /model/mods/
 /controller/target/

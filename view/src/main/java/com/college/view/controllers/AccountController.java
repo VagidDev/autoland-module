@@ -2,47 +2,46 @@ package com.college.view.controllers;
 
 import com.college.controller.AuthorizationController;
 import com.college.controller.ContractController;
+import com.college.controller.UserController;
 import com.college.model.entity.Contract;
 import com.college.model.entity.User;
 import com.college.view.core.AnimationType;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.SceneRouterService;
-import com.college.view.core.StageService;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.List;
 
 
 public class AccountController {
-    @FXML
-    private ImageView avatar;
-    @FXML
-    private Label fullName;
-    @FXML
-    private Label login;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label email;
-    @FXML
-    private Label address;
-    @FXML
-    private TableView<Contract> contractTable;
+    @FXML private ImageView avatar;
+    @FXML private Label fullName;
+    @FXML private Label login;
+    @FXML private Label phone;
+    @FXML private Label email;
+    @FXML private Label address;
+    @FXML private TableView<Contract> contractTable;
+
+    private boolean avatarChanged;
+    private Image originalImage;
 
     private AuthorizationController authorizationController;
+    private UserController userController;
     private ContractController contractController;
 
     public void createContractTable(List<Contract> contracts) {
@@ -84,6 +83,7 @@ public class AccountController {
 
     public void initialize() {
         contractController = ControllerManager.getContractController();
+        userController =  ControllerManager.getUserController();
         authorizationController = ControllerManager.getAuthorizationController();
 
         User currentUser = authorizationController.getCurrentUser();
@@ -93,12 +93,51 @@ public class AccountController {
 
         Circle circle = new Circle(100, 100, 100);
         avatar.setClip(circle);
+        setImage(currentUser.getAvatar());
 
-        Platform.runLater(() -> {
-            Stage stage = (Stage) avatar.getScene().getWindow();
-            //stage.setOnCloseRequest(event -> StageService.buildAndShowStage("Home", "home-form.fxml"));
-        });
 
+    }
+
+    public void chooseUserAvatar(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Выберите файл");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(SceneRouterService.getSceneRouter().getCurrentStage()); // передай Stage текущего окна
+
+        if (selectedFile != null) {
+            avatarChanged = true;
+            setImage(selectedFile.toURI().toString());
+        }
+    }
+
+    private void setImage(String url) {
+        originalImage = new Image(url);
+
+        PixelReader reader = originalImage.getPixelReader();
+
+        int height = (int) originalImage.getHeight();
+        int width = (int) originalImage.getWidth();
+
+        if (height == width) {
+            avatar.setImage(originalImage);
+            return;
+        }
+
+        WritableImage croppedImage = null;
+
+        if (height > width) {
+            int cropY = (height - width) / 2;
+            croppedImage = new WritableImage(reader, 0, cropY, width, width);
+        } else {
+            int cropX = (width - height) / 2;
+            croppedImage = new WritableImage(reader, cropX, 0, height, height);
+        }
+
+        avatar.setImage(croppedImage);
     }
 
     private void setUserInfo(User user) {
@@ -119,6 +158,11 @@ public class AccountController {
     }
 
     public void cancelButtonClicked(ActionEvent actionEvent) {
+        if (avatarChanged) {
+            User currentUser = authorizationController.getCurrentUser();
+            currentUser.setAvatar(originalImage.getUrl());
+            userController.editUser(currentUser);
+        }
         SceneRouterService.getSceneRouter().switchToPreviousScene();
     }
 }

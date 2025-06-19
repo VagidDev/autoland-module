@@ -107,7 +107,7 @@ public class AddUpdateUserController {
         File selectedFile = fileChooser.showOpenDialog(SceneRouterService.getSceneRouter().getCurrentStage()); // передай Stage текущего окна
 
         if (selectedFile != null) {
-            imageTextField.setText(selectedFile.getAbsolutePath());
+            imageTextField.setText(selectedFile.toURI().toString());
         }
     }
 }

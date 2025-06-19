@@ -36,7 +36,7 @@
             </Label>
             <StackPane maxHeight="200.0" maxWidth="200.0" styleClass="avatar-photo">
                <children>
-                  <ImageView fx:id="avatar" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                  <ImageView fx:id="avatar" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#chooseUserAvatar" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
                         <Image url="@../../../images/ilya-kuvshinov-t3.jpg" />
                      </image>
