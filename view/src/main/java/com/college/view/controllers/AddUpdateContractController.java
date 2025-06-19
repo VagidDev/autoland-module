@@ -1,17 +1,24 @@
 package com.college.view.controllers;
 
-import com.college.controller.AutomobileController;
-import com.college.controller.EquipmentController;
-import com.college.controller.UserController;
+import com.college.controller.*;
 import com.college.controller.DealerController;
 import com.college.controller.WarrantyController;
 import com.college.model.entity.*;
+import com.college.view.core.AdminPanelContext;
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ControllerManager;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
+
+import java.time.ZoneId;
+import java.util.Date;
 
 public class AddUpdateContractController {
     @FXML private ComboBox<User> userComboBox;
@@ -20,12 +27,15 @@ public class AddUpdateContractController {
     @FXML private ComboBox<Equipment> equipmentComboBox;
     @FXML private ComboBox<Warranty> warrantyComboBox;
     @FXML private DatePicker conclusionDatePicker;
+    @FXML private Button saveButton;
+    @FXML private Button cancelButton;
 
     private UserController userController;
     private DealerController dealerController;
     private AutomobileController automobileController;
     private EquipmentController equipmentController;
     private WarrantyController warrantyController;
+    private ContractController contractController;
 
     public void initialize() {
         userController = ControllerManager.getUserController();
@@ -33,6 +43,20 @@ public class AddUpdateContractController {
         automobileController = ControllerManager.getAutomobileController();
         equipmentController = ControllerManager.getEquipmentController();
         warrantyController = ControllerManager.getWarrantyController();
+        contractController = ControllerManager.getContractController();
+
+        if (AdminPanelContext.getContractID() != -1) {
+            Contract contract = contractController.getContract(AdminPanelContext.getContractID());
+            userComboBox.getSelectionModel().select(contract.getUser());
+            dealerComboBox.getSelectionModel().select(contract.getDealer());
+            automobileComboBox.getSelectionModel().select(contract.getEquipment().getAutomobile());
+            equipmentComboBox.getSelectionModel().select(contract.getEquipment());
+            warrantyComboBox.getSelectionModel().select(contract.getWarranty());
+            conclusionDatePicker.setValue(contract.getConclusionDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+            loadEquipmentComboBox(contract.getEquipment().getAutomobile());
+        }
+
         loadUserComboBox();
         loadDealerComboBox();
         loadAutomobileComboBox();
@@ -138,5 +162,39 @@ public class AddUpdateContractController {
                         .findFirst().orElse(null);
             }
         });
+    }
+
+    public void onSave(ActionEvent actionEvent) {
+        Contract contract = null;
+        if (AdminPanelContext.getContractID() == -1) {
+            contract = new Contract();
+        } else {
+            contract = contractController.getContract(AdminPanelContext.getContractID());
+        }
+
+        Date conclusionDate = conclusionDatePicker.getValue() == null ? new Date()
+                : Date.from(conclusionDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        contract.setUser(userComboBox.getSelectionModel().getSelectedItem());
+        contract.setDealer(dealerComboBox.getSelectionModel().getSelectedItem());
+        contract.setEquipment(equipmentComboBox.getSelectionModel().getSelectedItem());
+        contract.setWarranty(warrantyComboBox.getSelectionModel().getSelectedItem());
+        contract.setConclusionDate(conclusionDate);
+
+
+        if (AdminPanelContext.getContractID() == -1) {
+            contractController.saveContract(contract);
+            AlertHelper.showSimpleAlertDialog("Success", "New contract was created!", Alert.AlertType.INFORMATION);
+        } else {
+            contractController.editContract(contract);
+            AlertHelper.showSimpleAlertDialog("Success", "Contract was updated!", Alert.AlertType.INFORMATION);
+        }
+        AdminPanelContext.setContractID(-1);
+        ((Stage) saveButton.getScene().getWindow()).close();
+    }
+
+    public void onCancel(ActionEvent actionEvent) {
+        AdminPanelContext.setContractID(-1);
+        ((Stage) cancelButton.getScene().getWindow()).close();
     }
 }

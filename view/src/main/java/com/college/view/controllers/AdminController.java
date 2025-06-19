@@ -470,4 +470,36 @@ public class AdminController {
         }
     }
 
+    public void updateContractAction(ActionEvent actionEvent) {
+        try {
+            if (contractTableView.getSelectionModel().getSelectedItem() != null) {
+                AdminPanelContext.setContractID(contractTableView.getSelectionModel().getSelectedItem().getId());
+                SceneRouterService.getSceneRouter().showDialogForm("add-update-contract-form.fxml", "Update Contract");
+            } else {
+                AlertHelper.showSimpleAlertDialog("Warning", "Please select contract for editing", Alert.AlertType.WARNING);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteContractAction(ActionEvent actionEvent) {
+        Contract selectedContract = contractTableView.getSelectionModel().getSelectedItem();
+        if (selectedContract != null) {
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want to delete contract for user '"
+                    + selectedContract.getUser().getName() + " " + selectedContract.getUser().getSurname() + "'?");
+            if (confirmDeleting) {
+                try {
+                    contractController.deleteContract(selectedContract);
+                    AlertHelper.showSimpleAlertDialog("Success", "Contract deleted!", Alert.AlertType.INFORMATION);
+                    //should not be thrown
+                } catch (CascadeDependencyException e) {
+                    AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this contract!", Alert.AlertType.ERROR);
+                }
+            }
+        } else {
+            AlertHelper.showSimpleAlertDialog("Warning", "Please select contract for deleting", Alert.AlertType.WARNING);
+        }
+    }
+
 }

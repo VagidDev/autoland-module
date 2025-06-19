@@ -55,10 +55,10 @@
                <DatePicker fx:id="conclusionDatePicker" prefHeight="37.0" prefWidth="482.0" promptText="Select Date" style="-fx-font-size: 18;" />
             </VBox>
             <HBox alignment="CENTER" spacing="40.0">
-               <Button prefHeight="51.0" prefWidth="130.0" text="Save">
+               <Button fx:id="saveButton" onAction="#onSave" prefHeight="51.0" prefWidth="130.0" text="Save">
                   <font><Font size="24.0" /></font>
                </Button>
-               <Button prefHeight="51.0" prefWidth="130.0" text="Cancel">
+               <Button fx:id="cancelButton" onAction="#onCancel" prefHeight="51.0" prefWidth="130.0" text="Cancel">
                   <font><Font size="24.0" /></font>
                </Button>
             </HBox>

@@ -8,6 +8,7 @@ public class AdminPanelContext {
     private static int warrantyID = -1;
     private static int automobileID = -1;
     private static EquipmentId equipmentID = null;
+    private static int contractID = -1;
 
     public static int getUserID() {
         return userID;
@@ -47,5 +48,13 @@ public class AdminPanelContext {
 
     public static void setEquipmentID(EquipmentId equipmentID) {
         AdminPanelContext.equipmentID = equipmentID;
+    }
+
+    public static int getContractID() {
+        return contractID;
+    }
+
+    public static void setContractID(int contractID) {
+        AdminPanelContext.contractID = contractID;
     }
 }
