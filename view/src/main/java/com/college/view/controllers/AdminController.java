@@ -194,7 +194,7 @@ public class AdminController {
         this.equipmentTableView.getColumns().clear();
 
         TableColumn<Equipment, String> automobileColumn = new TableColumn<>("Automobile");
-        automobileColumn.setCellValueFactory( cellData -> new SimpleStringProperty(cellData.getValue().getAutomobile().getModel() + " " + cellData.getValue().getAutomobile().getMark()));
+        automobileColumn.setCellValueFactory( cellData -> new SimpleStringProperty(cellData.getValue().getAutomobile().getMark() + " " + cellData.getValue().getAutomobile().getModel()));
 
         TableColumn<Equipment, Number> idColumn = new TableColumn<>("Equipment ID");
         idColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId().getEquipmentId()));

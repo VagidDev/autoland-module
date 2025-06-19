@@ -5,6 +5,7 @@
 
 /view/target/
 /view/src/main/resources/avatars/
+/view/src/main/resources/automobiles/
 /model/target/
 /model/mods/
 /controller/target/
