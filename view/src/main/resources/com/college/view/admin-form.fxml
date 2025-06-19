@@ -25,11 +25,25 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                              <VBox alignment="CENTER" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                  <children>
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addUserAction" text="Add Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateUserAction" text="Update Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteUserAction" text="Delete Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addUserAction" prefWidth="200.0" text="Add User">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateUserAction" prefWidth="200.0" text="Update User">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteUserAction" prefWidth="200.0" text="Delete User">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#exitAction" prefWidth="200.0" text="Exit">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>
@@ -66,11 +80,25 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                              <VBox alignment="CENTER" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                  <children>
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addDealerAction" text="Add Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateDealerAction" text="Update Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteDealerAction" text="Delete Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addDealerAction" prefWidth="200.0" text="Add Dealer">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateDealerAction" prefWidth="200.0" text="Update Dealer">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteDealerAction" prefWidth="200.0" text="Delete Dealer">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#exitAction" prefWidth="200.0" text="Exit">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>
@@ -101,11 +129,25 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                              <VBox alignment="CENTER" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                  <children>
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addWarrantyAction" text="Add Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateWarrantyAction" text="Update Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteWarrantyAction" text="Delete Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addWarrantyAction" prefWidth="200.0" text="Add Warranty">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateWarrantyAction" prefWidth="200.0" text="Update Warranty">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteWarrantyAction" prefWidth="200.0" text="Delete Warranty">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#exitAction" prefWidth="200.0" text="Exit">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>
@@ -136,11 +178,25 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                              <VBox alignment="CENTER" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                  <children>
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addAutomobileAction" text="Add Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateAutomobileAction" text="Update Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteAutomobileAction" text="Delete Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addAutomobileAction" prefWidth="200.0" text="Add Automobile">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateAutomobileAction" prefWidth="200.0" text="Update Automobile">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteAutomobileAction" prefWidth="200.0" text="Delete Automobile">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#exitAction" prefWidth="200.0" text="Exit">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>
@@ -173,12 +229,29 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                              <VBox alignment="CENTER" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                  <children>
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addEquipmentAction" text="Add Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateEquipmentAction" text="Update Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteEquipmentAction" text="Delete Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" text="Shpw more info" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addEquipmentAction" prefWidth="200.0" text="Add Equipment">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateEquipmentAction" prefWidth="200.0" text="Update Equipment">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteEquipmentAction" prefWidth="200.0" text="Delete Equipment">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" prefWidth="200.0" text="Show Information">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#exitAction" prefWidth="200.0" text="Exit">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>
@@ -216,11 +289,25 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                              <VBox alignment="CENTER" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                  <children>
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addContractAction" text="Add Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateContractAction" text="Update Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteContractAction" text="Delete Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#addContractAction" prefWidth="200.0" text="Add Contract">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateContractAction" prefWidth="200.0" text="Update Contract">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteContractAction" prefWidth="200.0" text="Delete Contract">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Button>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#exitAction" prefWidth="200.0" text="Exit">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>

@@ -10,10 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AddUpdateWarrantyController {
+    @FXML private Label titleLabel;
     @FXML private TextField nameField;
     @FXML private TextField durationField;
     @FXML private TextField priceField;
@@ -25,6 +27,7 @@ public class AddUpdateWarrantyController {
     public void initialize() {
         warrantyController = ControllerManager.getWarrantyController();
         if (AdminPanelContext.getWarrantyID() != -1) {
+            titleLabel.setText("Update Warranty");
             Warranty warranty = warrantyController.getWarranty(AdminPanelContext.getWarrantyID());
             nameField.setText(warranty.getName());
             durationField.setText(String.valueOf(warranty.getDuration()));

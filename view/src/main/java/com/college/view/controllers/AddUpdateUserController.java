@@ -9,10 +9,7 @@ import com.college.view.core.ControllerManager;
 import com.college.view.core.SceneRouterService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,7 +18,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class AddUpdateUserController {
-
+    @FXML private Label titleLabel;
     @FXML private TextField loginTextField;
     @FXML private TextField passwordTextField;
     @FXML private TextField nameTextField;
@@ -39,6 +36,8 @@ public class AddUpdateUserController {
     public void initialize() {
         userController = ControllerManager.getUserController();
         if (AdminPanelContext.getUserID() != -1) {
+            titleLabel.setText("Update User");
+
             User user = userController.getUser(AdminPanelContext.getUserID());
             loginTextField.setText(user.getLogin());
             passwordTextField.setText(user.getPassword());

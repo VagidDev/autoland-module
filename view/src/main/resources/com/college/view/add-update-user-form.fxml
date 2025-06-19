@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AddUpdateUserController">
    <children>
-      <VBox layoutX="191.0" layoutY="131.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <VBox layoutX="191.0" layoutY="131.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
          <children>
             <VBox prefHeight="70.0" prefWidth="600.0">
                <children>
@@ -165,10 +165,13 @@
             <Insets left="70.0" right="70.0" top="10.0" />
          </padding>
       </VBox>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="5.0" text="Add User" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="5.0" text="Add User" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
       </Label>
    </children>
 </AnchorPane>

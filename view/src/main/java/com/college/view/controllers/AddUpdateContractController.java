@@ -10,10 +10,7 @@ import com.college.view.core.ControllerManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -21,6 +18,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class AddUpdateContractController {
+    @FXML private Label titleLabel;
     @FXML private ComboBox<User> userComboBox;
     @FXML private ComboBox<Dealer> dealerComboBox;
     @FXML private ComboBox<Automobile> automobileComboBox;
@@ -46,6 +44,8 @@ public class AddUpdateContractController {
         contractController = ControllerManager.getContractController();
 
         if (AdminPanelContext.getContractID() != -1) {
+            titleLabel.setText("Update Contract");
+
             Contract contract = contractController.getContract(AdminPanelContext.getContractID());
             userComboBox.getSelectionModel().select(contract.getUser());
             dealerComboBox.getSelectionModel().select(contract.getDealer());

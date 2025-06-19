@@ -11,15 +11,12 @@ import com.college.view.core.ControllerManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public class AddUpdateAutomobileController {
-
+    @FXML private Label titleLabel;
     @FXML private TextField markField;
     @FXML private TextField modelField;
     @FXML private ComboBox<BodyType> bodyTypeComboBox;
@@ -36,8 +33,9 @@ public class AddUpdateAutomobileController {
         automobileController = ControllerManager.getAutomobileController();
 
         if (AdminPanelContext.getAutomobileID() != -1) {
-            Automobile automobile = automobileController.getAutomobileById(AdminPanelContext.getAutomobileID());
+            titleLabel.setText("Update Automobile");
 
+            Automobile automobile = automobileController.getAutomobileById(AdminPanelContext.getAutomobileID());
             markField.setText(automobile.getMark());
             modelField.setText(automobile.getModel());
             bodyTypeComboBox.setValue(automobile.getBodyType());

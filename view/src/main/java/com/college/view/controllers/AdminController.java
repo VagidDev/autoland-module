@@ -75,6 +75,10 @@ public class AdminController {
         }
     }
 
+    public void exitAction(ActionEvent actionEvent) {
+        SceneRouterService.getSceneRouter().switchToPreviousScene();
+    }
+
     private void loadUsers(List<User> users) {
         this.userTableView.getColumns().clear();
 

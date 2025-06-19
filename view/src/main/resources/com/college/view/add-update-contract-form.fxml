@@ -65,8 +65,8 @@
          </children>
          <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
       </VBox>
-      <Label layoutX="200.0" layoutY="10.0" text="Add Contract">
-         <font><Font size="30.0" /></font>
+      <Label fx:id="titleLabel" layoutX="200.0" layoutY="10.0" text="Add Contract">
+         <font><Font name="System Bold" size="30.0" /></font>
       </Label>
    </children>
 </AnchorPane>

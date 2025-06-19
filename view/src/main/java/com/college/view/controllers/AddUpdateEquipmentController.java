@@ -12,10 +12,7 @@ import com.college.view.core.SceneRouterService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,7 +23,7 @@ import javafx.util.StringConverter;
 import java.io.File;
 
 public class AddUpdateEquipmentController {
-
+    @FXML private Label titleLabel;
     @FXML private ImageView carImageView;
     @FXML private ComboBox<Automobile> automobileComboBox;
     @FXML private ComboBox<EngineType> engineTypeComboBox;
@@ -56,6 +53,8 @@ public class AddUpdateEquipmentController {
 
         equipmentController = ControllerManager.getEquipmentController();
         if (AdminPanelContext.getEquipmentID() != null) {
+            titleLabel.setText("Update Equipment");
+
             Equipment equipment =  equipmentController.getEquipment(AdminPanelContext.getEquipmentID());
             nameTextField.setText(equipment.getName());
             priceTextField.setText(String.valueOf(equipment.getPrice()));
