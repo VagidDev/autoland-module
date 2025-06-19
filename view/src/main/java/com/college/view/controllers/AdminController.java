@@ -273,6 +273,7 @@ public class AdminController {
     public void addUserAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-user-form.fxml", "Add User");
+            loadUsers(userController.getUsers());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -283,6 +284,7 @@ public class AdminController {
             if (userTableView.getSelectionModel().getSelectedItem() != null) {
                 AdminPanelContext.setUserID(userTableView.getSelectionModel().getSelectedItem().getId());
                 SceneRouterService.getSceneRouter().showDialogForm("add-update-user-form.fxml", "Update User");
+                loadUsers(userController.getUsers());
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select user for editing", Alert.AlertType.WARNING);
             }
@@ -299,6 +301,7 @@ public class AdminController {
                 try {
                     userController.deleteUser(selectedUser);
                     AlertHelper.showSimpleAlertDialog("Success", "User deleted!", Alert.AlertType.INFORMATION);
+                    loadUsers(userController.getUsers());
                 } catch (CascadeDependencyException e) {
                     AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this user, he is used in contracts!", Alert.AlertType.ERROR);
                 }
@@ -311,6 +314,7 @@ public class AdminController {
     public void addDealerAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-dealer-form.fxml", "Add Dealer");
+            loadDealers(dealerController.getAllDealers());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -321,6 +325,7 @@ public class AdminController {
             if (dealerTableView.getSelectionModel().getSelectedItem() != null) {
                 AdminPanelContext.setDealerID(dealerTableView.getSelectionModel().getSelectedItem().getId());
                 SceneRouterService.getSceneRouter().showDialogForm("add-update-dealer-form.fxml", "Update Dealer");
+                loadDealers(dealerController.getAllDealers());
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select dealer for editing", Alert.AlertType.WARNING);
             }
@@ -337,6 +342,7 @@ public class AdminController {
                 try {
                     dealerController.deleteDealer(selectedDealer);
                     AlertHelper.showSimpleAlertDialog("Success", "Dealer deleted!", Alert.AlertType.INFORMATION);
+                    loadDealers(dealerController.getAllDealers());
                 } catch (CascadeDependencyException e) {
                     AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this dealer, it is used in contracts!", Alert.AlertType.ERROR);
                 }
@@ -349,6 +355,7 @@ public class AdminController {
     public void addWarrantyAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-warranty-form.fxml", "Add Warranty");
+            loadWarranties(warrantyController.getAllWarranty());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -359,6 +366,7 @@ public class AdminController {
             if (warrantyTableView.getSelectionModel().getSelectedItem() != null) {
                 AdminPanelContext.setWarrantyID(warrantyTableView.getSelectionModel().getSelectedItem().getId());
                 SceneRouterService.getSceneRouter().showDialogForm("add-update-warranty-form.fxml", "Update Warranty");
+                loadWarranties(warrantyController.getAllWarranty());
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select warranty for editing", Alert.AlertType.WARNING);
             }
@@ -375,6 +383,7 @@ public class AdminController {
                 try {
                     warrantyController.deleteWarranty(selectedWarranty);
                     AlertHelper.showSimpleAlertDialog("Success", "Warranty deleted!", Alert.AlertType.INFORMATION);
+                    loadWarranties(warrantyController.getAllWarranty());
                 } catch (CascadeDependencyException e) {
                     AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this warranty, it is used in contracts!", Alert.AlertType.ERROR);
                 }
@@ -387,6 +396,7 @@ public class AdminController {
     public void addAutomobileAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-automobile-form.fxml", "Add Automobile");
+            loadAutomobiles(automobileController.getAllAutomobiles());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -397,6 +407,7 @@ public class AdminController {
             if (automobileTableView.getSelectionModel().getSelectedItem() != null) {
                 AdminPanelContext.setAutomobileID(automobileTableView.getSelectionModel().getSelectedItem().getId());
                 SceneRouterService.getSceneRouter().showDialogForm("add-update-automobile-form.fxml", "Update Automobile");
+                loadAutomobiles(automobileController.getAllAutomobiles());
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select automobile for editing", Alert.AlertType.WARNING);
             }
@@ -414,6 +425,7 @@ public class AdminController {
                 try {
                     automobileController.deleteAutomobile(selectedAutomobile);
                     AlertHelper.showSimpleAlertDialog("Success", "Automobile deleted!", Alert.AlertType.INFORMATION);
+                    loadAutomobiles(automobileController.getAllAutomobiles());
                 } catch (CascadeDependencyException e) {
                     AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this automobile, it is used in contracts!", Alert.AlertType.ERROR);
                 }
@@ -426,6 +438,7 @@ public class AdminController {
     public void addEquipmentAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-equipment-form.fxml", "Add Equipment");
+            loadEquipments(equipmentController.getAllEquipments());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -436,6 +449,7 @@ public class AdminController {
             if (equipmentTableView.getSelectionModel().getSelectedItem() != null) {
                 AdminPanelContext.setEquipmentID(equipmentTableView.getSelectionModel().getSelectedItem().getId());
                 SceneRouterService.getSceneRouter().showDialogForm("add-update-equipment-form.fxml", "Update Equipment");
+                loadEquipments(equipmentController.getAllEquipments());
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select equipment for editing", Alert.AlertType.WARNING);
             }
@@ -453,6 +467,7 @@ public class AdminController {
                 try {
                     equipmentController.deleteEquipment(selectedEquipment);
                     AlertHelper.showSimpleAlertDialog("Success", "Equipment deleted!", Alert.AlertType.INFORMATION);
+                    loadEquipments(equipmentController.getAllEquipments());
                 } catch (CascadeDependencyException e) {
                     AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this equipment, it is used in contracts!", Alert.AlertType.ERROR);
                 }
@@ -465,6 +480,7 @@ public class AdminController {
     public void addContractAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-contract-form.fxml", "Add Contract");
+            loadContracts(contractController.getAllContracts());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -475,6 +491,7 @@ public class AdminController {
             if (contractTableView.getSelectionModel().getSelectedItem() != null) {
                 AdminPanelContext.setContractID(contractTableView.getSelectionModel().getSelectedItem().getId());
                 SceneRouterService.getSceneRouter().showDialogForm("add-update-contract-form.fxml", "Update Contract");
+                loadContracts(contractController.getAllContracts());
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select contract for editing", Alert.AlertType.WARNING);
             }
@@ -492,6 +509,7 @@ public class AdminController {
                 try {
                     contractController.deleteContract(selectedContract);
                     AlertHelper.showSimpleAlertDialog("Success", "Contract deleted!", Alert.AlertType.INFORMATION);
+                    loadContracts(contractController.getAllContracts());
                     //should not be thrown
                 } catch (CascadeDependencyException e) {
                     AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this contract!", Alert.AlertType.ERROR);
