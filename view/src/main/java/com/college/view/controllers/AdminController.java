@@ -294,7 +294,7 @@ public class AdminController {
     public void deleteUserAction(ActionEvent actionEvent) {
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
-            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want no delete user with login '" + selectedUser.getLogin() +"'?");
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want to delete user with login '" + selectedUser.getLogin() +"'?");
             if (confirmDeleting) {
                 try {
                     userController.deleteUser(selectedUser);
@@ -332,7 +332,7 @@ public class AdminController {
     public void deleteDealerAction(ActionEvent actionEvent) {
         Dealer selectedDealer = dealerTableView.getSelectionModel().getSelectedItem();
         if (selectedDealer != null) {
-            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want no delete dealer with name '" + selectedDealer.getName() +"'?");
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want to delete dealer with name '" + selectedDealer.getName() +"'?");
             if (confirmDeleting) {
                 try {
                     dealerController.deleteDealer(selectedDealer);
@@ -358,7 +358,7 @@ public class AdminController {
         try {
             if (warrantyTableView.getSelectionModel().getSelectedItem() != null) {
                 AdminPanelContext.setWarrantyID(warrantyTableView.getSelectionModel().getSelectedItem().getId());
-                SceneRouterService.getSceneRouter().showDialogForm("add-update-warranty-form.fxml", "Add Warranty");
+                SceneRouterService.getSceneRouter().showDialogForm("add-update-warranty-form.fxml", "Update Warranty");
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select warranty for editing", Alert.AlertType.WARNING);
             }
@@ -370,7 +370,7 @@ public class AdminController {
     public void deleteWarrantyAction(ActionEvent actionEvent) {
         Warranty selectedWarranty = warrantyTableView.getSelectionModel().getSelectedItem();
         if (selectedWarranty != null) {
-            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want no delete warranty with name '" + selectedWarranty.getName() +"'?");
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want to delete warranty with name '" + selectedWarranty.getName() +"'?");
             if (confirmDeleting) {
                 try {
                     warrantyController.deleteWarranty(selectedWarranty);
@@ -389,6 +389,37 @@ public class AdminController {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-automobile-form.fxml", "Add Automobile");
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void updateAutomobileAction(ActionEvent actionEvent) {
+        try {
+            if (automobileTableView.getSelectionModel().getSelectedItem() != null) {
+                AdminPanelContext.setAutomobileID(automobileTableView.getSelectionModel().getSelectedItem().getId());
+                SceneRouterService.getSceneRouter().showDialogForm("add-update-automobile-form.fxml", "Update Automobile");
+            } else {
+                AlertHelper.showSimpleAlertDialog("Warning", "Please select automobile for editing", Alert.AlertType.WARNING);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteAutomobileAction(ActionEvent actionEvent) {
+        Automobile selectedAutomobile = automobileTableView.getSelectionModel().getSelectedItem();
+        if (selectedAutomobile != null) {
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want to delete automobile with name '" + selectedAutomobile.getMark()
+                    + " " + selectedAutomobile.getModel() + "'?");
+            if (confirmDeleting) {
+                try {
+                    automobileController.deleteAutomobile(selectedAutomobile);
+                    AlertHelper.showSimpleAlertDialog("Success", "Automobile deleted!", Alert.AlertType.INFORMATION);
+                } catch (CascadeDependencyException e) {
+                    AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this automobile, it is used in contracts!", Alert.AlertType.ERROR);
+                }
+            }
+        } else {
+            AlertHelper.showSimpleAlertDialog("Warning", "Please select automobile for deleting", Alert.AlertType.WARNING);
         }
     }
 
