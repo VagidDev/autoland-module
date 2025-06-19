@@ -3,6 +3,7 @@ package com.college.view.core;
 public class AdminPanelContext {
     private static int userID = -1;
     private static int dealerID = -1;
+    private static int warrantyID = -1;
 
     public static int getUserID() {
         return userID;
@@ -18,5 +19,13 @@ public class AdminPanelContext {
 
     public static void setDealerID(int dealerID) {
         AdminPanelContext.dealerID = dealerID;
+    }
+
+    public static int getWarrantyID() {
+        return warrantyID;
+    }
+
+    public static void setWarrantyID(int warrantyID) {
+        AdminPanelContext.warrantyID = warrantyID;
     }
 }

@@ -354,6 +354,36 @@ public class AdminController {
         }
     }
 
+    public void updateWarrantyAction(ActionEvent actionEvent) {
+        try {
+            if (warrantyTableView.getSelectionModel().getSelectedItem() != null) {
+                AdminPanelContext.setWarrantyID(warrantyTableView.getSelectionModel().getSelectedItem().getId());
+                SceneRouterService.getSceneRouter().showDialogForm("add-update-warranty-form.fxml", "Add Warranty");
+            } else {
+                AlertHelper.showSimpleAlertDialog("Warning", "Please select warranty for editing", Alert.AlertType.WARNING);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteWarrantyAction(ActionEvent actionEvent) {
+        Warranty selectedWarranty = warrantyTableView.getSelectionModel().getSelectedItem();
+        if (selectedWarranty != null) {
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want no delete warranty with name '" + selectedWarranty.getName() +"'?");
+            if (confirmDeleting) {
+                try {
+                    warrantyController.deleteWarranty(selectedWarranty);
+                    AlertHelper.showSimpleAlertDialog("Success", "Warranty deleted!", Alert.AlertType.INFORMATION);
+                } catch (CascadeDependencyException e) {
+                    AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this warranty, it is used in contracts!", Alert.AlertType.ERROR);
+                }
+            }
+        } else {
+            AlertHelper.showSimpleAlertDialog("Warning", "Please select warranty for deleting", Alert.AlertType.WARNING);
+        }
+    }
+
     public void addAutomobileAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-automobile-form.fxml", "Add Automobile");
