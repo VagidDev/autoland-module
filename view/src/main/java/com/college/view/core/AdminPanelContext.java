@@ -1,10 +1,13 @@
 package com.college.view.core;
 
+import com.college.model.entity.keys.EquipmentId;
+
 public class AdminPanelContext {
     private static int userID = -1;
     private static int dealerID = -1;
     private static int warrantyID = -1;
     private static int automobileID = -1;
+    private static EquipmentId equipmentID = null;
 
     public static int getUserID() {
         return userID;
@@ -36,5 +39,13 @@ public class AdminPanelContext {
 
     public static void setAutomobileID(int automobileID) {
         AdminPanelContext.automobileID = automobileID;
+    }
+
+    public static EquipmentId getEquipmentID() {
+        return equipmentID;
+    }
+
+    public static void setEquipmentID(EquipmentId equipmentID) {
+        AdminPanelContext.equipmentID = equipmentID;
     }
 }

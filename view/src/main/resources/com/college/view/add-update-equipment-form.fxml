@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.view.controllers.AddUpdateEquipmentController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="189.0" layoutY="15.0" text="Add Equipment" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -251,12 +250,12 @@
       </GridPane>
       <HBox alignment="CENTER" layoutX="81.0" layoutY="700.0" spacing="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button fx:id="saveButton" prefHeight="51.0" prefWidth="130.0" text="Save">
+            <Button fx:id="saveButton" onAction="#onSave" prefHeight="51.0" prefWidth="130.0" text="Save">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" prefHeight="51.0" prefWidth="130.0" text="Cancel">
+            <Button fx:id="cancelButton" onAction="#onCancel" prefHeight="51.0" prefWidth="130.0" text="Cancel">
                <font>
                   <Font size="24.0" />
                </font>

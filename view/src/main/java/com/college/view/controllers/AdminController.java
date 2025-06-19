@@ -431,6 +431,37 @@ public class AdminController {
         }
     }
 
+    public void updateEquipmentAction(ActionEvent actionEvent) {
+        try {
+            if (equipmentTableView.getSelectionModel().getSelectedItem() != null) {
+                AdminPanelContext.setEquipmentID(equipmentTableView.getSelectionModel().getSelectedItem().getId());
+                SceneRouterService.getSceneRouter().showDialogForm("add-update-equipment-form.fxml", "Update Equipment");
+            } else {
+                AlertHelper.showSimpleAlertDialog("Warning", "Please select equipment for editing", Alert.AlertType.WARNING);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteEquipmentAction(ActionEvent actionEvent) {
+        Equipment selectedEquipment = equipmentTableView.getSelectionModel().getSelectedItem();
+        if (selectedEquipment != null) {
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want to delete equipment with name '" + selectedEquipment.getName()
+                    + " for " + selectedEquipment.getAutomobile().getMark() + " " + selectedEquipment.getAutomobile().getModel() + "'?");
+            if (confirmDeleting) {
+                try {
+                    equipmentController.deleteEquipment(selectedEquipment);
+                    AlertHelper.showSimpleAlertDialog("Success", "Equipment deleted!", Alert.AlertType.INFORMATION);
+                } catch (CascadeDependencyException e) {
+                    AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this equipment, it is used in contracts!", Alert.AlertType.ERROR);
+                }
+            }
+        } else {
+            AlertHelper.showSimpleAlertDialog("Warning", "Please select equipment for deleting", Alert.AlertType.WARNING);
+        }
+    }
+
     public void addContractAction(ActionEvent actionEvent) {
         try {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-contract-form.fxml", "Add Contract");

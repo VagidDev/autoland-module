@@ -1,12 +1,18 @@
 package com.college.view.controllers;
 
 import com.college.controller.AutomobileController;
+import com.college.controller.EquipmentController;
 import com.college.controller.SimpleTableController;
 import com.college.model.entity.*;
+import com.college.model.entity.keys.EquipmentId;
+import com.college.view.core.AdminPanelContext;
+import com.college.view.core.AlertHelper;
 import com.college.view.core.ControllerManager;
 import com.college.view.core.SceneRouterService;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -14,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.File;
@@ -40,11 +47,32 @@ public class AddUpdateEquipmentController {
     @FXML private Button cancelButton;
 
     private AutomobileController automobileController;
+    private EquipmentController equipmentController;
     private SimpleTableController simpleTableController;
 
     public void initialize() {
         automobileController = ControllerManager.getAutomobileController();
         simpleTableController = ControllerManager.getSimpleTableController();
+
+        equipmentController = ControllerManager.getEquipmentController();
+        if (AdminPanelContext.getEquipmentID() != null) {
+            Equipment equipment =  equipmentController.getEquipment(AdminPanelContext.getEquipmentID());
+            nameTextField.setText(equipment.getName());
+            priceTextField.setText(String.valueOf(equipment.getPrice()));
+            engineNameTextField.setText(equipment.getEngineName());
+            engineVolumeTextField.setText(String.valueOf(equipment.getEngineVolume()));
+            horsepowerTextField.setText(String.valueOf(equipment.getHorsepower()));
+            speedTextField.setText(String.valueOf(equipment.getSpeedCount()));
+            interiorTextField.setText(equipment.getInterior());
+            bodyKitTextField.setText(equipment.getBodyKit());
+            weightTextField.setText(String.valueOf(equipment.getWeight()));
+            automobileComboBox.getSelectionModel().select(equipment.getAutomobile());
+            engineTypeComboBox.getSelectionModel().select(equipment.getEngineType());
+            suspensionTypeComboBox.getSelectionModel().select(equipment.getSuspensionType());
+            driveTypeComboBox.getSelectionModel().select(equipment.getDriveType());
+            gearboxTypeComboBox.getSelectionModel().select(equipment.getGearboxType());
+            fuelTypeComboBox.getSelectionModel().select(equipment.getFuelType());
+        }
 
         loadAutomobileComboBox();
         loadEngineTypeComboBox();
@@ -187,6 +215,47 @@ public class AddUpdateEquipmentController {
             carImageView.setImage(new Image(selectedFile.toURI().toString()));
             System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
         }
+    }
+
+    public void onSave(ActionEvent actionEvent) {
+        Equipment equipment = null;
+        if (AdminPanelContext.getEquipmentID() == null) {
+            equipment = new  Equipment();
+        } else {
+            equipment = equipmentController.getEquipment(AdminPanelContext.getEquipmentID());
+        }
+        equipment.setName(nameTextField.getText());
+        equipment.setPrice(Double.parseDouble(priceTextField.getText()));
+        equipment.setEngineName(engineNameTextField.getText());
+        equipment.setEngineVolume(Float.parseFloat(engineVolumeTextField.getText()));
+        equipment.setHorsepower(Integer.parseInt(horsepowerTextField.getText()));
+        equipment.setSpeedCount(Integer.parseInt(speedTextField.getText()));
+        equipment.setInterior(interiorTextField.getText());
+        equipment.setBodyKit(bodyKitTextField.getText());
+        equipment.setWeight(Integer.parseInt(weightTextField.getText()));
+        equipment.setAutomobile(automobileComboBox.getSelectionModel().getSelectedItem());
+        equipment.setSuspensionType(suspensionTypeComboBox.getSelectionModel().getSelectedItem());
+        equipment.setFuelType(fuelTypeComboBox.getSelectionModel().getSelectedItem());
+        equipment.setGearboxType(gearboxTypeComboBox.getSelectionModel().getSelectedItem());
+        equipment.setEngineType(engineTypeComboBox.getSelectionModel().getSelectedItem());
+        equipment.setDriveType(driveTypeComboBox.getSelectionModel().getSelectedItem());
+
+        if (AdminPanelContext.getEquipmentID() == null) {
+            equipmentController.createEquipment(equipment);
+            AlertHelper.showSimpleAlertDialog("Success", "New equipment for " + equipment.getAutomobile().getMark()
+                    + " " + equipment.getAutomobile().getModel() + " was created!", Alert.AlertType.INFORMATION);
+        } else {
+            equipmentController.editEquipment(equipment);
+            AlertHelper.showSimpleAlertDialog("Success", "Equipment for " + equipment.getAutomobile().getMark()
+                    + " " + equipment.getAutomobile().getModel() + " was updated!", Alert.AlertType.INFORMATION);
+        }
+        AdminPanelContext.setEquipmentID(null);
+        ((Stage) saveButton.getScene().getWindow()).close();
+    }
+
+    public void onCancel(ActionEvent actionEvent) {
+        AdminPanelContext.setEquipmentID(null);
+        ((Stage) cancelButton.getScene().getWindow()).close();
     }
 
 }
