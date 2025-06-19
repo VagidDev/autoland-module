@@ -1,5 +1,6 @@
 package com.college.controller;
 
+import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.interfaces.ContractDAO;
 import com.college.model.entity.Contract;
 import com.college.model.entity.User;
@@ -32,4 +33,24 @@ public class ContractController {
         Contract savedContract = contractDAO.save(contract);
         return savedContract != null;
     }
+
+    public boolean editContract(Contract contract) {
+        if (contract == null) {
+            return false;
+        }
+
+        contractDAO.update(contract);
+        return true;
+    }
+
+    public void deleteContract(Contract contract) throws CascadeDependencyException {
+        if (contract == null) {
+            return;
+        }
+
+        if (contractDAO.getById(contract.getId()) != null) {
+            contractDAO.delete(contract);
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.college.controller;
 
+import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.interfaces.EquipmentDAO;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.Equipment;
@@ -39,4 +40,30 @@ public class EquipmentController {
         return equipmentDAO.searchByModelAndMark(keywordLower);
     }
 
+    public Equipment createEquipment(Equipment equipment) {
+        if (equipment == null) {
+            return null;
+        }
+
+        return equipmentDAO.save(equipment);
+    }
+
+    public boolean editEquipment(Equipment equipment) {
+        if (equipment == null) {
+            return false;
+        }
+
+        equipmentDAO.update(equipment);
+        return true;
+    }
+
+    public void deleteEquipment(Equipment equipment) throws CascadeDependencyException {
+        if (equipment == null) {
+            return;
+        }
+
+        if (equipmentDAO.getById(equipment.getId()) != null) {
+            equipmentDAO.delete(equipment);
+        }
+    }
 }

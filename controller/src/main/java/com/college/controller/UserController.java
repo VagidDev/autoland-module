@@ -1,6 +1,7 @@
 package com.college.controller;
 
 import com.college.controller.validators.user.*;
+import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.entity.User;
 import com.college.model.database.interfaces.UserDAO;
 
@@ -93,6 +94,16 @@ public class UserController {
         }
         userDAO.update(user);
         return true;
+    }
+
+    public void deleteUser(User user) throws CascadeDependencyException {
+        if (user == null) {
+            return;
+        }
+
+        if (userDAO.getById(user.getId()) != null) {
+            userDAO.delete(user);
+        }
     }
 
 }
