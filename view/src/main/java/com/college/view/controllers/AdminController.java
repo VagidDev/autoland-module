@@ -19,7 +19,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.util.Date;
 import java.util.List;
 
 public class AdminController {
@@ -282,7 +281,7 @@ public class AdminController {
     public void updateUserAction(ActionEvent actionEvent) {
         try {
             if (userTableView.getSelectionModel().getSelectedItem() != null) {
-                AdminPanelContext.setID(userTableView.getSelectionModel().getSelectedItem().getId());
+                AdminPanelContext.setUserID(userTableView.getSelectionModel().getSelectedItem().getId());
                 SceneRouterService.getSceneRouter().showDialogForm("add-update-user-form.fxml", "Update User");
             } else {
                 AlertHelper.showSimpleAlertDialog("Warning", "Please select user for editing", Alert.AlertType.WARNING);
@@ -314,6 +313,36 @@ public class AdminController {
             SceneRouterService.getSceneRouter().showDialogForm("add-update-dealer-form.fxml", "Add Dealer");
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void updateDealerAction(ActionEvent actionEvent) {
+        try {
+            if (dealerTableView.getSelectionModel().getSelectedItem() != null) {
+                AdminPanelContext.setDealerID(dealerTableView.getSelectionModel().getSelectedItem().getId());
+                SceneRouterService.getSceneRouter().showDialogForm("add-update-dealer-form.fxml", "Update Dealer");
+            } else {
+                AlertHelper.showSimpleAlertDialog("Warning", "Please select dealer for editing", Alert.AlertType.WARNING);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteDealerAction(ActionEvent actionEvent) {
+        Dealer selectedDealer = dealerTableView.getSelectionModel().getSelectedItem();
+        if (selectedDealer != null) {
+            boolean confirmDeleting = AlertHelper.showConfirmationDialog("Do you really want no delete dealer with name '" + selectedDealer.getName() +"'?");
+            if (confirmDeleting) {
+                try {
+                    dealerController.deleteDealer(selectedDealer);
+                    AlertHelper.showSimpleAlertDialog("Success", "Dealer deleted!", Alert.AlertType.INFORMATION);
+                } catch (CascadeDependencyException e) {
+                    AlertHelper.showSimpleAlertDialog("Error", "You cannot delete this dealer, it is used in contracts!", Alert.AlertType.ERROR);
+                }
+            }
+        } else {
+            AlertHelper.showSimpleAlertDialog("Warning", "Please select dealer for deleting", Alert.AlertType.WARNING);
         }
     }
 

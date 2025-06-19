@@ -69,8 +69,8 @@
                               <VBox alignment="CENTER" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                  <children>
                                     <Button alignment="CENTER" mnemonicParsing="false" onAction="#addDealerAction" text="Add Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" text="Update Item" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" text="Delete Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateDealerAction" text="Update Item" />
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteDealerAction" text="Delete Item" />
                                  </children>
                               </VBox>
                            </children>

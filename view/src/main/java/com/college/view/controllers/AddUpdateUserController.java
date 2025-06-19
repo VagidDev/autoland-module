@@ -38,8 +38,8 @@ public class AddUpdateUserController {
 
     public void initialize() {
         userController = ControllerManager.getUserController();
-        if (AdminPanelContext.getID() != -1) {
-            User user = userController.getUser(AdminPanelContext.getID());
+        if (AdminPanelContext.getUserID() != -1) {
+            User user = userController.getUser(AdminPanelContext.getUserID());
             loginTextField.setText(user.getLogin());
             passwordTextField.setText(user.getPassword());
             nameTextField.setText(user.getName());
@@ -56,10 +56,10 @@ public class AddUpdateUserController {
 
     public void onSave(ActionEvent actionEvent) {
         User user = null;
-        if (AdminPanelContext.getID() == -1) {
+        if (AdminPanelContext.getUserID() == -1) {
             user = new User();
         } else {
-            user = userController.getUser(AdminPanelContext.getID());
+            user = userController.getUser(AdminPanelContext.getUserID());
         }
 
         Date birthday = birthdayDatePicker.getValue() != null ? Date.from(birthdayDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
@@ -77,14 +77,14 @@ public class AddUpdateUserController {
         UserValidationResponse response = userController.validateUser(user);
 
         if (response == UserValidationResponse.VALID) {
-            if (AdminPanelContext.getID() == -1) {
+            if (AdminPanelContext.getUserID() == -1) {
                 userController.createUser(user);
                 AlertHelper.showSimpleAlertDialog("Success", "New user was created!", Alert.AlertType.INFORMATION);
             } else {
                 userController.editUser(user);
                 AlertHelper.showSimpleAlertDialog("Success", "New user was updated!", Alert.AlertType.INFORMATION);
             }
-            AdminPanelContext.setID(-1);
+            AdminPanelContext.setUserID(-1);
             ((Stage) saveButton.getScene().getWindow()).close();
         } else {
             AlertHelper.invalidUserDataAlert(response);
@@ -92,7 +92,7 @@ public class AddUpdateUserController {
     }
 
     public void onCancel(ActionEvent actionEvent) {
-        AdminPanelContext.setID(-1);
+        AdminPanelContext.setUserID(-1);
         ((Stage) cancelButton.getScene().getWindow()).close();
     }
 
