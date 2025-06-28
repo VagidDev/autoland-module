@@ -85,6 +85,7 @@ public class EquipmentController {
     }
 
     private String savEquipmentImage(Equipment equipment) {
+        //change ID to another field
         String outputPath = "view/src/main/resources/automobiles/"
                 + equipment.getAutomobile().getMark() + equipment.getAutomobile().getModel() + equipment.getId().getEquipmentId() + ".jpg";
         File outputFile = new File(outputPath);
