@@ -1,5 +1,7 @@
 package com.college.controller;
 
+import com.college.controller.core.AppConfig;
+import com.college.controller.core.ImageSaver;
 import com.college.controller.validators.user.*;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.entity.User;
@@ -98,10 +100,7 @@ public class UserController {
             user.setRole("user");
         }
 
-        if (!user.getAvatar().isEmpty()) {
-            String newURL = saveUserAvatar(user, user.getAvatar());
-            user.setAvatar(newURL);
-        }
+        setUserImage(user);
 
         return userDAO.save(user);
     }
@@ -115,11 +114,8 @@ public class UserController {
             user.setRole("user");
         }
 
-        User oldUser = userDAO.getById(user.getId());
-        if (!user.getAvatar().isEmpty() && !oldUser.getAvatar().equals(user.getAvatar())) {
-            String newURL = saveUserAvatar(user, user.getAvatar());
-            user.setAvatar(newURL);
-        }
+        setUserImage(user);
+
         userDAO.update(user);
         return true;
     }
@@ -134,15 +130,20 @@ public class UserController {
         }
     }
 
-    public String saveUserAvatar(User user, String imagePath) {
-        String outputPath = "view/src/main/resources/avatars/" +  user.getLogin() + ".jpg";
-        File outputFile = new File(outputPath);
-        try {
-            Files.copy(Paths.get(new URI(imagePath)), outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            return outputFile.toURI().toString();
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+    private void setUserImage(User user) {
+        if (!user.getAvatar().isEmpty()) {
+            String originalImagePath = user.getAvatar();
+            int formatDotPosition = originalImagePath.lastIndexOf(".");
+            String format = originalImagePath.substring(formatDotPosition);
+            String newImageName = user.getLogin();
+            String newImagePath = AppConfig.get("photo.avatars");
+
+            String newURL = ImageSaver.copyImageToDirectory(originalImagePath, newImagePath, newImageName, format);
+            user.setAvatar(newURL);
         }
+
+
+
     }
 
 }

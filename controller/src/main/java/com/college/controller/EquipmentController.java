@@ -1,18 +1,13 @@
 package com.college.controller;
 
+import com.college.controller.core.AppConfig;
+import com.college.controller.core.ImageSaver;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.interfaces.EquipmentDAO;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.Equipment;
 import com.college.model.entity.keys.EquipmentId;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,10 +47,7 @@ public class EquipmentController {
             return null;
         }
 
-        if (!equipment.getImagePath().isEmpty()) {
-            String newPath = savEquipmentImage(equipment);
-            equipment.setImagePath(newPath);
-        }
+        setEquipmentImage(equipment);
 
         return equipmentDAO.save(equipment);
     }
@@ -64,12 +56,7 @@ public class EquipmentController {
         if (equipment == null) {
             return false;
         }
-
-        if (!equipment.getImagePath().isEmpty()) {
-            String newPath = savEquipmentImage(equipment);
-            equipment.setImagePath(newPath);
-        }
-
+        setEquipmentImage(equipment);
         equipmentDAO.update(equipment);
         return true;
     }
@@ -84,16 +71,16 @@ public class EquipmentController {
         }
     }
 
-    private String savEquipmentImage(Equipment equipment) {
-        //change ID to another field
-        String outputPath = "view/src/main/resources/automobiles/"
-                + equipment.getAutomobile().getMark() + equipment.getAutomobile().getModel() + equipment.getId().getEquipmentId() + ".jpg";
-        File outputFile = new File(outputPath);
-        try {
-            Files.copy(Paths.get(new URI(equipment.getImagePath())), outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            return outputFile.toURI().toString();
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+    private void setEquipmentImage(Equipment equipment) {
+        if (!equipment.getImagePath().isEmpty()) {
+            String originalImagePath = equipment.getImagePath();
+            int formatDotPosition = originalImagePath.lastIndexOf(".");
+            String format = originalImagePath.substring(formatDotPosition);
+            String newImageName = equipment.getAutomobile().getMark() + equipment.getAutomobile().getModel() + equipment.getEngineName();
+            String newImagePath = AppConfig.get("photo.automobiles");
+
+            String newPath = ImageSaver.copyImageToDirectory(originalImagePath, newImagePath, newImageName, format);
+            equipment.setImagePath(newPath);
         }
     }
 }
