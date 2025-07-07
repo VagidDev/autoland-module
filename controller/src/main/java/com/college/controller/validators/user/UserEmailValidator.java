@@ -1,17 +1,22 @@
 package com.college.controller.validators.user;
 
+import com.college.controller.validators.EmailValidator;
 import com.college.model.entity.User;
 
-public class UserEmailValidator implements UserValidator {
+public class UserEmailValidator extends EmailValidator<User, UserValidationResponse> implements UserValidator {
+
     @Override
-    public UserValidationResponse validate(User user) {
-        if (user.getEmail() == null)
-            return UserValidationResponse.INVALID_EMAIL;
+    protected String getStringToValidate(User user) {
+        return user.getEmail();
+    }
 
-        if (user.getEmail().isEmpty() || !user.getEmail().endsWith("@gmail.com")) {
-            return UserValidationResponse.INVALID_EMAIL;
-        }
-
+    @Override
+    protected UserValidationResponse getValidResponse() {
         return UserValidationResponse.VALID;
+    }
+
+    @Override
+    protected UserValidationResponse getInvalidResponse() {
+        return UserValidationResponse.INVALID_EMAIL;
     }
 }
