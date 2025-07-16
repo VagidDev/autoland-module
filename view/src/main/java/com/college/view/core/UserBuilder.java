@@ -26,7 +26,6 @@ public abstract class UserBuilder {
         UserBuilder.email = email;
         UserBuilder.telephone = telephone;
         UserBuilder.address = address;
-        UserBuilder.avatar = "/images/default.jpg";
     }
 
     public static void setCredentials(String login, String password) {

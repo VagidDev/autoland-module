@@ -131,6 +131,17 @@ public class UserController {
     }
 
     private void setUserImage(User user) {
+        if (user == null)
+            return;
+
+        if (user.getId() != 0 && (user.getAvatar() == null || user.getAvatar().isEmpty())) {
+            return;
+        }
+
+        if (user.getId() == 0 && (user.getAvatar() == null || user.getAvatar().isEmpty())) {
+            user.setAvatar("file:" + AppConfig.get("default.avatar"));
+        }
+
         if (!user.getAvatar().isEmpty()) {
             String originalImagePath = user.getAvatar();
             int formatDotPosition = originalImagePath.lastIndexOf(".");
