@@ -19,6 +19,7 @@ public abstract class AlertHelper {
             case INVALID_SURNAME -> "Empty surname! Please enter a valid surname";
             case INVALID_BIRTHDATE -> "Incorrect date! Please enter a valid date";
             case INVALID_PHONE -> "Incorrect phone! Please enter a valid phone(+373________)";
+            case LOGIN_EXISTS ->  "This login is already taken, please choose another one!";
             default -> "Incorrect registration credentials!";
         };
 
