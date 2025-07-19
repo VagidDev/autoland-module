@@ -1,5 +1,6 @@
 package com.college.view.core;
 
+import com.college.controller.validators.dealer.DealerValidationResponse;
 import com.college.controller.validators.user.UserValidationResponse;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -25,6 +26,25 @@ public abstract class AlertHelper {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Invalid User Data");
+        alert.setHeaderText(null);
+        alert.setContentText(responseText);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+
+        alert.showAndWait();
+    }
+
+    public static void invalidDealerDataAlert(DealerValidationResponse response) {
+        String responseText = switch (response) {
+            case INVALID_ADDRESS -> "Empty address! Dealer should has address";
+            case INVALID_NAME -> "Empty name! Please enter dealer name";
+            case INVALID_PHONE, INVALID_FAX_PHONE -> "Incorrect phone! Please enter a valid phone(+373________)";
+            default -> "Incorrect Dealer Data!";
+        };
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid Dealer Data");
         alert.setHeaderText(null);
         alert.setContentText(responseText);
 

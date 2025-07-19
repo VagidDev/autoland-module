@@ -1,5 +1,6 @@
 package com.college.view.controllers;
 
+import com.college.controller.validators.dealer.DealerValidationResponse;
 import com.college.controller.validators.user.UserValidationResponse;
 import com.college.model.entity.Dealer;
 import com.college.model.entity.User;
@@ -54,6 +55,12 @@ public class AddUpdateDealerController {
         dealer.setAddress(addressField.getText());
         dealer.setTelephone(telephoneField.getText());
         dealer.setFax(faxField.getText());
+
+        DealerValidationResponse response = dealerController.validateDealer(dealer);
+        if (response != DealerValidationResponse.VALID) {
+            AlertHelper.invalidDealerDataAlert(response);
+            return;
+        }
 
 
         if (AdminPanelContext.getDealerID() == -1) {
