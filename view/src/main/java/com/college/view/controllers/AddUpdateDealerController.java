@@ -1,23 +1,19 @@
 package com.college.view.controllers;
 
 import com.college.controller.validators.dealer.DealerValidationResponse;
-import com.college.controller.validators.user.UserValidationResponse;
 import com.college.model.entity.Dealer;
-import com.college.model.entity.User;
 import com.college.view.core.AdminPanelContext;
 import com.college.view.core.AlertHelper;
 import com.college.view.core.ControllerManager;
 import com.college.controller.DealerController;
+import com.college.view.core.TextFilters;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import java.time.ZoneId;
-import java.util.Date;
+import java.util.function.UnaryOperator;
 
 public class AddUpdateDealerController {
     @FXML private Label titleLabel;
@@ -41,6 +37,12 @@ public class AddUpdateDealerController {
             telephoneField.setText(dealer.getTelephone());
             faxField.setText(dealer.getFax());
         }
+
+        TextFormatter<String> telephoneFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
+        TextFormatter<String> faxFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
+
+        telephoneField.setTextFormatter(telephoneFormatter);
+        faxField.setTextFormatter(faxFormatter);
     }
 
     public void onSave(ActionEvent actionEvent) {

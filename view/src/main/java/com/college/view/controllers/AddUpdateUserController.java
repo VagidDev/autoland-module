@@ -3,10 +3,7 @@ package com.college.view.controllers;
 import com.college.controller.UserController;
 import com.college.controller.validators.user.UserValidationResponse;
 import com.college.model.entity.User;
-import com.college.view.core.AdminPanelContext;
-import com.college.view.core.AlertHelper;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.SceneRouterService;
+import com.college.view.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -51,6 +48,9 @@ public class AddUpdateUserController {
             imageTextField.setText(user.getAvatar());
         }
 
+        TextFormatter<String> numberFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
+
+        phoneTextField.setTextFormatter(numberFormatter);
     }
 
     public void onSave(ActionEvent actionEvent) {

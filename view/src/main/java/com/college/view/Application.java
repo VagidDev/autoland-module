@@ -14,13 +14,9 @@ import java.io.IOException;
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        SceneRouterService.build(stage, 1600, 800);
         SceneRouterService.build(stage);
         SceneRouterService.getSceneRouter().createFirstScene("authorization-form.fxml", "Autoland", AnimationType.ZOOM);
-        StageService.registerStage(stage);
     }
-
-//    private static void loadApplication() {}
 
     public static void main(String[] args) {
         ControllerManager.loadAllControllers();

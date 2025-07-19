@@ -6,10 +6,7 @@ import com.college.model.entity.User;
 import com.college.view.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
@@ -55,6 +52,9 @@ public class AccountRegisterController {
             isEditForm = true;
         }
 
+        TextFormatter<String> numberFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
+
+        phoneField.setTextFormatter(numberFormatter);
     }
 
     private void setCustomDateConverter() {
