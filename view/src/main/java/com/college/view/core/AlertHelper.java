@@ -2,6 +2,7 @@ package com.college.view.core;
 
 import com.college.controller.validators.dealer.DealerValidationResponse;
 import com.college.controller.validators.user.UserValidationResponse;
+import com.college.controller.validators.warranty.WarrantyValidationResponse;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -45,6 +46,25 @@ public abstract class AlertHelper {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Invalid Dealer Data");
+        alert.setHeaderText(null);
+        alert.setContentText(responseText);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+
+        alert.showAndWait();
+    }
+
+    public static void invalidWarrantyDataAlert(WarrantyValidationResponse response) {
+        String responseText = switch (response) {
+            case INVALID_NAME -> "Empty name! Please enter warranty name";
+            case INVALID_DURATION -> "Incorrect duration! Please enter duration bigger then 0!";
+            case INVALID_PRICE -> "Incorrect price! Please enter price bigger then 0!";
+            default -> "Incorrect Warranty Data!";
+        };
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid Warranty Data");
         alert.setHeaderText(null);
         alert.setContentText(responseText);
 

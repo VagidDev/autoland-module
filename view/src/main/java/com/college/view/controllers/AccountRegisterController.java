@@ -52,7 +52,7 @@ public class AccountRegisterController {
             isEditForm = true;
         }
 
-        TextFormatter<String> numberFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
+        TextFormatter<String> numberFormatter = new TextFormatter<>(TextFilters.PHONE_NUMBER_FILTER);
 
         phoneField.setTextFormatter(numberFormatter);
     }

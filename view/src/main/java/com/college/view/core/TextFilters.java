@@ -13,11 +13,31 @@ public final class TextFilters {
         return null;
     };
 
-    public static final UnaryOperator<TextFormatter.Change> NUMBER_FILTER = change -> {
+    public static final UnaryOperator<TextFormatter.Change> PHONE_NUMBER_FILTER = change -> {
         String pattern = "^\\+\\d{0,11}$";
         String text = change.getControlNewText();
 
-        if (text.matches(pattern)) {
+        if (text.matches(pattern) || text.isEmpty()) {
+            return change;
+        }
+        return null;
+    };
+
+    public static final UnaryOperator<TextFormatter.Change> INTEGER_NUMBER_FILTER = change -> {
+        String pattern = "^\\d*$";
+        String text = change.getControlNewText();
+
+        if (text.matches(pattern) || text.isEmpty()) {
+            return change;
+        }
+        return null;
+    };
+
+    public static final UnaryOperator<TextFormatter.Change> DOUBLE_NUMBER_FILTER = change -> {
+        String pattern = "^\\d+(\\.\\d*)?$";
+        String text = change.getControlNewText();
+
+        if (text.matches(pattern) || text.isEmpty()) {
             return change;
         }
         return null;

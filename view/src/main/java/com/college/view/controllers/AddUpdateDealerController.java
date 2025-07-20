@@ -10,10 +10,7 @@ import com.college.view.core.TextFilters;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
-import java.util.function.UnaryOperator;
 
 public class AddUpdateDealerController {
     @FXML private Label titleLabel;
@@ -38,8 +35,8 @@ public class AddUpdateDealerController {
             faxField.setText(dealer.getFax());
         }
 
-        TextFormatter<String> telephoneFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
-        TextFormatter<String> faxFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
+        TextFormatter<String> telephoneFormatter = new TextFormatter<>(TextFilters.PHONE_NUMBER_FILTER);
+        TextFormatter<String> faxFormatter = new TextFormatter<>(TextFilters.PHONE_NUMBER_FILTER);
 
         telephoneField.setTextFormatter(telephoneFormatter);
         faxField.setTextFormatter(faxFormatter);

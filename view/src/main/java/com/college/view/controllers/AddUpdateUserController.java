@@ -48,7 +48,7 @@ public class AddUpdateUserController {
             imageTextField.setText(user.getAvatar());
         }
 
-        TextFormatter<String> numberFormatter = new TextFormatter<>(TextFilters.NUMBER_FILTER);
+        TextFormatter<String> numberFormatter = new TextFormatter<>(TextFilters.PHONE_NUMBER_FILTER);
 
         phoneTextField.setTextFormatter(numberFormatter);
     }

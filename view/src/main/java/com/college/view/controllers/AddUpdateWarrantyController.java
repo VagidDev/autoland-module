@@ -1,18 +1,18 @@
 package com.college.view.controllers;
 
 import com.college.controller.WarrantyController;
+import com.college.controller.validators.warranty.WarrantyValidationResponse;
 import com.college.model.entity.Dealer;
 import com.college.model.entity.Warranty;
 import com.college.view.core.AdminPanelContext;
 import com.college.view.core.AlertHelper;
 import com.college.view.core.ControllerManager;
+import com.college.view.core.TextFilters;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 public class AddUpdateWarrantyController {
     @FXML private Label titleLabel;
@@ -33,6 +33,12 @@ public class AddUpdateWarrantyController {
             durationField.setText(String.valueOf(warranty.getDuration()));
             priceField.setText(String.valueOf(warranty.getPrice()));
         }
+
+        TextFormatter<String> integerFormatter = new TextFormatter<>(TextFilters.INTEGER_NUMBER_FILTER);
+        TextFormatter<String> doubleFormatter = new TextFormatter<>(TextFilters.DOUBLE_NUMBER_FILTER);
+
+        durationField.setTextFormatter(integerFormatter);
+        priceField.setTextFormatter(doubleFormatter);
     }
 
     public void onSave(ActionEvent actionEvent) {
@@ -44,8 +50,14 @@ public class AddUpdateWarrantyController {
         }
 
         warranty.setName(nameField.getText());
-        warranty.setDuration(Integer.parseInt(durationField.getText()));
-        warranty.setPrice(Double.parseDouble(priceField.getText()));
+        if (durationField.getText().isEmpty()) warranty.setDuration(0); else warranty.setDuration(Integer.parseInt(durationField.getText()));
+        if (priceField.getText().isEmpty()) warranty.setPrice(0); else warranty.setPrice(Double.parseDouble(priceField.getText()));
+
+        WarrantyValidationResponse response = warrantyController.validateWarranty(warranty);
+        if (response != WarrantyValidationResponse.VALID) {
+            AlertHelper.invalidWarrantyDataAlert(response);
+            return;
+        }
 
         if (AdminPanelContext.getWarrantyID() == -1) {
             warrantyController.createWarranty(warranty);
