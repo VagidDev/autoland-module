@@ -1,5 +1,6 @@
 package com.college.view.core;
 
+import com.college.controller.validators.automobile.AutomobileValidationResponse;
 import com.college.controller.validators.dealer.DealerValidationResponse;
 import com.college.controller.validators.user.UserValidationResponse;
 import com.college.controller.validators.warranty.WarrantyValidationResponse;
@@ -65,6 +66,27 @@ public abstract class AlertHelper {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Invalid Warranty Data");
+        alert.setHeaderText(null);
+        alert.setContentText(responseText);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+
+        alert.showAndWait();
+    }
+
+    public static void invalidAutomobileDataAlert(AutomobileValidationResponse response) {
+        String responseText = switch (response) {
+            case INVALID_MARK -> "Empty mark! Please enter mark";
+            case INVALID_MODEL -> "Empty model! Please enter model";
+            case INVALID_BODY_TYPE -> "Empty body type! Please select body type";
+            case INVALID_PLACE_COUNT -> "Incorrect place count! Please enter place count bigger then 0";
+            case INVALID_PRODUCTION_YEAR -> "Incorrect production year! Please a year between current year and 1888";
+            default -> "Incorrect automobile credentials!";
+        };
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid Automobile Data");
         alert.setHeaderText(null);
         alert.setContentText(responseText);
 

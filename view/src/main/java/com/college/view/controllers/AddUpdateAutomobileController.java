@@ -2,12 +2,14 @@ package com.college.view.controllers;
 
 import com.college.controller.AutomobileController;
 import com.college.controller.SimpleTableController;
+import com.college.controller.validators.automobile.AutomobileValidationResponse;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.BodyType;
 import com.college.model.entity.Warranty;
 import com.college.view.core.AdminPanelContext;
 import com.college.view.core.AlertHelper;
 import com.college.view.core.ControllerManager;
+import com.college.view.core.TextFilters;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,6 +60,12 @@ public class AddUpdateAutomobileController {
                         .findFirst().orElse(null);
             }
         });
+
+        TextFormatter<String> placeCountFormatter = new TextFormatter<>(TextFilters.INTEGER_NUMBER_FILTER);
+        TextFormatter<String> yearFormatter = new TextFormatter<>(TextFilters.INTEGER_NUMBER_FILTER);
+
+        placeCountField.setTextFormatter(placeCountFormatter);
+        prodYearField.setTextFormatter(yearFormatter);
     }
 
     public void onSave(ActionEvent actionEvent) {
@@ -71,8 +79,16 @@ public class AddUpdateAutomobileController {
         automobile.setMark(markField.getText());
         automobile.setModel(modelField.getText());
         automobile.setBodyType(bodyTypeComboBox.getSelectionModel().getSelectedItem());
-        automobile.setPlaceCount(Integer.parseInt(placeCountField.getText()));
-        automobile.setProdYear(Integer.parseInt(prodYearField.getText()));
+        if (placeCountField.getText().isEmpty()) automobile.setPlaceCount(0);
+            else automobile.setPlaceCount(Integer.parseInt(placeCountField.getText()));
+        if (prodYearField.getText().isEmpty()) automobile.setProdYear(0);
+            else automobile.setProdYear(Integer.parseInt(prodYearField.getText()));
+
+        AutomobileValidationResponse response = automobileController.validateAutomobile(automobile);
+        if (response != AutomobileValidationResponse.VALID) {
+            AlertHelper.invalidAutomobileDataAlert(response);
+            return;
+        }
 
         if (AdminPanelContext.getAutomobileID() == -1) {
             automobileController.createAutomobile(automobile);
