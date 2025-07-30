@@ -2,20 +2,40 @@ package com.college.controller;
 
 import com.college.controller.core.AppConfig;
 import com.college.controller.core.ImageSaver;
+import com.college.controller.validators.equipment.*;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.interfaces.EquipmentDAO;
 import com.college.model.entity.Automobile;
 import com.college.model.entity.Equipment;
 import com.college.model.entity.keys.EquipmentId;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EquipmentController {
     private final EquipmentDAO equipmentDAO;
+    private final List<EquipmentValidator> equipmentValidators;
 
     public EquipmentController(EquipmentDAO equipmentDAO) {
         this.equipmentDAO = equipmentDAO;
+        this.equipmentValidators = List.of(
+                new EquipmentNameValidator(),
+                new EquipmentAutomobileValidator(),
+                new EquipmentEngineNameValidator(),
+                new EquipmentEngineTypeValidator(),
+                new EquipmentEngineVolumeValidator(),
+                new EquipmentHorsepowerValidator(),
+                new EquipmentSuspensionTypeValidator(),
+                new EquipmentDriveTypeValidator(),
+                new EquipmentGearboxTypeValidator(),
+                new EquipmentSpeedCountValidator(),
+                new EquipmentFuelTypeValidator(),
+                new EquipmentInteriorValidator(),
+                new EquipmentBodyKitValidator(),
+                new EquipmentWeightValidator(),
+                new EquipmentPriceValidator()
+        );
     }
 
     public Equipment getEquipment(EquipmentId id) {
@@ -69,6 +89,18 @@ public class EquipmentController {
         if (equipmentDAO.getById(equipment.getId()) != null) {
             equipmentDAO.delete(equipment);
         }
+    }
+
+    public EquipmentValidationResponse equipmentValidation(Equipment equipment) {
+        EquipmentValidationResponse response = EquipmentValidationResponse.VALID;
+        for (EquipmentValidator equipmentValidator : equipmentValidators) {
+            response = equipmentValidator.validate(equipment);
+            if (response != EquipmentValidationResponse.VALID) {
+                return response;
+            }
+        }
+
+        return response;
     }
 
     private void setEquipmentImage(Equipment equipment) {

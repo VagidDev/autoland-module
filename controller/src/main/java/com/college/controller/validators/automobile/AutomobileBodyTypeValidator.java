@@ -11,7 +11,7 @@ public class AutomobileBodyTypeValidator implements AutomobileValidator {
             return AutomobileValidationResponse.INVALID_BODY_TYPE;
         }
 
-        if (automobile.getBodyType().getId() == 0) {
+        if (automobile.getBodyType().getId() <= 0) {
             return AutomobileValidationResponse.INVALID_BODY_TYPE;
         }
         return AutomobileValidationResponse.VALID;
