@@ -3,12 +3,10 @@ package com.college.view.controllers;
 import com.college.controller.AutomobileController;
 import com.college.controller.EquipmentController;
 import com.college.controller.SimpleTableController;
+import com.college.controller.validators.equipment.EquipmentValidationResponse;
 import com.college.model.entity.*;
 import com.college.model.entity.keys.EquipmentId;
-import com.college.view.core.AdminPanelContext;
-import com.college.view.core.AlertHelper;
-import com.college.view.core.ControllerManager;
-import com.college.view.core.SceneRouterService;
+import com.college.view.core.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,6 +78,18 @@ public class AddUpdateEquipmentController {
                 }
             }
         }
+
+        TextFormatter<String> engineVolumeFormatter = new TextFormatter<>(TextFilters.DOUBLE_NUMBER_FILTER);
+        TextFormatter<String> horsepowerFormatter = new TextFormatter<>(TextFilters.INTEGER_NUMBER_FILTER);
+        TextFormatter<String> speedCountFormatter = new TextFormatter<>(TextFilters.INTEGER_NUMBER_FILTER);
+        TextFormatter<String> weightFormatter = new TextFormatter<>(TextFilters.INTEGER_NUMBER_FILTER);
+        TextFormatter<String> priceFormatter = new TextFormatter<>(TextFilters.DOUBLE_NUMBER_FILTER);
+
+        engineVolumeTextField.setTextFormatter(engineVolumeFormatter);
+        horsepowerTextField.setTextFormatter(horsepowerFormatter);
+        speedTextField.setTextFormatter(speedCountFormatter);
+        weightTextField.setTextFormatter(weightFormatter);
+        priceTextField.setTextFormatter(priceFormatter);
 
         loadAutomobileComboBox();
         loadEngineTypeComboBox();
@@ -232,14 +242,9 @@ public class AddUpdateEquipmentController {
             equipment = equipmentController.getEquipment(AdminPanelContext.getEquipmentID());
         }
         equipment.setName(nameTextField.getText());
-        equipment.setPrice(Double.parseDouble(priceTextField.getText()));
         equipment.setEngineName(engineNameTextField.getText());
-        equipment.setEngineVolume(Float.parseFloat(engineVolumeTextField.getText()));
-        equipment.setHorsepower(Integer.parseInt(horsepowerTextField.getText()));
-        equipment.setSpeedCount(Integer.parseInt(speedTextField.getText()));
         equipment.setInterior(interiorTextField.getText());
         equipment.setBodyKit(bodyKitTextField.getText());
-        equipment.setWeight(Integer.parseInt(weightTextField.getText()));
         equipment.setAutomobile(automobileComboBox.getSelectionModel().getSelectedItem());
         equipment.setSuspensionType(suspensionTypeComboBox.getSelectionModel().getSelectedItem());
         equipment.setFuelType(fuelTypeComboBox.getSelectionModel().getSelectedItem());
@@ -247,6 +252,17 @@ public class AddUpdateEquipmentController {
         equipment.setEngineType(engineTypeComboBox.getSelectionModel().getSelectedItem());
         equipment.setDriveType(driveTypeComboBox.getSelectionModel().getSelectedItem());
         equipment.setImagePath(carImageView.getImage().getUrl());
+        if (engineVolumeTextField.getText().isBlank()) equipment.setEngineVolume(0); else equipment.setEngineVolume(Float.parseFloat(engineVolumeTextField.getText()));
+        if (horsepowerTextField.getText().isBlank()) equipment.setHorsepower(0); else equipment.setHorsepower(Integer.parseInt(horsepowerTextField.getText()));
+        if (speedTextField.getText().isBlank()) equipment.setSpeedCount(0); else equipment.setSpeedCount(Integer.parseInt(speedTextField.getText()));
+        if (weightTextField.getText().isBlank()) equipment.setWeight(0); else equipment.setWeight(Integer.parseInt(weightTextField.getText()));
+        if (priceTextField.getText().isBlank()) equipment.setPrice(0); else equipment.setPrice(Double.parseDouble(priceTextField.getText()));
+
+        EquipmentValidationResponse response = equipmentController.equipmentValidation(equipment);
+        if (response != EquipmentValidationResponse.VALID) {
+            AlertHelper.invalidEquipmentDataAlert(response);
+            return;
+        }
 
         if (AdminPanelContext.getEquipmentID() == null) {
             equipmentController.createEquipment(equipment);

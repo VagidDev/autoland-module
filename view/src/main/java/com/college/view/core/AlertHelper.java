@@ -103,7 +103,7 @@ public abstract class AlertHelper {
             case INVALID_AUTOMOBILE -> "No automobile! Please choose an automobile";
             case INVALID_ENGINE_NAME -> "Empty engine name! Please enter engine name";
             case INVALID_ENGINE_TYPE -> "No engine type! Please choose an engine type";
-            case INVALID_ENGINE_VOLUME -> "Volume is less then 0! Please enter valid engine volume";
+            case INVALID_ENGINE_VOLUME -> "Volume is less then 0 or bigger then 50! Please enter valid engine volume";
             case INVALID_HORSEPOWER -> "Horsepower less then 0 or equals 0! Please enter valid horsepower";
             case INVALID_SUSPENSION_TYPE -> "No suspension type! Please choose a suspension type";
             case INVALID_DRIVE_TYPE -> "No drive type! Please choose a drive type";
@@ -113,7 +113,7 @@ public abstract class AlertHelper {
             case INVALID_INTERIOR -> "Empty interior! Please choose interior";
             case INVALID_BODY_KIT -> "Empty body kit! Please enter body kit";
             case INVALID_WEIGHT -> "Weight is less then or equals to 0! Please enter valid weight";
-            case INVALID_PRICE -> "Price is less then or equals to 0! Please enter valid price";
+            case INVALID_PRICE -> "Price is less then or equals to 0 or bigger then 9999999.99! Please enter valid price";
             default -> "Incorrect equipment data!";
         };
 
