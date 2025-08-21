@@ -3,6 +3,7 @@ package com.college.view.controllers;
 import com.college.controller.*;
 import com.college.controller.DealerController;
 import com.college.controller.WarrantyController;
+import com.college.controller.validators.contract.ContractValidatorResponse;
 import com.college.model.entity.*;
 import com.college.view.core.AdminPanelContext;
 import com.college.view.core.AlertHelper;
@@ -181,6 +182,11 @@ public class AddUpdateContractController {
         contract.setWarranty(warrantyComboBox.getSelectionModel().getSelectedItem());
         contract.setConclusionDate(conclusionDate);
 
+        ContractValidatorResponse response = contractController.validateContract(contract);
+        if (response != ContractValidatorResponse.VALID) {
+            AlertHelper.invalidContractDataAlert(response);
+            return;
+        }
 
         if (AdminPanelContext.getContractID() == -1) {
             contractController.saveContract(contract);

@@ -1,6 +1,7 @@
 package com.college.view.core;
 
 import com.college.controller.validators.automobile.AutomobileValidationResponse;
+import com.college.controller.validators.contract.ContractValidatorResponse;
 import com.college.controller.validators.dealer.DealerValidationResponse;
 import com.college.controller.validators.equipment.EquipmentValidationResponse;
 import com.college.controller.validators.user.UserValidationResponse;
@@ -119,6 +120,27 @@ public abstract class AlertHelper {
 
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Invalid Equipment Data");
+        alert.setHeaderText(null);
+        alert.setContentText(responseText);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+
+        alert.showAndWait();
+    }
+
+    public static void invalidContractDataAlert(ContractValidatorResponse response) {
+        String responseText = switch (response) {
+            case INVALID_USER -> "This user does not exists! Please select a user";
+            case INVALID_DEALER -> "Empty dealer! Please select a dealer";
+            case INVALID_WARRANTY -> "Empty warranty! Please select a warranty";
+            case INVALID_EQUIPMENT -> "Incorrect equipment! Please select automobile and equipment";
+            case INVALID_CONCLUSION_DATE -> "Incorrect conclusion date! Please enter date bigger than 1888 and less or equals to today";
+            default -> "Incorrect contract credentials!";
+        };
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid contract Data");
         alert.setHeaderText(null);
         alert.setContentText(responseText);
 

@@ -1,18 +1,30 @@
 package com.college.controller;
 
+import com.college.controller.validators.contract.*;
 import com.college.model.database.exceptions.CascadeDependencyException;
 import com.college.model.database.interfaces.ContractDAO;
 import com.college.model.entity.Contract;
 import com.college.model.entity.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ContractController {
     private final ContractDAO contractDAO;
+    private final List<ContractValidator> contractValidators;
 
     public ContractController(ContractDAO contractDAO) {
         this.contractDAO = contractDAO;
+        this.contractValidators = new ArrayList<>();
+
+        contractValidators.addAll(List.of(
+                new ContractUserValidator(),
+                new ContractDealerValidator(),
+                new ContractWarrantyValidator(),
+                new ContractEquipmentValidator(),
+                new ContractConclusionDateValidator()
+        ));
     }
 
     public Contract getContract(int id) {
@@ -27,6 +39,18 @@ public class ContractController {
         return contractDAO.getAll().stream().
                 filter(contract -> contract.getUser().getId() == user.getId())
                 .collect(Collectors.toList());
+    }
+
+    public ContractValidatorResponse validateContract(Contract contract) {
+        ContractValidatorResponse response = ContractValidatorResponse.VALID;
+
+        for (ContractValidator validator : contractValidators) {
+            response = validator.validate(contract);
+            if (response != ContractValidatorResponse.VALID) {
+                return response;
+            }
+        }
+        return response;
     }
 
     public boolean saveContract(Contract contract) {
